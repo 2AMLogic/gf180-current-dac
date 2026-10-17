@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "repo": "2AMLogic/gf180-current-dac",
+  "edges": [
+    {
+      "name": "gf180-bandgap",
+      "repo": "2AMLogic/gf180-bandgap",
+      "kind": "consumes",
+      "commit": "6fe62e6cb6d037b55d871792e4b7b47e4344fb2a",
+      "ref": "main",
+      "pinned_on": "2026-10-17",
+      "decision": "spec/decision-records/0004-reference-source-gf180-bandgap.md"
+    },
+    {
+      "name": "gf180-opamp",
+      "repo": "2AMLogic/gf180-opamp",
+      "kind": "consumes",
+      "commit": "687c03b3aca2c41f2aa591595574f702c3e1ec2e",
+      "ref": "main",
+      "pinned_on": "2026-10-17",
+      "decision": "spec/decision-records/0005-bias-loop-amplifier-gf180-opamp.md"
+    }
+  ],
+  "stamped": []
+}

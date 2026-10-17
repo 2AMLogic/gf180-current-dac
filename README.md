@@ -47,24 +47,29 @@ timing skew of the decoder all show up in the spectrum.
   biased from and `gf180-opamp` an amplifier a bias loop may need. Adopt them
   or record why not.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification (PROPOSED — awaiting operator ratification, see issue #1)
+
+Full table with min/typ/max, grading conditions and corners:
+[`spec/target-spec.md`](spec/target-spec.md). It becomes ratified when the
+operator approves [DR-0001](spec/decision-records/0001-target-spec-ratification.md);
+until then each row is a proposal.
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
 | Resolution | 10 bits | 8 bits | 12 bits |
 | Update rate | 100 MS/s | 50 MS/s | 200 MS/s |
-| Segmentation | unary MSBs + binary LSBs, split to ratify | — | — |
-| INL / DNL (simulated, with mismatch) | ≤ 0.5 LSB | ≤ 1 LSB | ≤ 0.25 LSB |
-| SFDR near Nyquist (simulated) | ≥ 60 dBc | ≥ 50 dBc | ≥ 70 dBc |
-| Full-scale output | differential current into a stated resistive load, to ratify | — | — |
-| Supply / devices | 3.3 V devices; 5 V option argued if used | — | — |
+| Segmentation | 6 unary MSBs + 4 binary LSBs | 4 + 4 | not sized |
+| INL / DNL (simulated, with mismatch) | ≤ 0.5 LSB, ≥ 99.7 % yield | ≤ 1 LSB | ≤ 0.25 LSB |
+| SFDR near Nyquist (simulated, 0.45 fs tone) | ≥ 60 dBc | ≥ 50 dBc | ≥ 70 dBc |
+| Full-scale output | 2 mA per output (±10 %) into 50 Ω per output | — | — |
+| Supply / devices | 3.3 V devices on 3.3 V ±10 %; 5 V devices not used (DR-0002) | — | — |
 | Layout | common-centroid unary array with dummies | — | — |
 | Signoff | DRC + LVS clean, post-layout re-verified | — | — |
 
 Maturity ladder: spec ratified → array sizing and switching sequence
 recorded → schematic simulated across PVT and mismatch → array layout
 DRC/LVS-clean → post-layout re-verification → shuttle seat → measured
-silicon. **Current position: pre-spec.**
+silicon. **Current position: spec drafted, proposed, not ratified.**
 
 ## Repo layout
 
