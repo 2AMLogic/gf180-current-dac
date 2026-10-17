@@ -47,7 +47,7 @@ timing skew of the decoder all show up in the spectrum.
   biased from and `gf180-opamp` an amplifier a bias loop may need. Adopt them
   or record why not.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification (DRAFT — engineering to ratify, see issue #2)
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
@@ -77,6 +77,13 @@ verification/  cocotb testbenches for the decoder
 layout/        GDS + DRC/LVS reports, including the array generator output
 measurements/  silicon characterization (empty until tape-out)
 ```
+
+## Reproduce
+
+Each result recorded in this repo appends the command that regenerates it
+here. Nothing is recorded yet.
+
+Repo checks (the same ones CI runs): `npm run check:ci`.
 
 ## License
 
