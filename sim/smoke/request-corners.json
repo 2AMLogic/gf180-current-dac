@@ -1,0 +1,75 @@
+{
+  "netlist": "cs_tb.spice",
+  "engine": "ngspice",
+  "models": {
+    "pdk": "gf180mcuD",
+    "lib": "libs.tech/ngspice/sm141064.ngspice"
+  },
+  "analysis": {
+    "kind": "dc",
+    "args": "Vout 0 3.3 0.05"
+  },
+  "measurements": [
+    {
+      "name": "i_1v0",
+      "spice": ".meas dc i_1v0 FIND i(Vout) AT=1.0",
+      "unit": "A"
+    },
+    {
+      "name": "i_1v65",
+      "spice": ".meas dc i_1v65 FIND i(Vout) AT=1.65",
+      "unit": "A"
+    },
+    {
+      "name": "i_3v0",
+      "spice": ".meas dc i_3v0 FIND i(Vout) AT=3.0",
+      "unit": "A"
+    },
+    {
+      "name": "rout_ohm",
+      "spice": ".meas dc rout_ohm PARAM='2.0/abs(abs(i_3v0)-abs(i_1v0))'",
+      "unit": "ohm"
+    }
+  ],
+  "options": {
+    "timeout_s": 600,
+    "keep_artifacts": false
+  },
+  "corners": {
+    "process": [
+      {
+        "name": "tt",
+        "sections": [
+          "typical"
+        ]
+      },
+      {
+        "name": "ff",
+        "sections": [
+          "ff"
+        ]
+      },
+      {
+        "name": "ss",
+        "sections": [
+          "ss"
+        ]
+      },
+      {
+        "name": "fs",
+        "sections": [
+          "fs"
+        ]
+      },
+      {
+        "name": "sf",
+        "sections": [
+          "sf"
+        ]
+      }
+    ],
+    "temperature_c": [
+      27
+    ]
+  }
+}

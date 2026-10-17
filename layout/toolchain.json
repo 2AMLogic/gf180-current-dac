@@ -1,0 +1,24 @@
+{
+  "_comment": [
+    "Toolchain pin for the layout/ flow (klt drc, later extract / lvs). This is",
+    "a capability list plus an exact commit: every layout/ runner must look",
+    "each klt_required_commands entry up in `klt --help` and fail loudly,",
+    "naming the missing command, rather than skip the check.",
+    "",
+    "Pin set by issue #3. The commit is the klayout-tools commit behind the",
+    "`klt` that ran the sim smoke on this host (`klt --version` reported",
+    "0.7.1.dev1765+gb61f753d0369; the static version string lags the commit,",
+    "so the SHA is the pin). Keep this comment append-only: record each later",
+    "bump as a new paragraph.",
+    "",
+    "Field reference:",
+    "  klt_install              VCS URL pinned with @<sha>, never a branch.",
+    "  klt_required_commands    every `klt <command>` this repo's runners use.",
+    "  klt_last_verified_commit klt_install's commit, restated; update both.",
+    "  klayout_package_min      floor for the pip `klayout` package."
+  ],
+  "klt_install": "git+https://github.com/2AMLogic/klayout-tools@b61f753d036932a252329c9b6d4673d9ac2801e7",
+  "klt_required_commands": ["drc"],
+  "klt_last_verified_commit": "b61f753d036932a252329c9b6d4673d9ac2801e7",
+  "klayout_package_min": "0.30"
+}
