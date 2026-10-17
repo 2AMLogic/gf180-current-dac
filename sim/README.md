@@ -15,7 +15,12 @@ makes no linearity claim and the placeholder device is not a design choice
 
 `python -m sim.harness check` compares the installed ngspice, Python and PDK
 revision with these files and exits non-zero, naming each drifted item.
-`run smoke` runs the same check first.
+`run smoke` runs the same check first. Pin verification covers the local host
+only: a batch-fleet runner has its own PDK and ngspice build. `run smoke`
+copies the runner's `pdk_stamp_comparison` and `engine_build_comparison`
+(status and worker stamp) from `environment.remote` into the record, and does
+not fail on a `mismatch`; read those lines before trusting a fleet number as
+coming from the pinned revision.
 
 ## Fetch the PDK
 

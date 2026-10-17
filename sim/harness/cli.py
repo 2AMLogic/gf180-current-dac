@@ -55,6 +55,30 @@ def spread(report: dict, name: str) -> tuple[float, float]:
     return statistics.mean(vals), statistics.stdev(vals)
 
 
+def worker_provenance(label: str, report: dict) -> list[str]:
+    """Record what the runner reported about its PDK and ngspice, verbatim.
+
+    The local pin check covers this host only; a fleet worker carries its own
+    PDK and ngspice build, and klt compares them with the submitter's.
+    """
+    remote = (report["environment"].get("remote") or {})
+    if not remote:
+        return [f"- {label} runner: local (no environment.remote); the pin check above applies"]
+    we = remote.get("worker_environment") or {}
+    pdk = we.get("pdk") or {}
+    out = []
+    for key, what in (("pdk_stamp_comparison", "PDK stamp"), ("engine_build_comparison", "ngspice build")):
+        cmp_ = we.get(key) or {}
+        status = cmp_.get("status", "not reported")
+        line = f"- {label} runner {what} vs local: **{status}**"
+        if cmp_.get("warning"):
+            line += f" -- {cmp_['warning']}"
+        out.append(line)
+    out.append(f"- {label} runner PDK: {pdk.get('variant', '?')} at `{pdk.get('root', '?')}`, "
+               f"stamp `{pdk.get('stamp_text', 'not reported')}`")
+    return out
+
+
 def cmd_run(args) -> int:
     drift, found = check.run_check()
     if drift:
@@ -92,8 +116,10 @@ def cmd_run(args) -> int:
         f"- Python: {found['python']}",
         f"- Corners command: `{shlex.join(rel(cmd_c))}` (backend: `{os.environ.get('KLT_SIM_BACKEND', 'request/default')}`)",
         f"- Corners job id (`environment.remote`): `{remote(corners)}`",
+        *worker_provenance("Corners", corners),
         f"- Monte Carlo command: `{shlex.join(rel(cmd_m))}`",
-        f"- Monte Carlo job id (`environment.remote`): `{remote(mc)}`", "",
+        f"- Monte Carlo job id (`environment.remote`): `{remote(mc)}`",
+        *worker_provenance("Monte Carlo", mc), "",
         "## Five corners, 27 C, Vg = 1.0 V, Iout = -i(Vout) (device sinks current)", "",
         "| corner | PDK section | Iout @1.0 V (uA) | Iout @1.65 V (uA) | Iout @3.0 V (uA) | Rout 1.0-3.0 V (kohm) |",
         "|---|---|---|---|---|---|",
