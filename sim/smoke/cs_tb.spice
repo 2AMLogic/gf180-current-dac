@@ -1,0 +1,13 @@
+* gf180mcuD toolchain smoke: 3.3 V nMOS current source (circuit body only;
+* klt sim adds .lib / .control / .end).
+*
+* W/L BELOW IS A PLACEHOLDER, NOT A DESIGN CHOICE. Cell topology and sizing
+* belong to the spec (issue #2). This bench only shows the PDK models load and
+* that the corner and Monte Carlo paths run.
+Vg  g   0 DC 1.0
+Vout out 0 DC 1.65
+* PDK statistical switches (sw_stat_global / sw_stat_mismatch); resolved on the
+* executing host from $PDK_ROOT.
+.include $PDK_ROOT/gf180mcuD/libs.tech/ngspice/design.ngspice
+* plain nMOS, no cascode
+XM1 out g 0 0 nfet_03v3 W=10u L=2u

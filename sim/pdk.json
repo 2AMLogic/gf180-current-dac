@@ -1,0 +1,21 @@
+{
+  "_comment": [
+    "PDK pin for sim/. The harness (python -m sim.harness check) resolves the",
+    "PDK and fails if the resolved revision differs from `revision`.",
+    "  family    gf180mcu PDK family",
+    "  variant   metal-stack variant; gf180mcuD, same as the sibling",
+    "            2AMLogic/gf180-bandgap (no reason found to differ)",
+    "  revision  ciel/volare version hash of the PDK build (also the directory",
+    "            name under <root>/ciel/gf180mcu/versions/)",
+    "  fetch     how to obtain that revision on a clean machine; the hash was",
+    "            read from a host that already had it, not yet confirmed to be",
+    "            what `ciel` fetches on a clean machine (issue #3 follow-up)",
+    "  roots     directories searched for ciel/gf180mcu/versions/<revision>;",
+    "            $PDK_ROOT, when set, is searched first"
+  ],
+  "family": "gf180mcu",
+  "variant": "gf180mcuD",
+  "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+  "fetch": "ciel enable --pdk gf180mcu f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+  "roots": ["~/.ciel", "~/.volare"]
+}

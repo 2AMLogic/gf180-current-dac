@@ -1,0 +1,8 @@
+* Monte Carlo variant of cs_tb.spice: same device, PDK mismatch statistics on.
+* klt sim does not set the gf180mcu switches itself (the PDK uses .param
+* switches, not a .lib section), so they are set here, after the PDK default of 0.
+* sw_stat_mismatch=1 / sw_stat_global=0: local (per-device) mismatch only, no
+* global process spread, no gradient. Corner spread is covered by the corner run.
+.include cs_tb.spice
+.param sw_stat_global=0
+.param sw_stat_mismatch=1
