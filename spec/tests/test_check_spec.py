@@ -91,6 +91,38 @@ class Check(unittest.TestCase):
         errs = self._sens("| G1 | a | v | q | e | u |", extra="nothing")
         self.assertTrue(any("qualification" in e for e in errs))
 
+    def _iface(self, row, text_extra=""):
+        d = build(readme="0001-x.md interface-evidence.md PROPOSED")
+        (d / "interface-evidence.md").write_text(
+            text_extra + "\n## 2. Interface table\n| ID | I | N | P | S | St |\n|---|---|---|---|---|---|\n"
+            + row + "\n## 3. x\n")
+        return check_spec.check(d)
+
+    def test_iface_ok(self):
+        self.assertEqual(self._iface("| I1 | i | n | p | `a.md` @abcdef0 | shown |"), [])
+        self.assertEqual(self._iface("| I1 | i | n | p | not documented in pin | open |"), [])
+
+    def test_iface_bad_status(self):
+        self.assertTrue(any("status" in e for e in self._iface("| I1 | i | n | p | @abcdef0 | fine |")))
+
+    def test_iface_no_pin(self):
+        self.assertTrue(any("@<pin>" in e for e in self._iface("| I1 | i | n | p | README | shown |")))
+
+    def test_iface_empty_cell(self):
+        self.assertTrue(any("six" in e for e in self._iface("| I1 | i | n | p | @abcdef0 |  |")))
+
+    def test_iface_lock_pin_named(self):
+        d = build(readme="0001-x.md interface-evidence.md PROPOSED")
+        (d / "interface-evidence.md").write_text(
+            "## 2. Interface table\n| ID | I | N | P | S | St |\n|---|---|---|---|---|---|\n"
+            "| I1 | i | n | p | @abcdef0 | shown |\n## 3. x\n")
+        (d.parent / "reuse.lock.json").write_text(
+            '{"edges": [{"name": "x", "commit": "0123456789abcdef"}]}')
+        try:
+            self.assertTrue(any("not named" in e for e in check_spec.check(d)))
+        finally:
+            (d.parent / "reuse.lock.json").unlink()
+
     def test_real_spec(self):
         self.assertEqual(check_spec.check(), [])
 

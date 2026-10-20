@@ -38,3 +38,14 @@ change that does). The README keeps a PROPOSED marker until that same change.
   ratified as budgets; the spec says so.
 - The gradient amplitude is an assumption (DR-0003); a ratified spec with an
   assumed gradient means INL yield is a model result until extraction.
+
+## Proposed revision note (2026-10-20, increment C of issue #2)
+
+Not a status change; this record stays `proposed`. Coupled assumptions
+reassessed against [`../interface-evidence.md`](../interface-evidence.md): the
+power row (R12) and reference-current row (R13) remain budgets with no
+schematic, and the reference chain has an unresolved common-mode conflict (I10)
+and an unaccounted 10 uA opamp bias (I9). Ratifying this record would ratify
+those rows as budgets only; it would not ratify sibling compatibility.
+Unresolved loading, common-mode and output drive, noise and PSRR requirements
+stay explicit open items, not requirements.

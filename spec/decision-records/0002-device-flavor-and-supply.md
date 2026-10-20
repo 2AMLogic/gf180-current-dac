@@ -36,3 +36,11 @@ not yet exist.
 If the cell schematic cannot reach 12.8 Mohm with a 3.3 V cascode across PVT,
 this record is superseded and the array area grows by about 2.5x; that risk is
 open, not closed.
+
+## Proposed revision note (2026-10-20, increment C of issue #2)
+
+Not a status change; this record stays `proposed`. Both pinned siblings use
+3.3 V devices on 3.3 V +/-10 %, so the supply and flavor choice is consistent
+with them (interface-evidence I4). That consistency is not evidence for the
+12.8 Mohm output-impedance requirement, which stays an open cell-schematic
+result. See [`../interface-evidence.md`](../interface-evidence.md).

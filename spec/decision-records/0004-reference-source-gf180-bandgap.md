@@ -44,3 +44,18 @@ matching, not on the reference value, and the spec's full-scale row (2 mA
 - The bandgap's noise and PSRR are open there; they matter here only as the
   low-frequency noise on the full-scale current, which is not rated.
 - The bandgap has no measured silicon; this repo's results inherit that.
+
+## Proposed revision note (2026-10-20, increment C of issue #2)
+
+Not a status change; this record stays `proposed`. Reassessed against the
+pinned figures in [`../interface-evidence.md`](../interface-evidence.md)
+(`gf180-bandgap` @6fe62e6):
+
+- The "reference error is a gain error" argument stands.
+- The bandgap load row is still `TBD` and every PSRR and noise bench ran
+  unloaded on an earlier DUT revision (I2, I6, I7); "output stage can drive the
+  bias loop" stays unverified.
+- The 3 sigma untrimmed window (1.176 to 1.224 V) is not contained in the
+  opamp's common-mode range (I10); see DR-0005.
+- The pin shows no silicon and a layout that predates its latest schematic
+  amendment. Adoption stays proposed and is limited to what the table shows.
