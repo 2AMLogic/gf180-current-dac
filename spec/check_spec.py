@@ -17,7 +17,12 @@
   7. if interface-evidence.md exists: every interface row has six non-empty
      cells, a status of shown | open | conflict, and a source that carries a pin
      tag (@<short sha>) or says "not documented in pin"; every commit pinned in
-     reuse.lock.json appears in the document; README indexes it.
+     reuse.lock.json appears in the document; README indexes it;
+  8. if validation-plan.md exists: every item row has seven non-empty cells,
+     states samples/requests/retries caps and a stop condition, is marked
+     "unrun, needs separate authorization", the 99.92 % figure carries
+     "assumed-model yield", the review record exists with an outcome of
+     accept | changes | pending, and README indexes both.
 
     python3 spec/check_spec.py
 
@@ -80,6 +85,7 @@ def check(spec_dir: Path = SPEC_DIR) -> list[str]:
     errs += check_requirements(spec_dir, names)
     errs += check_sensitivity(spec_dir)
     errs += check_interface(spec_dir)
+    errs += check_validation(spec_dir)
     return errs
 
 
@@ -178,6 +184,45 @@ def check_interface(spec_dir: Path) -> list[str]:
                 errs.append(f"interface-evidence.md: pinned commit {edge['commit']} of {edge['name']} not named")
     if "interface-evidence.md" not in (spec_dir / "README.md").read_text():
         errs.append("spec/README.md: no index row for interface-evidence.md")
+    return errs
+
+
+OUTCOMES = {"accept", "changes", "pending"}
+OUTCOME_RE = re.compile(r"^- \*\*Outcome\*\*:\s*(\S+)", re.M)
+
+
+def check_validation(spec_dir: Path) -> list[str]:
+    """validation-plan.md: capped, stoppable, unrun items; review record present."""
+    path = spec_dir / "validation-plan.md"
+    if not path.exists():
+        return []
+    errs: list[str] = []
+    text = path.read_text()
+    rows = table_rows(text, "## 2. Validation items", "## 3.")
+    if not rows:
+        errs.append("validation-plan.md: no validation items")
+    for r in rows:
+        if len(r) != 7 or not all(r):
+            errs.append(f"validation-plan.md: row {r[0] if r else '?'!r} needs seven non-empty cells")
+            continue
+        if not re.search(r"\bsamples?\b", r[4]) or "request" not in r[4] or "retr" not in r[4]:
+            errs.append(f"validation-plan.md: {r[0]} caps must state samples, requests and retries")
+        if r[6] != "unrun, needs separate authorization":
+            errs.append(f"validation-plan.md: {r[0]} status must be 'unrun, needs separate authorization'")
+    for m in re.finditer(r"99\.92 ?%", text):
+        if "assumed-model yield" not in text[max(0, m.start() - 400): m.end() + 400].lower():
+            errs.append("validation-plan.md: 99.92 % appears without 'assumed-model yield' nearby")
+    review = spec_dir / "reviews" / "0001-engineering-and-market.md"
+    if not review.exists():
+        errs.append("reviews/0001-engineering-and-market.md missing")
+    else:
+        m = OUTCOME_RE.search(review.read_text())
+        if not m or m.group(1) not in OUTCOMES:
+            errs.append(f"reviews/0001-engineering-and-market.md: Outcome must be one of {sorted(OUTCOMES)}")
+    readme = (spec_dir / "README.md").read_text()
+    for name in ("validation-plan.md", "reviews/0001-engineering-and-market.md"):
+        if name not in readme:
+            errs.append(f"spec/README.md: no index row for {name}")
     return errs
 
 

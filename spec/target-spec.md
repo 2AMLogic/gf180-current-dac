@@ -218,6 +218,8 @@ cell design; neither is a result.
 3. Gradient amplitudes: assumed (DR-0003) until extraction exists; the
    proposed, unrun sensitivity matrix is in
    [`sensitivity-plan.md`](sensitivity-plan.md).
+   The bounded plan for running any of it (caps, stop conditions, all unrun)
+   is [`validation-plan.md`](validation-plan.md).
 4. Power and reference-current budgets: no schematic yet.
 5. Whether `klt` generates and extracts the common-centroid array: owned by
    the array generator issue.
