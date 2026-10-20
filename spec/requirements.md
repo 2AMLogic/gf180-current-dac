@@ -68,7 +68,7 @@ quoted from `target-spec.md`; nothing here changes them.
 | R10 | Output load | 50 ohm | design choice | none, provisional |
 | R11 | Supply and device flavor | 3.3 V -/+10 %, 3.3 V devices | design choice | none, provisional. DR-0002; the node's device set bounds the choice, no application imposes it |
 | R12 | Power at full scale, 100 MS/s | 25 mW typ, 30 mW max | provisional budget | none, provisional. Output stage alone is 2 mA x 3.3 V = 6.6 mW; the rest has no schematic. S2 reports 10 mW at 1.2 V and S1 170 mW at 5 V, neither comparable |
-| R13 | Reference current input | 20 uA typ (18 to 22 uA), mirrored 100:1 | provisional budget | none, provisional. Interface to `gf180-bandgap` is not yet checked against the pinned commit (increment C) |
+| R13 | Reference current input | 20 uA typ (18 to 22 uA), mirrored 100:1 | provisional budget | none, provisional. Interface to `gf180-bandgap` tabulated against the pinned commit in [`interface-evidence.md`](interface-evidence.md); it shows a common-mode conflict (I10) and an unaccounted 10 uA opamp bias (I9) |
 | R14 | Code-dependent noise, PSRR, reference loading, common-mode and output drive | no value | provisional budget | none, provisional. Unresolved; carried as open items, see section 4 |
 
 ## 4. What stays unresolved
@@ -79,6 +79,6 @@ quoted from `target-spec.md`; nothing here changes them.
 - R12 and R13 have no schematic behind them; they move only through a
   superseding decision record after ratification.
 - Noise, PSRR, reference loading and output common-mode drive (R14) have no
-  requirement yet. Increment C tabulates what the pinned siblings expose.
+  requirement yet. [`interface-evidence.md`](interface-evidence.md) tabulates what the pinned siblings expose; each item there is open or in conflict.
 - S4 to S6 are not retrieved. If the reviewer wants them cited, someone must
   fetch the documents; the claims are not taken from memory in the meantime.

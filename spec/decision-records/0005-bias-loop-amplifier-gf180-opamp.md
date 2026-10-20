@@ -42,3 +42,20 @@ static bias needs.
   yet. If either fails, supersede.
 - The bias loop is a supply-ripple path into the 1023 cells; its PSRR is the
   adopted amplifier's, which that repo lists as systematic-only and ungraded.
+
+## Proposed revision note (2026-10-20, increment C of issue #2)
+
+Not a status change; this record stays `proposed`. Reassessed against the
+pinned figures in [`../interface-evidence.md`](../interface-evidence.md)
+(`gf180-opamp` @687c03b):
+
+- **Common-mode range is not merely unverified; the pinned figures conflict**
+  (I10). The opamp's measured intersection is 1.185 to 2.705 V (proposed bound
+  1.20 V, +11.1 mV margin at 1.20 V) and the bandgap's untrimmed window reaches
+  1.176 V. Whether they fail jointly is not shown. If a bias schematic cannot
+  resolve it, supersede this record.
+- The opamp takes an external 10 uA `ibias` that this record does not account
+  for (I9).
+- Noise, PSRR and loop stability into a gate load are open (I13 to I15); the
+  opamp's CMRR and PSRR bounds are themselves proposed, not ratified.
+- Adoption stays proposed and limited to what the table shows.

@@ -47,3 +47,9 @@ alone would not establish a manufacturing gradient distribution. The proposed
 sensitivity matrix (gradient amplitude, direction and shape against random
 mismatch, omitted device contributions, placement and sequence) is in
 [`../sensitivity-plan.md`](../sensitivity-plan.md); none of it has been run.
+
+## Proposed revision note (2026-10-20, increment C of issue #2)
+
+Not a status change; this record stays `proposed`. No change from increment C:
+the sibling pins carry no gradient or array-level data, so they add no evidence
+for or against the gradient scenarios.

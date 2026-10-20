@@ -13,7 +13,11 @@
      "none, provisional", every record is still proposed, README keeps PROPOSED;
   6. if sensitivity-plan.md exists: every matrix row has all six cells, the
      gradients are called test scenarios / not measured, every row states what
-     stays unavailable, and README indexes it.
+     stays unavailable, and README indexes it;
+  7. if interface-evidence.md exists: every interface row has six non-empty
+     cells, a status of shown | open | conflict, and a source that carries a pin
+     tag (@<short sha>) or says "not documented in pin"; every commit pinned in
+     reuse.lock.json appears in the document; README indexes it.
 
     python3 spec/check_spec.py
 
@@ -23,6 +27,7 @@ Stdlib only. Exit 0 on pass, 1 on a failed check. It does not rerun the sizing
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -74,6 +79,7 @@ def check(spec_dir: Path = SPEC_DIR) -> list[str]:
             errs.append(f"spec/README.md: no index row for {n}")
     errs += check_requirements(spec_dir, names)
     errs += check_sensitivity(spec_dir)
+    errs += check_interface(spec_dir)
     return errs
 
 
@@ -140,6 +146,38 @@ def check_sensitivity(spec_dir: Path) -> list[str]:
             errs.append(f"sensitivity-plan.md: missing required qualification {phrase!r}")
     if "sensitivity-plan.md" not in (spec_dir / "README.md").read_text():
         errs.append("spec/README.md: no index row for sensitivity-plan.md")
+    return errs
+
+
+STATUSES = {"shown", "open", "conflict"}
+PIN_TAG_RE = re.compile(r"@[0-9a-f]{7}\b")
+
+
+def check_interface(spec_dir: Path) -> list[str]:
+    """interface-evidence.md: complete, pin-cited rows; every locked pin is named."""
+    path = spec_dir / "interface-evidence.md"
+    if not path.exists():
+        return []
+    errs: list[str] = []
+    text = path.read_text()
+    rows = table_rows(text, "## 2. Interface table", "## 3.")
+    if not rows:
+        errs.append("interface-evidence.md: interface table has no rows")
+    for r in rows:
+        if len(r) != 6 or not all(r):
+            errs.append(f"interface-evidence.md: row {r[0] if r else '?'!r} needs six non-empty cells")
+            continue
+        if r[5] not in STATUSES:
+            errs.append(f"interface-evidence.md: {r[0]} status {r[5]!r} not one of {sorted(STATUSES)}")
+        if not PIN_TAG_RE.search(r[4]) and "not documented in pin" not in r[4]:
+            errs.append(f"interface-evidence.md: {r[0]} source has no @<pin> tag and is not 'not documented in pin'")
+    lock = spec_dir.parent / "reuse.lock.json"
+    if lock.exists():
+        for edge in json.loads(lock.read_text()).get("edges", []):
+            if edge["commit"] not in text:
+                errs.append(f"interface-evidence.md: pinned commit {edge['commit']} of {edge['name']} not named")
+    if "interface-evidence.md" not in (spec_dir / "README.md").read_text():
+        errs.append("spec/README.md: no index row for interface-evidence.md")
     return errs
 
 
