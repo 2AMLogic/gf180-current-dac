@@ -6,7 +6,11 @@
   2. every decision-records/NNNN-*.md link in target-spec.md resolves;
   3. record filenames are NNNN-<slug>.md, contiguous from 0001, and each has a
      `- **Status**:` line starting proposed | ratified | superseded by NNNN;
-  4. spec/README.md has an index row for every record.
+  4. spec/README.md has an index row for every record;
+  5. if requirements.md exists: every source row has five non-empty cells,
+     every requirement row has a class from {requirement, model output,
+     design choice, provisional budget} and cites a known source row or says
+     "none, provisional", every record is still proposed, README keeps PROPOSED.
 
     python3 spec/check_spec.py
 
@@ -65,6 +69,51 @@ def check(spec_dir: Path = SPEC_DIR) -> list[str]:
     for n in names:
         if n not in readme:
             errs.append(f"spec/README.md: no index row for {n}")
+    errs += check_requirements(spec_dir, names)
+    return errs
+
+
+CLASSES = {"requirement", "model output", "design choice", "provisional budget"}
+
+
+def check_requirements(spec_dir: Path, record_names: list[str]) -> list[str]:
+    """requirements.md: classed requirement rows, sourced source rows, Proposed state."""
+    path = spec_dir / "requirements.md"
+    if not path.exists():
+        return []
+    errs: list[str] = []
+    text = path.read_text()
+    sources = table_rows(text, "## 2. Sources", "## 3.")
+    ids = set()
+    for r in sources:
+        if len(r) != 5 or not all(r):
+            errs.append(f"requirements.md: source row {r[0] if r else '?'!r} needs five non-empty cells")
+        else:
+            ids.add(r[0])
+    if not sources:
+        errs.append("requirements.md: no source rows")
+    reqs = table_rows(text, "## 3. Requirements", "## 4.")
+    if not reqs:
+        errs.append("requirements.md: no requirement rows")
+    for r in reqs:
+        if len(r) != 5 or not all(r):
+            errs.append(f"requirements.md: row {r[0] if r else '?'!r} needs five non-empty cells")
+            continue
+        if r[3] not in CLASSES:
+            errs.append(f"requirements.md: {r[0]} class {r[3]!r} not one of {sorted(CLASSES)}")
+        cited = set(re.findall(r"\bS\d+\b", r[4]))
+        if not cited and not r[4].startswith("none, provisional"):
+            errs.append(f"requirements.md: {r[0]} cites no source row and does not say 'none, provisional'")
+        for c in cited - ids:
+            errs.append(f"requirements.md: {r[0]} cites unknown source {c}")
+    if "PROPOSED" not in (spec_dir / "README.md").read_text():
+        errs.append("spec/README.md: PROPOSED marker missing")
+    for n in record_names:
+        m = STATUS_RE.search((spec_dir / "decision-records" / n).read_text())
+        if m and m.group(1).lower() != "proposed":
+            errs.append(f"{n}: status is {m.group(1)}, increment A leaves every record proposed")
+    if "requirements.md" not in (spec_dir / "README.md").read_text():
+        errs.append("spec/README.md: no index row for requirements.md")
     return errs
 
 

@@ -53,6 +53,27 @@ class Check(unittest.TestCase):
         errs = check_spec.check(build(readme="empty"))
         self.assertTrue(any("index row" in e for e in errs))
 
+    def _req(self, row):
+        d = build(readme="0001-x.md requirements.md PROPOSED")
+        (d / "requirements.md").write_text(
+            "## 2. Sources\n| ID | S | C | A | L |\n|---|---|---|---|---|\n| S1 | a | b | c | d |\n"
+            "## 3. Requirements\n| ID | Item | Value | Class | Source |\n|---|---|---|---|---|\n"
+            + row + "\n## 4. x\n")
+        return check_spec.check(d)
+
+    def test_req_ok(self):
+        self.assertEqual(self._req("| R1 | i | v | design choice | S1 |"), [])
+        self.assertEqual(self._req("| R1 | i | v | model output | none, provisional |"), [])
+
+    def test_req_bad_class(self):
+        self.assertTrue(any("class" in e for e in self._req("| R1 | i | v | measured | S1 |")))
+
+    def test_req_unsourced(self):
+        self.assertTrue(any("cites no source" in e for e in self._req("| R1 | i | v | requirement | n/a |")))
+
+    def test_req_unknown_source(self):
+        self.assertTrue(any("unknown source" in e for e in self._req("| R1 | i | v | requirement | S9 |")))
+
     def test_real_spec(self):
         self.assertEqual(check_spec.check(), [])
 
