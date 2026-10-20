@@ -215,7 +215,9 @@ cell design; neither is a result.
 1. Other contributors to unit-cell sigma: cascode, switch, and bias-line IR
    drop across 1023 cells.
 2. Other W/L bins of the PDK mismatch coefficients.
-3. Gradient amplitudes: assumed (DR-0003) until extraction exists.
+3. Gradient amplitudes: assumed (DR-0003) until extraction exists; the
+   proposed, unrun sensitivity matrix is in
+   [`sensitivity-plan.md`](sensitivity-plan.md).
 4. Power and reference-current budgets: no schematic yet.
 5. Whether `klt` generates and extracts the common-centroid array: owned by
    the array generator issue.

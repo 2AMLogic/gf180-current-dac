@@ -10,7 +10,10 @@
   5. if requirements.md exists: every source row has five non-empty cells,
      every requirement row has a class from {requirement, model output,
      design choice, provisional budget} and cites a known source row or says
-     "none, provisional", every record is still proposed, README keeps PROPOSED.
+     "none, provisional", every record is still proposed, README keeps PROPOSED;
+  6. if sensitivity-plan.md exists: every matrix row has all six cells, the
+     gradients are called test scenarios / not measured, every row states what
+     stays unavailable, and README indexes it.
 
     python3 spec/check_spec.py
 
@@ -70,6 +73,7 @@ def check(spec_dir: Path = SPEC_DIR) -> list[str]:
         if n not in readme:
             errs.append(f"spec/README.md: no index row for {n}")
     errs += check_requirements(spec_dir, names)
+    errs += check_sensitivity(spec_dir)
     return errs
 
 
@@ -114,6 +118,28 @@ def check_requirements(spec_dir: Path, record_names: list[str]) -> list[str]:
             errs.append(f"{n}: status is {m.group(1)}, increment A leaves every record proposed")
     if "requirements.md" not in (spec_dir / "README.md").read_text():
         errs.append("spec/README.md: no index row for requirements.md")
+    return errs
+
+
+def check_sensitivity(spec_dir: Path) -> list[str]:
+    """sensitivity-plan.md: complete matrix rows, gradients framed as unmeasured scenarios."""
+    path = spec_dir / "sensitivity-plan.md"
+    if not path.exists():
+        return []
+    errs: list[str] = []
+    text = path.read_text()
+    rows = table_rows(text, "## 3. Sensitivity matrix", "## 4.")
+    if not rows:
+        errs.append("sensitivity-plan.md: matrix has no rows")
+    for r in rows:
+        if len(r) != 6 or not all(r):
+            errs.append(f"sensitivity-plan.md: row {r[0] if r else '?'!r} needs six non-empty cells")
+    low = text.lower()
+    for phrase in ("identified test scenarios", "not measured", "assumed-model yield"):
+        if phrase not in low:
+            errs.append(f"sensitivity-plan.md: missing required qualification {phrase!r}")
+    if "sensitivity-plan.md" not in (spec_dir / "README.md").read_text():
+        errs.append("spec/README.md: no index row for sensitivity-plan.md")
     return errs
 
 

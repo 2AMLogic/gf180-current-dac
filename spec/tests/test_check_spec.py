@@ -74,6 +74,23 @@ class Check(unittest.TestCase):
     def test_req_unknown_source(self):
         self.assertTrue(any("unknown source" in e for e in self._req("| R1 | i | v | requirement | S9 |")))
 
+    def _sens(self, row, extra="identified test scenarios, not measured, assumed-model yield"):
+        d = build(readme="0001-x.md sensitivity-plan.md PROPOSED")
+        (d / "sensitivity-plan.md").write_text(
+            extra + "\n## 3. Sensitivity matrix\n| ID | A | V | Q | E | U |\n|---|---|---|---|---|---|\n"
+            + row + "\n## 4. x\n")
+        return check_spec.check(d)
+
+    def test_sens_ok(self):
+        self.assertEqual(self._sens("| G1 | a | v | q | e | u |"), [])
+
+    def test_sens_empty_cell(self):
+        self.assertTrue(any("six" in e for e in self._sens("| G1 | a | v | q | e |  |")))
+
+    def test_sens_missing_qualification(self):
+        errs = self._sens("| G1 | a | v | q | e | u |", extra="nothing")
+        self.assertTrue(any("qualification" in e for e in errs))
+
     def test_real_spec(self):
         self.assertEqual(check_spec.check(), [])
 
