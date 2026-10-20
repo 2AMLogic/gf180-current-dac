@@ -2,6 +2,13 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-10-20
+
+- **PR #14**: docs(spec): add bounded validation plan and pending review record
+- **PR #13**: docs(spec): tabulate pinned sibling interfaces, add proposed record revision notes
+- **PR #12**: docs(spec): add DR-0003 gradient review and unrun sensitivity plan
+- **PR #11**: docs(spec): add classed requirements and source table with structural check
+
 ### 2026-10-17
 
 - **PR #9**: feat(spec): propose target spec, sizing model and decision records
