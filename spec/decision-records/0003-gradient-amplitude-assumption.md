@@ -34,3 +34,16 @@ the process when post-layout data exists, by a superseding record.
 Every linearity number quoted from the sizing model carries "gradient: assumed,
 DR-0003". If the real gradient is 2x larger, section 3 of the sizing output
 must be rerun (`--check` will show it) and the sequence re-checked.
+
+## Proposed revision note (2026-10-20, increment B of issue #2)
+
+Not a status change; this record stays `proposed`. The 0.50 % linear and
+0.20 % quadratic peak-to-peak gradients are **identified test scenarios**,
+selected to separate a raster sequence from a point-symmetric one. They are not
+measured from the process, and their ability to separate those sequences is not
+validation of a real process distribution. The 99.92 % figure is an
+assumed-model yield, not demonstrated chip yield. A nominal layout extraction
+alone would not establish a manufacturing gradient distribution. The proposed
+sensitivity matrix (gradient amplitude, direction and shape against random
+mismatch, omitted device contributions, placement and sequence) is in
+[`../sensitivity-plan.md`](../sensitivity-plan.md); none of it has been run.

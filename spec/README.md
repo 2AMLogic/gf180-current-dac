@@ -8,6 +8,7 @@ Status of the whole set: **PROPOSED** until the operator ratifies
 |---|---|
 | [`target-spec.md`](target-spec.md) | parameter table (min/typ/max, condition, corners), tiers, segmentation, mismatch method, output-impedance requirement |
 | [`requirements.md`](requirements.md) | use case, source table, and each requirement classed as requirement / model output / design choice / provisional budget (proposal; review outcome pending) |
+| [`sensitivity-plan.md`](sensitivity-plan.md) | review of DR-0003's gradient assumption and a proposed (unrun) sensitivity matrix over gradient, random mismatch, omitted contributions, placement and sequence |
 | [`sizing/size.py`](sizing/size.py) | sizing model; `python3 spec/sizing/size.py` regenerates [`sizing/sizing-output.md`](sizing/sizing-output.md), `--check` diffs against it |
 | [`sizing/instance-independence-probe.md`](sizing/instance-independence-probe.md) | one-corner probe: PDK mismatch is drawn per instance, `m=N` does not average |
 | [`check_spec.py`](check_spec.py) | structural check; tests in `tests/` (`python3 -m unittest discover -s spec/tests`) |
