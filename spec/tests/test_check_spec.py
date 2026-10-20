@@ -123,6 +123,42 @@ class Check(unittest.TestCase):
         finally:
             (d.parent / "reuse.lock.json").unlink()
 
+    def _val(self, row, outcome="pending", review=True, readme="validation-plan.md reviews/0001-engineering-and-market.md"):
+        d = build(readme="0001-x.md PROPOSED " + readme)
+        (d / "validation-plan.md").write_text(
+            "99.92 % assumed-model yield\n## 2. Validation items\n| ID | Q | E | R | Caps | Stop | Status |\n"
+            "|---|---|---|---|---|---|---|\n" + row + "\n## 3. x\n")
+        if review:
+            (d / "reviews").mkdir()
+            (d / "reviews" / "0001-engineering-and-market.md").write_text(f"- **Outcome**: {outcome}\n")
+        return check_spec.check(d)
+
+    GOOD_VAL = "| V1 | q | e | r | 500 samples / 1 request / 1 retry | stop | unrun, needs separate authorization |"
+
+    def test_val_ok(self):
+        self.assertEqual(self._val(self.GOOD_VAL), [])
+
+    def test_val_missing_cap(self):
+        row = self.GOOD_VAL.replace("500 samples / 1 request / 1 retry", "500 samples")
+        self.assertTrue(any("caps" in e for e in self._val(row)))
+
+    def test_val_empty_stop(self):
+        row = self.GOOD_VAL.replace("| stop |", "|  |")
+        self.assertTrue(any("seven" in e for e in self._val(row)))
+
+    def test_val_not_unrun(self):
+        row = self.GOOD_VAL.replace("unrun, needs separate authorization", "done")
+        self.assertTrue(any("status" in e for e in self._val(row)))
+
+    def test_val_bad_outcome(self):
+        self.assertTrue(any("Outcome" in e for e in self._val(self.GOOD_VAL, outcome="approved")))
+
+    def test_val_review_missing(self):
+        self.assertTrue(any("missing" in e for e in self._val(self.GOOD_VAL, review=False)))
+
+    def test_val_unindexed(self):
+        self.assertTrue(any("index row" in e for e in self._val(self.GOOD_VAL, readme="")))
+
     def test_real_spec(self):
         self.assertEqual(check_spec.check(), [])
 
