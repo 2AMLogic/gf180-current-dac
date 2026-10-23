@@ -1,0 +1,12 @@
+{
+  "_comment": [
+    "Toolchain floors for sim/, checked (not merely recorded) by",
+    "`python -m sim.harness check`. A tool older than its floor, or a PDK",
+    "revision that differs from pdk.json, exits non-zero naming the item.",
+    "ngspice_min is the version the smoke run was verified on (ngspice-46);",
+    "the 42 seen in an earlier curation note was not what this host reports."
+  ],
+  "ngspice_min": "46",
+  "python_min": "3.12",
+  "pdk_revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+}
