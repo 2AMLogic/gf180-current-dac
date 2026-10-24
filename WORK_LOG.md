@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-10-24
+
+- **PR #7**: ci: add repo checks, graded klt signoff manifest and README Reproduce section
+- **Issue #4** (closed): Repo hygiene and CI (T1 item 10): real CI checks, a graded klt signoff manifest, README spec-issue fix
+
 ### 2026-10-21
 
 - **PR #17**: Bump Repo Skills 0.24.3 -> 0.24.7
