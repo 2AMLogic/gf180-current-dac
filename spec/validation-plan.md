@@ -67,8 +67,10 @@ goes to the batch fleet when it has more than one unit.
 ## 4. Review record
 
 [`reviews/0001-engineering-and-market.md`](reviews/0001-engineering-and-market.md)
-holds the reviewer name, date, scope and outcome. It is a template with outcome
-`pending`. The engineering and marketing review is done only when it names a
-human reviewer and an outcome other than `pending`. A Builder cannot fill or
+holds the reviewer names, date, scope and outcome. It is a template with outcome
+`pending`. The engineering and marketing review is done only when it names the
+EE-key and market-key reviewers and an outcome other than `pending`. Both keys
+review first, as input (2026-10-22 ruling, 2am#5864); neither key may be held
+by the PR author or the design's author, so a Builder cannot fill or
 self-approve it. Ratification of DR-0001 stays the operator's separate act and
 is blocked until then.

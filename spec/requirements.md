@@ -3,10 +3,12 @@
 - **Status**: PROPOSED, increment A of issue #2 (`Part of #2`). Ratifies nothing.
   No numeric row of [`target-spec.md`](target-spec.md) is changed here.
 - **Date drafted**: 2026-10-20
-- **Reviewer**: none yet. The engineering and market review is a human act and
-  is recorded in `spec/reviews/0001-engineering-and-market.md` (increment D).
-  Until a human names an outcome there, the market reading below is the
-  Builder's reading of public material, not a reviewed conclusion.
+- **Reviewer**: none yet. The engineering and market review is done by the EE
+  key and the market key (non-author agent reviewers, `ratification/`), both
+  first, as input to the operator's ratification; it is recorded in
+  `spec/reviews/0001-engineering-and-market.md` (increment D). Until the keys
+  name an outcome there, the market reading below is the Builder's reading of
+  public material, not a reviewed conclusion.
 - **Evidence class**: each requirement row below is classed `requirement`,
   `model output`, `design choice` or `provisional budget`, and cites a source
   row or says `none, provisional`. A source was cited only if its page was read
@@ -31,7 +33,7 @@ project's own instructions, not from a customer or a standard. So:
   for the reviewer, not a derivation.
 - **Market review is outstanding.** Whether any use case (direct digital
   synthesis, communications transmit, waveform generation) justifies the
-  numbers is for the human reviewer. This document does not claim it.
+  numbers is for the market key to review. This document does not claim it.
 
 ## 2. Sources
 
