@@ -3,12 +3,10 @@
 
 Stdlib only. Run from anywhere; paths resolve against the repo root.
 
-1. Every committed JSON config / evidence file parses. A file that does not
-   exist yet (sim/pdk.json etc. arrive with the sim harness) is skipped.
-2. A file is also checked against a schema when a sibling `<name>.schema.json`
-   is committed; none exist yet, so this is a parse-only check today.
-3. The harness self-test runs if `sim/selftest.sh` exists (no-op until then).
-4. Relative links in README.md resolve.
+1. Every committed JSON config / evidence file parses; a missing file is an
+   error.
+2. The harness and spec unit tests and the spec structural check pass.
+3. Relative links in README.md resolve.
 """
 import json
 import re
@@ -25,7 +23,10 @@ JSON_FILES = [
     "manifests/gf180-current-dac.json",
     "manifests/gf180-current-dac.signoff.json",
 ]
-SELFTEST = "sim/selftest.sh"
+TESTS = [
+    [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],
+    [sys.executable, "spec/check_spec.py"],
+]
 LINK_DOCS = ["README.md"]
 LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
 
@@ -33,41 +34,21 @@ LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
 def check_json(errors):
     for rel in JSON_FILES:
         path = ROOT / rel
-        if not path.exists():
-            print(f"skip   {rel} (not present)")
-            continue
         try:
             json.loads(path.read_text())
-        except ValueError as exc:
-            errors.append(f"{rel}: invalid JSON: {exc}")
+        except (OSError, ValueError) as exc:
+            errors.append(f"{rel}: unreadable or invalid JSON: {exc}")
             continue
         print(f"ok     {rel}")
-        schema = path.with_suffix(".schema.json")
-        if schema.exists():
-            errors.extend(validate_schema(path, schema))
 
 
-def validate_schema(path, schema):
-    try:
-        import jsonschema
-    except ImportError:
-        return [f"{schema.relative_to(ROOT)} exists but the jsonschema package is not installed"]
-    try:
-        jsonschema.validate(json.loads(path.read_text()), json.loads(schema.read_text()))
-    except jsonschema.ValidationError as exc:
-        return [f"{path.relative_to(ROOT)}: schema violation: {exc.message}"]
-    return []
-
-
-def check_selftest(errors):
-    script = ROOT / SELFTEST
-    if not script.exists():
-        print(f"skip   {SELFTEST} (no harness yet)")
-        return
-    if subprocess.run(["bash", str(script)], cwd=ROOT).returncode != 0:
-        errors.append(f"{SELFTEST} failed")
-    else:
-        print(f"ok     {SELFTEST}")
+def check_tests(errors):
+    for cmd in TESTS:
+        label = " ".join(cmd[1:])
+        if subprocess.run(cmd, cwd=ROOT).returncode != 0:
+            errors.append(f"{label} failed")
+        else:
+            print(f"ok     {label}")
 
 
 def check_links(errors):
@@ -84,7 +65,7 @@ def check_links(errors):
 def main():
     errors = []
     check_json(errors)
-    check_selftest(errors)
+    check_tests(errors)
     check_links(errors)
     for err in errors:
         print(f"FAIL   {err}", file=sys.stderr)
