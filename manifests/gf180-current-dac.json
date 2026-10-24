@@ -1,0 +1,9 @@
+{
+  "block": "gf180-current-dac",
+  "kind": "mixed-signal",
+  "partition_boundary": {
+    "analog": "current-cell array (unary MSB and binary LSB cells, dummies), cell switches and switch drivers, array bias, differential output: the matched current array and everything that steers or carries its current",
+    "digital": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs"
+  },
+  "evidence": {}
+}

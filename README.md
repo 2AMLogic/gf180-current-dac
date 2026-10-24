@@ -83,6 +83,13 @@ layout/        GDS + DRC/LVS reports, including the array generator output
 measurements/  silicon characterization (empty until tape-out)
 ```
 
+## Reproduce
+
+Each result recorded in this repo appends the command that regenerates it
+here. Nothing is recorded yet.
+
+Repo checks (the same ones CI runs): `npm run check:ci`.
+
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE).
