@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-10-24
 
+- **PR #26**: ci: run harness and spec tests in check_ci.py, drop inert hooks
+- **Issue #24** (closed): Replace inert selftest/schema hooks in check_ci.py with the real test runs
 - **PR #7**: ci: add repo checks, graded klt signoff manifest and README Reproduce section
 - **Issue #4** (closed): Repo hygiene and CI (T1 item 10): real CI checks, a graded klt signoff manifest, README spec-issue fix
 
