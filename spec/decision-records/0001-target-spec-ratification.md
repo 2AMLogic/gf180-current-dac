@@ -2,7 +2,7 @@
 
 - **Status**: proposed
 - **Date**: 2026-10-17
-- **Decided by**: pending. Ratification is the operator's act, not an agent's.
+- **Decided by**: pending. Ratification is the operator's act, not the authoring agent's; the EE key and market key review first, as input (see Amendment 2026-10-24).
 
 ## Context
 
@@ -49,3 +49,11 @@ and an unaccounted 10 uA opamp bias (I9). Ratifying this record would ratify
 those rows as budgets only; it would not ratify sibling compatibility.
 Unresolved loading, common-mode and output drive, noise and PSRR requirements
 stay explicit open items, not requirements.
+
+## Amendment 2026-10-24: review route (process text only)
+
+Per the 2026-10-22 ruling (2am#5864), the EE key and the market key
+(non-author agent reviewers, installed under `ratification/`) both review the
+proposal first, as input; the operator then ratifies. Earlier wording in this
+record and in `spec/` that called the review a "human act" is superseded. No
+numeric row, target or decision in this record changed.

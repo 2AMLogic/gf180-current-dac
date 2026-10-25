@@ -2,8 +2,9 @@
 
 - **Status**: PENDING. This file is a template. A Builder cannot fill or
   self-approve it.
-- **Reviewer**: _not yet named_ (a human; the operator is the only name given
-  so far, and naming others is the operator's call)
+- **Reviewer**: _not yet named_ (the EE key and the market key, non-author
+  agent reviewers installed under `ratification/`; both review first, as input,
+  then the operator ratifies per the 2026-10-22 ruling, 2am#5864)
 - **Date**: _pending_
 - **Outcome**: pending
 - **Allowed outcomes**: accept | changes | pending
