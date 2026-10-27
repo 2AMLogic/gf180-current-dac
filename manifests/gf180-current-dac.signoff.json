@@ -9,17 +9,17 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 0,
+  "t1_met_count": 1,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:3fadfde021edf03225e769da0390a8f3463c05f07aa5f39aa0043f962a9eca22",
   "build": {
-    "version": "0.7.0",
-    "package_version": "0.7.0",
-    "git_commit": "0e2362bda7309829398a35d54efaa989d5806065",
-    "git_tag": "v0.7.0",
+    "version": "0.8.0",
+    "package_version": "0.8.0",
+    "git_commit": "c572046be644e0407f693f2410f3abb799d68a3a",
+    "git_tag": "v0.8.0",
     "dirty": false,
     "is_release": true,
-    "grading_ruleset_id": "sha256:eb8d2ba54d1700c78f1139ac111aee598fd7bc48688ab9654fca22995b6ac25e"
+    "grading_ruleset_id": "sha256:46c446d84423b7399ee1cf957b3d49801ae4f42a0bda53da92f435776cf977c4"
   },
   "items": [
     {
@@ -30,10 +30,35 @@
       "partition_boundary": "current-cell array (unary MSB and binary LSB cells, dummies), cell switches and switch drivers, array bias, differential output: the matched current array and everything that steers or carries its current",
       "text": "committed schematic sources (or generator) plus the netlist derived from them, regenerated on design change.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item1-analog.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 1,
+          "path": {
+            "path": "design/inventory-item1-analog.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e",
+          "input_verified": true,
+          "summary": "T1 item 1 (Design sources): 41/41 attestation checks passed (klt signoff --attest)",
+          "source": "design/inventory-item1-analog.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 41,
+            "passed_count": 41
+          }
+        }
+      }
     },
     {
       "tier": "T1",
