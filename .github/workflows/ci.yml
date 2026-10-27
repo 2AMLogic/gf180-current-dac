@@ -35,3 +35,5 @@ jobs:
       # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.8.0).
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh
+      - name: Re-attest item 10 (repo hygiene) and compare against the committed envelope
+        run: uvx --from klayout-tools==0.8.0 klt signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
