@@ -22,11 +22,17 @@
     "",
     "Issue #32: gen_array.py reads the committed layout/prims/*.gds and needs no",
     "klt; `klt gen` (gen_prims.sh) and `klt diff` are used locally to refresh and",
-    "re-verify the primitives, `klt cells|stats` to inspect the stream."
+    "re-verify the primitives, `klt cells|stats` to inspect the stream.",
+    "",
+    "Issue #33: bump to f9039fd7244e (klt --version 0.8.1.dev86+gf9039fd7244e), the",
+    "klt on this host. It has `klt place-and-route` and `klt signoff --attest 2",
+    "--input` (klayout-tools #4188), which the v0.8.0 release that CI grades the",
+    "manifest with does not. The old pin b61f753d predates place-and-route.",
+    "layout/pnr/run.sh runs the pinned klt through uvx."
   ],
-  "klt_install": "git+https://github.com/2AMLogic/klayout-tools@b61f753d036932a252329c9b6d4673d9ac2801e7",
-  "klt_required_commands": ["drc", "gen", "diff", "cells", "stats"],
-  "klt_last_verified_commit": "b61f753d036932a252329c9b6d4673d9ac2801e7",
+  "klt_install": "git+https://github.com/2AMLogic/klayout-tools@f9039fd7244e977325c351a5780acbf1cee383fb",
+  "klt_required_commands": ["drc", "gen", "diff", "cells", "stats", "place-and-route", "signoff"],
+  "klt_last_verified_commit": "f9039fd7244e977325c351a5780acbf1cee383fb",
   "klayout_package_min": "0.30",
   "klayout_package_pin": "0.30.12"
 }

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 2,
+  "summary": "T1 item 2 (Layout): 3/3 attestation checks passed (klt signoff --attest)",
+  "source": "layout/pnr/dac_digital.gds",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 3,
+    "passed_count": 3,
+    "checks": [
+      {
+        "check": "stream_readable",
+        "role": "layout",
+        "passed": true,
+        "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+      },
+      {
+        "check": "top_cell_non_empty",
+        "role": "layout",
+        "passed": true,
+        "top_cells": [
+          "dac_digital"
+        ]
+      },
+      {
+        "check": "dbu_on_grid",
+        "role": "layout",
+        "passed": true,
+        "dbu": 0.0005
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.1.dev86+gf9039fd7244e",
+    "klayout_version": "0.30.12",
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "layout/pnr/dac_digital.gds",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+    },
+    "regeneration": {
+      "generator": "layout/pnr/run.sh",
+      "regenerated_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+    }
+  }
+}
