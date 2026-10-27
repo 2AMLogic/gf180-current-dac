@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 7,
+  "t1_met_count": 8,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:3fadfde021edf03225e769da0390a8f3463c05f07aa5f39aa0043f962a9eca22",
   "build": {
@@ -151,7 +151,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab",
+        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -160,7 +160,7 @@
             "path": "layout/pnr/dac_digital.gds",
             "scope": "repo"
           },
-          "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab",
+          "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
           "input_verified": true,
           "summary": "T1 item 2 (Layout): 3/3 attestation checks passed (klt signoff --attest)",
           "source": "layout/pnr/dac_digital.gds",
@@ -172,7 +172,7 @@
           },
           "regeneration": {
             "generator": "layout/pnr/run.sh",
-            "regenerated_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab",
+            "regenerated_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
             "executed_by_klt": false
           }
         }
@@ -309,18 +309,90 @@
       "partition_boundary": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs",
       "text": "latest `klt drc` JSON report: `status: clean`, fresh, with the deck identified (content hash). Known deck coverage gaps (rule-free layers, skipped rules) must be enumerated in the claim, not hidden behind \"clean\" \u2014 a clean verdict from a deck with undisclosed holes is a false claim. The report already states its own gaps, so the disclosure is those fields quoted from the cited envelope's `coverage` block (`docs/cli/drc.md`), not prose written from memory: `coverage.layers_in_stream_without_rules` (layers drawn in this stream that the deck has no rule for), `coverage.rules_skipped` (rules the deck carries but this run did not evaluate), and `coverage.deck_scope` (which chapters of the foundry DRM the deck transcribes at all). A claim that leaves a non-empty `layers_in_stream_without_rules` or `rules_skipped` unstated, or that never states the `deck_scope` its \"clean\" was measured inside, has not satisfied this item however clean the `status` is. **This disclosure is claimant-enforced, not tool-enforced**: `klt signoff` grades item 3 on `status: \"clean\"` alone \u2014 a deck with rule-free drawn layers or skipped rules grades `met` exactly like a fully-covering one. Since #2002 it does *report* all three fields (item 3's citation carries a `coverage` block quoting them verbatim, `docs/cli/signoff.md` \u2192 \"DRC coverage is reported, not graded\"), so a reviewer no longer has to re-open the DRC envelope to find them \u2014 but reporting is not enforcing: nothing compares them against what the claim actually disclosed, so a `met` verdict from `klt signoff` is still not evidence that the gaps were disclosed. A reviewer must read the reported `coverage` against the claim themselves.",
       "notes": [],
-      "status": "unmet",
-      "reason": "check_failed",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null,
-      "detail": {
-        "critical_metric_blockers": [
-          {
-            "metric": "drc__error__count",
-            "value": 1952,
-            "higher_is_better": false
-          }
-        ]
+      "citation": {
+        "file": "evidence/item3-digital.json",
+        "command": null,
+        "kind": "drc",
+        "check_status": "clean",
+        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+        "input_verified": true,
+        "exit_status": 0,
+        "coverage": {
+          "layers_in_stream_without_rules": [
+            "0/0",
+            "21/10",
+            "34/10",
+            "36/10",
+            "63/63",
+            "81/10",
+            "204/10"
+          ],
+          "rules_skipped": [
+            "bjt.separation.comp.1",
+            "cap_mk.ongrid.1",
+            "comp.separation.guard_ring_mk.1",
+            "comp.tap_distance.nwell.lv.1",
+            "comp.tap_distance.psub.lv.1",
+            "diode_mk.ongrid.1",
+            "dnwell.ongrid.1",
+            "drc_bjt.ongrid.1",
+            "efuse_mk.ongrid.1",
+            "esd.area.1",
+            "esd.holes_area.1",
+            "esd.overlap.comp.1",
+            "esd.separation.nplus.1",
+            "esd.separation.pplus.1",
+            "esd.space.1",
+            "esd.width.1",
+            "fusetop.ongrid.1",
+            "metal1.separation.guard_ring_mk.1",
+            "metal2.separation.guard_ring_mk.1",
+            "metal3.separation.guard_ring_mk.1",
+            "metal4.separation.guard_ring_mk.1",
+            "metal5.separation.guard_ring_mk.1",
+            "metaltop.ongrid.1",
+            "metaltop.separation.guard_ring_mk.1",
+            "metaltop.space.1",
+            "metaltop.width.1",
+            "mim.enclosing.fusetop.1",
+            "mim.enclosing.via4.1",
+            "mim.space.1",
+            "mim_l_mk.ongrid.1",
+            "nwell.separation.guard_ring_mk.1",
+            "pad.enclosing.metal5.1",
+            "pad.ongrid.1",
+            "plfuse.ongrid.1",
+            "poly2.enclosing.sab.1",
+            "poly2.separation.guard_ring_mk.1",
+            "res_mk.ongrid.1",
+            "resistor.ongrid.1",
+            "sab.ongrid.1",
+            "sab.separation.contact.1",
+            "sab.space.1",
+            "sab.width.1"
+          ],
+          "deck_scope": [
+            "10.4.2 MIM Option B",
+            "10.7 DRC_BJT Mark Layer",
+            "7.12 Contact",
+            "7.13 Metaln",
+            "7.14 Vian",
+            "7.15 MetalTop",
+            "7.4 Nwell",
+            "7.5 Comp",
+            "7.7 Poly2",
+            "7.8 Nplus",
+            "7.9 Pplus",
+            "9.1 Bond Pad",
+            "ESD",
+            "GR",
+            "OFFGRID",
+            "SB"
+          ]
+        }
       }
     },
     {
