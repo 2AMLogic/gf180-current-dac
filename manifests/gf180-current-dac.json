@@ -5,5 +5,10 @@
     "analog": "current-cell array (unary MSB and binary LSB cells, dummies), cell switches and switch drivers, array bias, differential output: the matched current array and everything that steers or carries its current",
     "digital": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs"
   },
-  "evidence": {}
+  "evidence": {
+    "1.analog": {
+      "file": "evidence/item1-analog.json",
+      "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e"
+    }
+  }
 }

@@ -32,6 +32,6 @@ jobs:
           python-version: "3.11"
       - name: Install uv
         run: pip install uv
-      # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.7.0).
+      # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.8.0).
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh

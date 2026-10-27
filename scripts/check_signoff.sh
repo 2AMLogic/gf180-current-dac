@@ -4,7 +4,7 @@
 # unmet) is a valid grading run; any other non-zero is a hard error.
 set -uo pipefail
 cd "$(dirname "$0")/.."
-KLT_PIN="${KLT_PIN:-0.7.0}"
+KLT_PIN="${KLT_PIN:-0.8.0}"
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0

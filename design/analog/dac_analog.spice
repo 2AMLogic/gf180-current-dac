@@ -1,0 +1,492 @@
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dac_analog.sch
+.subckt dac_analog iref vdd vss outp outn t0 t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15
++ t16 t17 t18 t19 t20 t21 t22 t23 t24 t25 t26 t27 t28 t29 t30 t31 t32 t33 t34 t35 t36 t37 t38 t39 t40 t41
++ t42 t43 t44 t45 t46 t47 t48 t49 t50 t51 t52 t53 t54 t55 t56 t57 t58 t59 t60 t61 t62 b0 b1 b2 b3
+*.iopin iref
+*.iopin vdd
+*.iopin vss
+*.iopin outp
+*.iopin outn
+*.ipin t0
+*.ipin t1
+*.ipin t2
+*.ipin t3
+*.ipin t4
+*.ipin t5
+*.ipin t6
+*.ipin t7
+*.ipin t8
+*.ipin t9
+*.ipin t10
+*.ipin t11
+*.ipin t12
+*.ipin t13
+*.ipin t14
+*.ipin t15
+*.ipin t16
+*.ipin t17
+*.ipin t18
+*.ipin t19
+*.ipin t20
+*.ipin t21
+*.ipin t22
+*.ipin t23
+*.ipin t24
+*.ipin t25
+*.ipin t26
+*.ipin t27
+*.ipin t28
+*.ipin t29
+*.ipin t30
+*.ipin t31
+*.ipin t32
+*.ipin t33
+*.ipin t34
+*.ipin t35
+*.ipin t36
+*.ipin t37
+*.ipin t38
+*.ipin t39
+*.ipin t40
+*.ipin t41
+*.ipin t42
+*.ipin t43
+*.ipin t44
+*.ipin t45
+*.ipin t46
+*.ipin t47
+*.ipin t48
+*.ipin t49
+*.ipin t50
+*.ipin t51
+*.ipin t52
+*.ipin t53
+*.ipin t54
+*.ipin t55
+*.ipin t56
+*.ipin t57
+*.ipin t58
+*.ipin t59
+*.ipin t60
+*.ipin t61
+*.ipin t62
+*.ipin b0
+*.ipin b1
+*.ipin b2
+*.ipin b3
+xbias iref vss vbn bias
+xdrv_t0 t0 vdd vss sp_t0 sn_t0 driver
+xel_t0 vbn iref sp_t0 sn_t0 vss outp outn elem_16
+xdrv_t1 t1 vdd vss sp_t1 sn_t1 driver
+xel_t1 vbn iref sp_t1 sn_t1 vss outp outn elem_16
+xdrv_t2 t2 vdd vss sp_t2 sn_t2 driver
+xel_t2 vbn iref sp_t2 sn_t2 vss outp outn elem_16
+xdrv_t3 t3 vdd vss sp_t3 sn_t3 driver
+xel_t3 vbn iref sp_t3 sn_t3 vss outp outn elem_16
+xdrv_t4 t4 vdd vss sp_t4 sn_t4 driver
+xel_t4 vbn iref sp_t4 sn_t4 vss outp outn elem_16
+xdrv_t5 t5 vdd vss sp_t5 sn_t5 driver
+xel_t5 vbn iref sp_t5 sn_t5 vss outp outn elem_16
+xdrv_t6 t6 vdd vss sp_t6 sn_t6 driver
+xel_t6 vbn iref sp_t6 sn_t6 vss outp outn elem_16
+xdrv_t7 t7 vdd vss sp_t7 sn_t7 driver
+xel_t7 vbn iref sp_t7 sn_t7 vss outp outn elem_16
+xdrv_t8 t8 vdd vss sp_t8 sn_t8 driver
+xel_t8 vbn iref sp_t8 sn_t8 vss outp outn elem_16
+xdrv_t9 t9 vdd vss sp_t9 sn_t9 driver
+xel_t9 vbn iref sp_t9 sn_t9 vss outp outn elem_16
+xdrv_t10 t10 vdd vss sp_t10 sn_t10 driver
+xel_t10 vbn iref sp_t10 sn_t10 vss outp outn elem_16
+xdrv_t11 t11 vdd vss sp_t11 sn_t11 driver
+xel_t11 vbn iref sp_t11 sn_t11 vss outp outn elem_16
+xdrv_t12 t12 vdd vss sp_t12 sn_t12 driver
+xel_t12 vbn iref sp_t12 sn_t12 vss outp outn elem_16
+xdrv_t13 t13 vdd vss sp_t13 sn_t13 driver
+xel_t13 vbn iref sp_t13 sn_t13 vss outp outn elem_16
+xdrv_t14 t14 vdd vss sp_t14 sn_t14 driver
+xel_t14 vbn iref sp_t14 sn_t14 vss outp outn elem_16
+xdrv_t15 t15 vdd vss sp_t15 sn_t15 driver
+xel_t15 vbn iref sp_t15 sn_t15 vss outp outn elem_16
+xdrv_t16 t16 vdd vss sp_t16 sn_t16 driver
+xel_t16 vbn iref sp_t16 sn_t16 vss outp outn elem_16
+xdrv_t17 t17 vdd vss sp_t17 sn_t17 driver
+xel_t17 vbn iref sp_t17 sn_t17 vss outp outn elem_16
+xdrv_t18 t18 vdd vss sp_t18 sn_t18 driver
+xel_t18 vbn iref sp_t18 sn_t18 vss outp outn elem_16
+xdrv_t19 t19 vdd vss sp_t19 sn_t19 driver
+xel_t19 vbn iref sp_t19 sn_t19 vss outp outn elem_16
+xdrv_t20 t20 vdd vss sp_t20 sn_t20 driver
+xel_t20 vbn iref sp_t20 sn_t20 vss outp outn elem_16
+xdrv_t21 t21 vdd vss sp_t21 sn_t21 driver
+xel_t21 vbn iref sp_t21 sn_t21 vss outp outn elem_16
+xdrv_t22 t22 vdd vss sp_t22 sn_t22 driver
+xel_t22 vbn iref sp_t22 sn_t22 vss outp outn elem_16
+xdrv_t23 t23 vdd vss sp_t23 sn_t23 driver
+xel_t23 vbn iref sp_t23 sn_t23 vss outp outn elem_16
+xdrv_t24 t24 vdd vss sp_t24 sn_t24 driver
+xel_t24 vbn iref sp_t24 sn_t24 vss outp outn elem_16
+xdrv_t25 t25 vdd vss sp_t25 sn_t25 driver
+xel_t25 vbn iref sp_t25 sn_t25 vss outp outn elem_16
+xdrv_t26 t26 vdd vss sp_t26 sn_t26 driver
+xel_t26 vbn iref sp_t26 sn_t26 vss outp outn elem_16
+xdrv_t27 t27 vdd vss sp_t27 sn_t27 driver
+xel_t27 vbn iref sp_t27 sn_t27 vss outp outn elem_16
+xdrv_t28 t28 vdd vss sp_t28 sn_t28 driver
+xel_t28 vbn iref sp_t28 sn_t28 vss outp outn elem_16
+xdrv_t29 t29 vdd vss sp_t29 sn_t29 driver
+xel_t29 vbn iref sp_t29 sn_t29 vss outp outn elem_16
+xdrv_t30 t30 vdd vss sp_t30 sn_t30 driver
+xel_t30 vbn iref sp_t30 sn_t30 vss outp outn elem_16
+xdrv_t31 t31 vdd vss sp_t31 sn_t31 driver
+xel_t31 vbn iref sp_t31 sn_t31 vss outp outn elem_16
+xdrv_t32 t32 vdd vss sp_t32 sn_t32 driver
+xel_t32 vbn iref sp_t32 sn_t32 vss outp outn elem_16
+xdrv_t33 t33 vdd vss sp_t33 sn_t33 driver
+xel_t33 vbn iref sp_t33 sn_t33 vss outp outn elem_16
+xdrv_t34 t34 vdd vss sp_t34 sn_t34 driver
+xel_t34 vbn iref sp_t34 sn_t34 vss outp outn elem_16
+xdrv_t35 t35 vdd vss sp_t35 sn_t35 driver
+xel_t35 vbn iref sp_t35 sn_t35 vss outp outn elem_16
+xdrv_t36 t36 vdd vss sp_t36 sn_t36 driver
+xel_t36 vbn iref sp_t36 sn_t36 vss outp outn elem_16
+xdrv_t37 t37 vdd vss sp_t37 sn_t37 driver
+xel_t37 vbn iref sp_t37 sn_t37 vss outp outn elem_16
+xdrv_t38 t38 vdd vss sp_t38 sn_t38 driver
+xel_t38 vbn iref sp_t38 sn_t38 vss outp outn elem_16
+xdrv_t39 t39 vdd vss sp_t39 sn_t39 driver
+xel_t39 vbn iref sp_t39 sn_t39 vss outp outn elem_16
+xdrv_t40 t40 vdd vss sp_t40 sn_t40 driver
+xel_t40 vbn iref sp_t40 sn_t40 vss outp outn elem_16
+xdrv_t41 t41 vdd vss sp_t41 sn_t41 driver
+xel_t41 vbn iref sp_t41 sn_t41 vss outp outn elem_16
+xdrv_t42 t42 vdd vss sp_t42 sn_t42 driver
+xel_t42 vbn iref sp_t42 sn_t42 vss outp outn elem_16
+xdrv_t43 t43 vdd vss sp_t43 sn_t43 driver
+xel_t43 vbn iref sp_t43 sn_t43 vss outp outn elem_16
+xdrv_t44 t44 vdd vss sp_t44 sn_t44 driver
+xel_t44 vbn iref sp_t44 sn_t44 vss outp outn elem_16
+xdrv_t45 t45 vdd vss sp_t45 sn_t45 driver
+xel_t45 vbn iref sp_t45 sn_t45 vss outp outn elem_16
+xdrv_t46 t46 vdd vss sp_t46 sn_t46 driver
+xel_t46 vbn iref sp_t46 sn_t46 vss outp outn elem_16
+xdrv_t47 t47 vdd vss sp_t47 sn_t47 driver
+xel_t47 vbn iref sp_t47 sn_t47 vss outp outn elem_16
+xdrv_t48 t48 vdd vss sp_t48 sn_t48 driver
+xel_t48 vbn iref sp_t48 sn_t48 vss outp outn elem_16
+xdrv_t49 t49 vdd vss sp_t49 sn_t49 driver
+xel_t49 vbn iref sp_t49 sn_t49 vss outp outn elem_16
+xdrv_t50 t50 vdd vss sp_t50 sn_t50 driver
+xel_t50 vbn iref sp_t50 sn_t50 vss outp outn elem_16
+xdrv_t51 t51 vdd vss sp_t51 sn_t51 driver
+xel_t51 vbn iref sp_t51 sn_t51 vss outp outn elem_16
+xdrv_t52 t52 vdd vss sp_t52 sn_t52 driver
+xel_t52 vbn iref sp_t52 sn_t52 vss outp outn elem_16
+xdrv_t53 t53 vdd vss sp_t53 sn_t53 driver
+xel_t53 vbn iref sp_t53 sn_t53 vss outp outn elem_16
+xdrv_t54 t54 vdd vss sp_t54 sn_t54 driver
+xel_t54 vbn iref sp_t54 sn_t54 vss outp outn elem_16
+xdrv_t55 t55 vdd vss sp_t55 sn_t55 driver
+xel_t55 vbn iref sp_t55 sn_t55 vss outp outn elem_16
+xdrv_t56 t56 vdd vss sp_t56 sn_t56 driver
+xel_t56 vbn iref sp_t56 sn_t56 vss outp outn elem_16
+xdrv_t57 t57 vdd vss sp_t57 sn_t57 driver
+xel_t57 vbn iref sp_t57 sn_t57 vss outp outn elem_16
+xdrv_t58 t58 vdd vss sp_t58 sn_t58 driver
+xel_t58 vbn iref sp_t58 sn_t58 vss outp outn elem_16
+xdrv_t59 t59 vdd vss sp_t59 sn_t59 driver
+xel_t59 vbn iref sp_t59 sn_t59 vss outp outn elem_16
+xdrv_t60 t60 vdd vss sp_t60 sn_t60 driver
+xel_t60 vbn iref sp_t60 sn_t60 vss outp outn elem_16
+xdrv_t61 t61 vdd vss sp_t61 sn_t61 driver
+xel_t61 vbn iref sp_t61 sn_t61 vss outp outn elem_16
+xdrv_t62 t62 vdd vss sp_t62 sn_t62 driver
+xel_t62 vbn iref sp_t62 sn_t62 vss outp outn elem_16
+xdrv_b0 b0 vdd vss sp_b0 sn_b0 driver
+xel_b0 vbn iref sp_b0 sn_b0 vss outp outn elem_1
+xdrv_b1 b1 vdd vss sp_b1 sn_b1 driver
+xel_b1 vbn iref sp_b1 sn_b1 vss outp outn elem_2
+xdrv_b2 b2 vdd vss sp_b2 sn_b2 driver
+xel_b2 vbn iref sp_b2 sn_b2 vss outp outn elem_4
+xdrv_b3 b3 vdd vss sp_b3 sn_b3 driver
+xel_b3 vbn iref sp_b3 sn_b3 vss outp outn elem_8
+xdum_bin vss dummy_cell
+xdum_r0 vss dummy_cell
+xdum_r1 vss dummy_cell
+xdum_r2 vss dummy_cell
+xdum_r3 vss dummy_cell
+xdum_r4 vss dummy_cell
+xdum_r5 vss dummy_cell
+xdum_r6 vss dummy_cell
+xdum_r7 vss dummy_cell
+xdum_r8 vss dummy_cell
+xdum_r9 vss dummy_cell
+xdum_r10 vss dummy_cell
+xdum_r11 vss dummy_cell
+xdum_r12 vss dummy_cell
+xdum_r13 vss dummy_cell
+xdum_r14 vss dummy_cell
+xdum_r15 vss dummy_cell
+xdum_r16 vss dummy_cell
+xdum_r17 vss dummy_cell
+xdum_r18 vss dummy_cell
+xdum_r19 vss dummy_cell
+xdum_r20 vss dummy_cell
+xdum_r21 vss dummy_cell
+xdum_r22 vss dummy_cell
+xdum_r23 vss dummy_cell
+xdum_r24 vss dummy_cell
+xdum_r25 vss dummy_cell
+xdum_r26 vss dummy_cell
+xdum_r27 vss dummy_cell
+xdum_r28 vss dummy_cell
+xdum_r29 vss dummy_cell
+xdum_r30 vss dummy_cell
+xdum_r31 vss dummy_cell
+.ends
+
+* expanding   symbol:  bias.sym # of pins=3
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/bias.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/bias.sch
+.subckt bias iref vss vbn
+*.iopin iref
+*.iopin vss
+*.opin vbn
+XMc0 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb0 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc1 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb1 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc2 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb2 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc3 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb3 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc4 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb4 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc5 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb5 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc6 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb6 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc7 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb7 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc8 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb8 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMc9 iref iref vbn vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMb9 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+.ends
+
+
+* expanding   symbol:  driver.sym # of pins=5
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/driver.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/driver.sch
+.subckt driver d vdd vss sp sn
+*.ipin d
+*.iopin vdd
+*.iopin vss
+*.opin sp
+*.opin sn
+XMp1 na d vdd vdd pfet_03v3 L=0.28u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMn1 na d vss vss nfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMp2 sp na vdd vdd pfet_03v3 L=0.28u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMn2 sp na vss vss nfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMp3 sn sp vdd vdd pfet_03v3 L=0.28u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMn3 sn sp vss vss nfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+.ends
+
+
+* expanding   symbol:  elem_16.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_16.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_16.sch
+.subckt elem_16 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+xu1 vbn vcas sp sn vss outp outn unit_cell
+xu2 vbn vcas sp sn vss outp outn unit_cell
+xu3 vbn vcas sp sn vss outp outn unit_cell
+xu4 vbn vcas sp sn vss outp outn unit_cell
+xu5 vbn vcas sp sn vss outp outn unit_cell
+xu6 vbn vcas sp sn vss outp outn unit_cell
+xu7 vbn vcas sp sn vss outp outn unit_cell
+xu8 vbn vcas sp sn vss outp outn unit_cell
+xu9 vbn vcas sp sn vss outp outn unit_cell
+xu10 vbn vcas sp sn vss outp outn unit_cell
+xu11 vbn vcas sp sn vss outp outn unit_cell
+xu12 vbn vcas sp sn vss outp outn unit_cell
+xu13 vbn vcas sp sn vss outp outn unit_cell
+xu14 vbn vcas sp sn vss outp outn unit_cell
+xu15 vbn vcas sp sn vss outp outn unit_cell
+.ends
+
+
+* expanding   symbol:  elem_1.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_1.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_1.sch
+.subckt elem_1 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+.ends
+
+
+* expanding   symbol:  elem_2.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_2.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_2.sch
+.subckt elem_2 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+xu1 vbn vcas sp sn vss outp outn unit_cell
+.ends
+
+
+* expanding   symbol:  elem_4.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_4.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_4.sch
+.subckt elem_4 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+xu1 vbn vcas sp sn vss outp outn unit_cell
+xu2 vbn vcas sp sn vss outp outn unit_cell
+xu3 vbn vcas sp sn vss outp outn unit_cell
+.ends
+
+
+* expanding   symbol:  elem_8.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_8.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_8.sch
+.subckt elem_8 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+xu1 vbn vcas sp sn vss outp outn unit_cell
+xu2 vbn vcas sp sn vss outp outn unit_cell
+xu3 vbn vcas sp sn vss outp outn unit_cell
+xu4 vbn vcas sp sn vss outp outn unit_cell
+xu5 vbn vcas sp sn vss outp outn unit_cell
+xu6 vbn vcas sp sn vss outp outn unit_cell
+xu7 vbn vcas sp sn vss outp outn unit_cell
+.ends
+
+
+* expanding   symbol:  dummy_cell.sym # of pins=1
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dummy_cell.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dummy_cell.sch
+.subckt dummy_cell vss
+*.iopin vss
+XM1 n1 vss vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM2 n2 vss n1 vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsp vss vss n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsn vss vss n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+.ends
+
+
+* expanding   symbol:  unit_cell.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sch
+.subckt unit_cell vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+XM1 n1 vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM2 n2 vcas n1 vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsp outp sp n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsn outn sn n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+.ends
+

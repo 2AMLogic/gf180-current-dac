@@ -1,0 +1,41 @@
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_4.sch
+**.subckt elem_4 vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+xu0 vbn vcas sp sn vss outp outn unit_cell
+xu1 vbn vcas sp sn vss outp outn unit_cell
+xu2 vbn vcas sp sn vss outp outn unit_cell
+xu3 vbn vcas sp sn vss outp outn unit_cell
+**.ends
+
+* expanding   symbol:  unit_cell.sym # of pins=7
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sch
+.subckt unit_cell vbn vcas sp sn vss outp outn
+*.ipin vbn
+*.ipin vcas
+*.ipin sp
+*.ipin sn
+*.iopin vss
+*.iopin outp
+*.iopin outn
+XM1 n1 vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM2 n2 vcas n1 vss nfet_03v3 L=1u W=5.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsp outp sp n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XMsn outn sn n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+.ends
+
+.end

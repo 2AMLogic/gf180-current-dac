@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 1,
+  "description": "Analog partition design sources: generated xschem schematics and symbols, the generator (python3 design/gen_analog.py), and netlists derived with klt netlist. Existence and freshness only; no performance claim.",
+  "sources": [
+    "design/gen_analog.py",
+    "design/analog/xschemrc",
+    "design/analog/unit_cell.sch",
+    "design/analog/dummy_cell.sch",
+    "design/analog/driver.sch",
+    "design/analog/bias.sch",
+    "design/analog/elem_16.sch",
+    "design/analog/elem_1.sch",
+    "design/analog/elem_2.sch",
+    "design/analog/elem_4.sch",
+    "design/analog/elem_8.sch",
+    "design/analog/dac_analog.sch",
+    "design/analog/unit_cell.sym",
+    "design/analog/dummy_cell.sym",
+    "design/analog/driver.sym",
+    "design/analog/bias.sym",
+    "design/analog/elem_16.sym",
+    "design/analog/elem_1.sym",
+    "design/analog/elem_2.sym",
+    "design/analog/elem_4.sym",
+    "design/analog/elem_8.sym"
+  ],
+  "derived": [
+    {
+      "path": "design/analog/unit_cell.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/unit_cell.sch",
+          "-o",
+          "design/analog/unit_cell.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/dummy_cell.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/dummy_cell.sch",
+          "-o",
+          "design/analog/dummy_cell.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/driver.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/driver.sch",
+          "-o",
+          "design/analog/driver.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/bias.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/bias.sch",
+          "-o",
+          "design/analog/bias.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/elem_16.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/elem_16.sch",
+          "-o",
+          "design/analog/elem_16.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/elem_1.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/elem_1.sch",
+          "-o",
+          "design/analog/elem_1.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/elem_2.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/elem_2.sch",
+          "-o",
+          "design/analog/elem_2.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/elem_4.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/elem_4.sch",
+          "-o",
+          "design/analog/elem_4.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/elem_8.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/elem_8.sch",
+          "-o",
+          "design/analog/elem_8.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--check"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "design/analog/dac_analog.spice",
+      "generator": "klt netlist",
+      "check": {
+        "argv": [
+          "klt",
+          "netlist",
+          "design/analog/dac_analog.sch",
+          "-o",
+          "design/analog/dac_analog.spice",
+          "--rcfile",
+          "design/analog/xschemrc",
+          "--block",
+          "--check"
+        ],
+        "local_only": true
+      }
+    }
+  ]
+}

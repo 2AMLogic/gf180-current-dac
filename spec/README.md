@@ -27,3 +27,4 @@ A ratified record is never deleted or rewritten; supersede it with a new one.
 | [0003](decision-records/0003-gradient-amplitude-assumption.md) | Gradient amplitude is an assumption | proposed |
 | [0004](decision-records/0004-reference-source-gf180-bandgap.md) | Reference source: adopt gf180-bandgap | proposed |
 | [0005](decision-records/0005-bias-loop-amplifier-gf180-opamp.md) | Bias-loop amplifier: adopt gf180-opamp | proposed |
+| [0006](decision-records/0006-analog-schematic-sizing-assumptions.md) | Analog schematic sizing assumptions | proposed |
