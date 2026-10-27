@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 10,
+  "description": "Repo hygiene: README (what the block is, spec table, reproduce section), license, CI workflow, and the independent CI/audit commands. Existence and command success only. scripts/check_signoff.sh is deliberately not listed: it regrades the manifest that cites this attestation.",
+  "hygiene": [
+    "README.md",
+    "LICENSE",
+    ".github/workflows/ci.yml"
+  ],
+  "checks": [
+    {
+      "name": "ci-checks",
+      "argv": ["python3", "scripts/check_ci.py"]
+    },
+    {
+      "name": "spec-structure",
+      "argv": ["python3", "spec/check_spec.py"]
+    }
+  ]
+}

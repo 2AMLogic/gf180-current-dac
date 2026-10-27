@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 1,
+  "t1_met_count": 3,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:3fadfde021edf03225e769da0390a8f3463c05f07aa5f39aa0043f962a9eca22",
   "build": {
@@ -297,10 +297,35 @@
       "partition_boundary": "current-cell array (unary MSB and binary LSB cells, dummies), cell switches and switch drivers, array bias, differential output: the matched current array and everything that steers or carries its current",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item10.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "attest/item10.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc",
+          "input_verified": true,
+          "summary": "T1 item 10 (Repo hygiene): 5/5 attestation checks passed (klt signoff --attest)",
+          "source": "attest/item10.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 5,
+            "passed_count": 5
+          }
+        }
+      }
     },
     {
       "tier": "T1",
@@ -310,10 +335,35 @@
       "partition_boundary": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs",
       "text": "a README stating what the block is, its spec table, and how to reproduce every result; a license; CI that at minimum keeps the harness and evidence formats valid.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item10.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 10,
+          "path": {
+            "path": "attest/item10.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc",
+          "input_verified": true,
+          "summary": "T1 item 10 (Repo hygiene): 5/5 attestation checks passed (klt signoff --attest)",
+          "source": "attest/item10.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 5,
+            "passed_count": 5
+          }
+        }
+      }
     },
     {
       "tier": "T1",

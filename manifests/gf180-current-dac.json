@@ -9,6 +9,10 @@
     "1.analog": {
       "file": "evidence/item1-analog.json",
       "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e"
+    },
+    "10": {
+      "file": "evidence/item10.json",
+      "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc"
     }
   }
 }
