@@ -37,6 +37,23 @@ Structural assumptions:
 - Driver: sp has two inverter stages, sn three, so sn lags sp by one stage.
   Crossing point is not designed.
 
+## Bias boundary and sibling reuse
+
+This is not a deviation from DR-0004 and DR-0005; it is the interface to
+them. `iref` (the cascode-gate node of the diode stack) is the boundary where
+the V-to-I bias loop hands its 20 uA to this schematic. That loop is built
+from `gf180-bandgap` (DR-0004, pinned at
+`6fe62e6cb6d037b55d871792e4b7b47e4344fb2a`) and `gf180-opamp` (DR-0005, pinned
+at `687c03b3aca2c41f2aa591595574f702c3e1ec2e`), both adopted by
+`reuse.lock.json`. This schematic holds only the mirror and array side: the
+diode stack, unit cells, binary elements, dummies and drivers.
+
+Deferred: the bias-loop integration itself (instantiating the pinned sibling
+blocks, the V-to-I resistor, and closing the loop onto `iref`). Until it
+lands, `iref` is driven by an ideal source in the testbench, and the
+full-scale figure above is an estimate from that ideal 20 uA, not from the
+bandgap or opamp.
+
 ## Alternatives considered
 
 - Wait for a sizing run: rejected; the schematic is the input to that run.
