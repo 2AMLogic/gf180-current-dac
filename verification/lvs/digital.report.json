@@ -34,7 +34,7 @@
   },
   "hints_applied": null,
   "constant_nets_applied": null,
-  "status": "mismatch",
+  "status": "match",
   "power_connectivity": {
     "status": "match",
     "reason": null,
@@ -57,7 +57,6 @@
         "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1",
         "GF180MCU_FD_SC_MCU7T5V0__INV_1",
         "GF180MCU_FD_SC_MCU7T5V0__INV_2",
-        "GF180MCU_FD_SC_MCU7T5V0__INV_4",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_1",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_2",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_4",
@@ -76,11 +75,11 @@
         "GF180MCU_FD_SC_MCU7T5V0__OAI31_2",
         "GF180MCU_FD_SC_MCU7T5V0__OAI31_4"
       ],
-      "master_count": 30,
+      "master_count": 29,
       "corroborated": true,
       "reason": null
     },
-    "instance_count": 725,
+    "instance_count": 821,
     "expected_nets": null,
     "unchecked_expected_pins": [],
     "findings": [],
@@ -95,23 +94,18 @@
     "finding_count": 0
   },
   "device_parameter_coverage": [],
-  "mismatch_count": 15,
-  "error_count": 13,
+  "mismatch_count": 2,
+  "error_count": 0,
   "category_counts": {
-    "net.split": 3,
-    "topology": 10,
     "topology.power_only_pruned": 1,
     "topology.top_level_pins_anchored": 1
   },
-  "category_error_counts": {
-    "net.split": 3,
-    "topology": 10
-  },
+  "category_error_counts": {},
   "counts": {
     "nets": {
-      "layout": 190,
-      "reference": 180,
-      "matched": 343
+      "layout": 189,
+      "reference": 182,
+      "matched": 344
     },
     "devices": {
       "layout": 0,
@@ -121,7 +115,7 @@
     "pins": {
       "layout": 80,
       "reference": 78,
-      "matched": 244
+      "matched": 240
     }
   },
   "device_classes": null,
@@ -129,8 +123,8 @@
     "engine": "klayout",
     "engine_version": "0.30.12",
     "netgen_binary": null,
-    "layout_sha256": "b991f21666c09234c23bafce160a93198fc53168a0e3e445f530349bc05204b0",
-    "reference_sha256": "dd49eeb2cca7b44dfac8d2226bc3f0d3fde2fee735074a10730d545b5b88b5a6",
+    "layout_sha256": "c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
+    "reference_sha256": "ac962822bb1363ff50acacc3fbcc9c5226a493d866f422f4280c7dd4e23b1e23",
     "extracted_netlist": null
   },
   "provenance": {
@@ -146,7 +140,7 @@
     },
     "deck": null,
     "input": {
-      "content_hash": "sha256:b991f21666c09234c23bafce160a93198fc53168a0e3e445f530349bc05204b0",
+      "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
       "role": "netlist"
     },
     "klayout_version_mismatch": false,
@@ -159,274 +153,6 @@
     ]
   },
   "mismatches": [
-    {
-      "category": "net.split",
-      "severity": "error",
-      "description": "a reference net's role is divided across multiple layout nets",
-      "side": "layout",
-      "net": {
-        "layout": "CLKNET_3_5__LEAF_CLK",
-        "reference": null
-      },
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": null,
-      "instance": null,
-      "subcircuit": null
-    },
-    {
-      "category": "net.split",
-      "severity": "error",
-      "description": "a reference net's role is divided across multiple layout nets",
-      "side": "layout",
-      "net": {
-        "layout": "VDD",
-        "reference": null
-      },
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": null,
-      "instance": null,
-      "subcircuit": null
-    },
-    {
-      "category": "net.split",
-      "severity": "error",
-      "description": "a reference net's role is divided across multiple layout nets",
-      "side": "layout",
-      "net": {
-        "layout": "VSS",
-        "reference": null
-      },
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": null,
-      "instance": null,
-      "subcircuit": null
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "layout",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": "DAC_DIGITAL",
-        "reference": null
-      },
-      "instance": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__BUF_4_0",
-        "reference": null
-      },
-      "subcircuit": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__BUF_4",
-        "reference": null
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "layout",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": "DAC_DIGITAL",
-        "reference": null
-      },
-      "instance": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__CLKINV_8_0",
-        "reference": null
-      },
-      "subcircuit": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__CLKINV_8",
-        "reference": null
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "layout",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": "DAC_DIGITAL",
-        "reference": null
-      },
-      "instance": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1_17",
-        "reference": null
-      },
-      "subcircuit": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1",
-        "reference": null
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "layout",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": "DAC_DIGITAL",
-        "reference": null
-      },
-      "instance": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1_18",
-        "reference": null
-      },
-      "subcircuit": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1",
-        "reference": null
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "layout",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": "DAC_DIGITAL",
-        "reference": null
-      },
-      "instance": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1_27",
-        "reference": null
-      },
-      "subcircuit": {
-        "layout": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1",
-        "reference": null
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "reference",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": null,
-        "reference": "DAC_DIGITAL"
-      },
-      "instance": {
-        "layout": null,
-        "reference": "CLKLOAD4"
-      },
-      "subcircuit": {
-        "layout": null,
-        "reference": "GF180MCU_FD_SC_MCU7T5V0__CLKINV_8"
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "reference",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": null,
-        "reference": "DAC_DIGITAL"
-      },
-      "instance": {
-        "layout": null,
-        "reference": "CLKBUF_3_5__F_CLK"
-      },
-      "subcircuit": {
-        "layout": null,
-        "reference": "GF180MCU_FD_SC_MCU7T5V0__BUF_4"
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "reference",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": null,
-        "reference": "DAC_DIGITAL"
-      },
-      "instance": {
-        "layout": null,
-        "reference": "_20_"
-      },
-      "subcircuit": {
-        "layout": null,
-        "reference": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1"
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "reference",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": null,
-        "reference": "DAC_DIGITAL"
-      },
-      "instance": {
-        "layout": null,
-        "reference": "_24_"
-      },
-      "subcircuit": {
-        "layout": null,
-        "reference": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1"
-      }
-    },
-    {
-      "category": "topology",
-      "severity": "error",
-      "description": "subcircuit instance could not be matched to a counterpart",
-      "side": "reference",
-      "net": null,
-      "device": null,
-      "property": null,
-      "details": null,
-      "circuit": {
-        "layout": null,
-        "reference": "DAC_DIGITAL"
-      },
-      "instance": {
-        "layout": null,
-        "reference": "_28_"
-      },
-      "subcircuit": {
-        "layout": null,
-        "reference": "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1"
-      }
-    },
     {
       "category": "topology.power_only_pruned",
       "severity": "warning",
@@ -839,12 +565,6 @@
       "reference": null,
       "pin": true,
       "heuristic": true
-    },
-    {
-      "layout": "ZN",
-      "reference": null,
-      "pin": true,
-      "heuristic": false
     },
     {
       "layout": "ZN",
@@ -1315,6 +1035,12 @@
       "heuristic": false
     },
     {
+      "layout": "CLKNET_3_5__LEAF_CLK",
+      "reference": "CLKNET_3_5__LEAF_CLK",
+      "pin": false,
+      "heuristic": false
+    },
+    {
       "layout": "CLKNET_3_6__LEAF_CLK",
       "reference": "CLKNET_3_6__LEAF_CLK",
       "pin": false,
@@ -1389,12 +1115,6 @@
     {
       "layout": "DIN[9]",
       "reference": "DIN[9]",
-      "pin": true,
-      "heuristic": false
-    },
-    {
-      "layout": "I",
-      "reference": "I",
       "pin": true,
       "heuristic": false
     },
@@ -2536,6 +2256,18 @@
       "layout": "ZN",
       "reference": "ZN",
       "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$78",
+      "reference": "__NC_CLKLOAD0_Z__",
+      "pin": false,
+      "heuristic": false
+    },
+    {
+      "layout": "\\$438",
+      "reference": "__NC_CLKLOAD2_Z__",
+      "pin": false,
       "heuristic": false
     }
   ]
