@@ -97,7 +97,7 @@ KLT="uvx --from klayout-tools==0.8.0 klt"
 
 | Record | Command |
 |---|---|
-| Repo checks: JSON validity, harness and spec tests, spec structure, schematic generator freshness, README links | `python3 scripts/check_ci.py` (or `npm run check:ci`, which also runs the signoff freshness check) |
+| Repo checks: JSON validity, harness and spec tests, spec structure, schematic generator and layout stream freshness, README links | `python3 scripts/check_ci.py` (or `npm run check:ci`, which also runs the signoff freshness check) |
 | Toolchain pins (ngspice, Python, PDK revision) | `python3 -m sim.harness check` |
 | Smoke record [`sim/smoke/records/20261017-215406.md`](sim/smoke/records/20261017-215406.md) with its [corners](sim/smoke/records/20261017-215406-corners.json) and [Monte Carlo](sim/smoke/records/20261017-215406-mc.json.gz) reports | `$KLT sim sim/smoke/request-corners.json --format json --report-out <corners.json>` and `$KLT sim sim/smoke/request-mc.json --format json --report-out <mc.json>`. Multi-corner and Monte Carlo requests go to the batch fleet; the commands as run are in the record. Needs the PDK from [`sim/README.md`](sim/README.md) |
 | Sizing model [`spec/sizing/sizing-output.md`](spec/sizing/sizing-output.md) (model results, not SPICE) | `python3 spec/sizing/size.py` (`--check` verifies the committed file) |
@@ -105,6 +105,7 @@ KLT="uvx --from klayout-tools==0.8.0 klt"
 | Spec structure and tests | `python3 spec/check_spec.py` and `python3 -m unittest spec.tests.test_check_spec` |
 | Analog schematics, symbols and netlists under `design/analog/` | `python3 design/gen_analog.py` (`--check` verifies); netlists via `$KLT netlist <sch> -o <spice> --rcfile design/analog/xschemrc` |
 | Item 1 attestation [`evidence/item1-analog.json`](evidence/item1-analog.json) | `$KLT signoff --attest 1 --inventory design/inventory-item1-analog.json -o evidence/item1-analog.json` |
+| Analog layout stream [`layout/gf180-current-dac-analog.gds`](layout/gf180-current-dac-analog.gds) and item 2 envelope `evidence/item2-analog.json` (placement only, no routing) | `python3 layout/gen_array.py` (`--check` verifies stream, envelope and switching table; needs pip `klayout==0.30.12`). Device primitives: `layout/gen_prims.sh` (local, needs the PDK) |
 | Item 10 attestation `evidence/item10.json` | `$KLT signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json`; verify with `--check evidence/item10.json` |
 | Signoff verdict [`manifests/gf180-current-dac.signoff.json`](manifests/gf180-current-dac.signoff.json) | `scripts/check_signoff.sh` regrades the manifest and fails if the record is stale |
 

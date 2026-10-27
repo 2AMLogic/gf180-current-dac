@@ -1,0 +1,591 @@
+{
+  "schema_version": 1,
+  "description": "Switching sequence and site map of the analog array. `order[k]` is the element-grid site (row * 8 + col, row 0 at the bottom, col 0 at the left) of the k-th unary element to turn on; the last entry is the binary block, never switched as a unary. Written by `python3 layout/gen_array.py --write-table` from spec/sizing/size.py sequence(8, 'inout-pairs'), the sequence the spec's 99.92 % yield was computed for; --check fails if they differ.",
+  "sequence": "inout-pairs",
+  "grid": {
+    "elements_per_side": 8,
+    "units_per_element_side": 4,
+    "dummy_ring_cells": 1
+  },
+  "point_symmetry": "site s pairs with site 63 - s; positions 2j and 2j+1 are a pair except that the last pair is (unary 62, binary block)",
+  "order": [
+    27,
+    36,
+    7,
+    56,
+    28,
+    35,
+    0,
+    63,
+    19,
+    44,
+    15,
+    48,
+    20,
+    43,
+    8,
+    55,
+    26,
+    37,
+    6,
+    57,
+    29,
+    34,
+    1,
+    62,
+    18,
+    45,
+    23,
+    40,
+    21,
+    42,
+    16,
+    47,
+    11,
+    52,
+    5,
+    58,
+    12,
+    51,
+    2,
+    61,
+    25,
+    38,
+    31,
+    32,
+    30,
+    33,
+    24,
+    39,
+    10,
+    53,
+    14,
+    49,
+    13,
+    50,
+    9,
+    54,
+    17,
+    46,
+    4,
+    59,
+    22,
+    41,
+    3,
+    60
+  ],
+  "sites": [
+    {
+      "position": 0,
+      "site": 27,
+      "row": 3,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t00"
+    },
+    {
+      "position": 1,
+      "site": 36,
+      "row": 4,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t01"
+    },
+    {
+      "position": 2,
+      "site": 7,
+      "row": 0,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t02"
+    },
+    {
+      "position": 3,
+      "site": 56,
+      "row": 7,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t03"
+    },
+    {
+      "position": 4,
+      "site": 28,
+      "row": 3,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t04"
+    },
+    {
+      "position": 5,
+      "site": 35,
+      "row": 4,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t05"
+    },
+    {
+      "position": 6,
+      "site": 0,
+      "row": 0,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t06"
+    },
+    {
+      "position": 7,
+      "site": 63,
+      "row": 7,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t07"
+    },
+    {
+      "position": 8,
+      "site": 19,
+      "row": 2,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t08"
+    },
+    {
+      "position": 9,
+      "site": 44,
+      "row": 5,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t09"
+    },
+    {
+      "position": 10,
+      "site": 15,
+      "row": 1,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t10"
+    },
+    {
+      "position": 11,
+      "site": 48,
+      "row": 6,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t11"
+    },
+    {
+      "position": 12,
+      "site": 20,
+      "row": 2,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t12"
+    },
+    {
+      "position": 13,
+      "site": 43,
+      "row": 5,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t13"
+    },
+    {
+      "position": 14,
+      "site": 8,
+      "row": 1,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t14"
+    },
+    {
+      "position": 15,
+      "site": 55,
+      "row": 6,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t15"
+    },
+    {
+      "position": 16,
+      "site": 26,
+      "row": 3,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t16"
+    },
+    {
+      "position": 17,
+      "site": 37,
+      "row": 4,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t17"
+    },
+    {
+      "position": 18,
+      "site": 6,
+      "row": 0,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t18"
+    },
+    {
+      "position": 19,
+      "site": 57,
+      "row": 7,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t19"
+    },
+    {
+      "position": 20,
+      "site": 29,
+      "row": 3,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t20"
+    },
+    {
+      "position": 21,
+      "site": 34,
+      "row": 4,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t21"
+    },
+    {
+      "position": 22,
+      "site": 1,
+      "row": 0,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t22"
+    },
+    {
+      "position": 23,
+      "site": 62,
+      "row": 7,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t23"
+    },
+    {
+      "position": 24,
+      "site": 18,
+      "row": 2,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t24"
+    },
+    {
+      "position": 25,
+      "site": 45,
+      "row": 5,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t25"
+    },
+    {
+      "position": 26,
+      "site": 23,
+      "row": 2,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t26"
+    },
+    {
+      "position": 27,
+      "site": 40,
+      "row": 5,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t27"
+    },
+    {
+      "position": 28,
+      "site": 21,
+      "row": 2,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t28"
+    },
+    {
+      "position": 29,
+      "site": 42,
+      "row": 5,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t29"
+    },
+    {
+      "position": 30,
+      "site": 16,
+      "row": 2,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t30"
+    },
+    {
+      "position": 31,
+      "site": 47,
+      "row": 5,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t31"
+    },
+    {
+      "position": 32,
+      "site": 11,
+      "row": 1,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t32"
+    },
+    {
+      "position": 33,
+      "site": 52,
+      "row": 6,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t33"
+    },
+    {
+      "position": 34,
+      "site": 5,
+      "row": 0,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t34"
+    },
+    {
+      "position": 35,
+      "site": 58,
+      "row": 7,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t35"
+    },
+    {
+      "position": 36,
+      "site": 12,
+      "row": 1,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t36"
+    },
+    {
+      "position": 37,
+      "site": 51,
+      "row": 6,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t37"
+    },
+    {
+      "position": 38,
+      "site": 2,
+      "row": 0,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t38"
+    },
+    {
+      "position": 39,
+      "site": 61,
+      "row": 7,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t39"
+    },
+    {
+      "position": 40,
+      "site": 25,
+      "row": 3,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t40"
+    },
+    {
+      "position": 41,
+      "site": 38,
+      "row": 4,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t41"
+    },
+    {
+      "position": 42,
+      "site": 31,
+      "row": 3,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t42"
+    },
+    {
+      "position": 43,
+      "site": 32,
+      "row": 4,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t43"
+    },
+    {
+      "position": 44,
+      "site": 30,
+      "row": 3,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t44"
+    },
+    {
+      "position": 45,
+      "site": 33,
+      "row": 4,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t45"
+    },
+    {
+      "position": 46,
+      "site": 24,
+      "row": 3,
+      "col": 0,
+      "role": "unary",
+      "cell": "elem_t46"
+    },
+    {
+      "position": 47,
+      "site": 39,
+      "row": 4,
+      "col": 7,
+      "role": "unary",
+      "cell": "elem_t47"
+    },
+    {
+      "position": 48,
+      "site": 10,
+      "row": 1,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t48"
+    },
+    {
+      "position": 49,
+      "site": 53,
+      "row": 6,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t49"
+    },
+    {
+      "position": 50,
+      "site": 14,
+      "row": 1,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t50"
+    },
+    {
+      "position": 51,
+      "site": 49,
+      "row": 6,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t51"
+    },
+    {
+      "position": 52,
+      "site": 13,
+      "row": 1,
+      "col": 5,
+      "role": "unary",
+      "cell": "elem_t52"
+    },
+    {
+      "position": 53,
+      "site": 50,
+      "row": 6,
+      "col": 2,
+      "role": "unary",
+      "cell": "elem_t53"
+    },
+    {
+      "position": 54,
+      "site": 9,
+      "row": 1,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t54"
+    },
+    {
+      "position": 55,
+      "site": 54,
+      "row": 6,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t55"
+    },
+    {
+      "position": 56,
+      "site": 17,
+      "row": 2,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t56"
+    },
+    {
+      "position": 57,
+      "site": 46,
+      "row": 5,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t57"
+    },
+    {
+      "position": 58,
+      "site": 4,
+      "row": 0,
+      "col": 4,
+      "role": "unary",
+      "cell": "elem_t58"
+    },
+    {
+      "position": 59,
+      "site": 59,
+      "row": 7,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t59"
+    },
+    {
+      "position": 60,
+      "site": 22,
+      "row": 2,
+      "col": 6,
+      "role": "unary",
+      "cell": "elem_t60"
+    },
+    {
+      "position": 61,
+      "site": 41,
+      "row": 5,
+      "col": 1,
+      "role": "unary",
+      "cell": "elem_t61"
+    },
+    {
+      "position": 62,
+      "site": 3,
+      "row": 0,
+      "col": 3,
+      "role": "unary",
+      "cell": "elem_t62"
+    },
+    {
+      "position": 63,
+      "site": 60,
+      "row": 7,
+      "col": 4,
+      "role": "binary",
+      "cell": "elem_bin"
+    }
+  ]
+}

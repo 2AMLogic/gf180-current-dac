@@ -24,12 +24,15 @@ JSON_FILES = [
     "manifests/gf180-current-dac.signoff.json",
     "design/inventory-item1-analog.json",
     "evidence/item1-analog.json",
+    "evidence/item2-analog.json",
+    "layout/switching_sequence.json",
     "attest/item10.json",
 ]
 TESTS = [
     [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],
     [sys.executable, "spec/check_spec.py"],
     [sys.executable, "design/gen_analog.py", "--check"],
+    [sys.executable, "layout/gen_array.py", "--check"],
 ]
 LINK_DOCS = ["README.md"]
 LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
