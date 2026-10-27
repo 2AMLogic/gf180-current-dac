@@ -80,7 +80,7 @@ module dac_digital (clk,
     .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[9]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _10_ (.D(t_d[10]),
-    .CLK(clknet_3_3__leaf_clk),
+    .CLK(clknet_3_6__leaf_clk),
     .Q(t_q[10]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _11_ (.D(t_d[11]),
     .CLK(clknet_3_3__leaf_clk),
@@ -89,22 +89,22 @@ module dac_digital (clk,
     .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[12]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _13_ (.D(t_d[13]),
-    .CLK(clknet_3_3__leaf_clk),
+    .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[13]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _14_ (.D(t_d[14]),
     .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[14]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _15_ (.D(t_d[15]),
-    .CLK(clknet_3_1__leaf_clk),
+    .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[15]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _16_ (.D(t_d[16]),
     .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[16]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _17_ (.D(t_d[17]),
-    .CLK(clknet_3_0__leaf_clk),
+    .CLK(clknet_3_4__leaf_clk),
     .Q(t_q[17]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _18_ (.D(t_d[18]),
-    .CLK(clknet_3_3__leaf_clk),
+    .CLK(clknet_3_6__leaf_clk),
     .Q(t_q[18]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _19_ (.D(t_d[19]),
     .CLK(clknet_3_4__leaf_clk),
@@ -119,7 +119,7 @@ module dac_digital (clk,
     .CLK(clknet_3_6__leaf_clk),
     .Q(t_q[22]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _23_ (.D(t_d[23]),
-    .CLK(clknet_3_1__leaf_clk),
+    .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[23]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _24_ (.D(t_d[24]),
     .CLK(clknet_3_5__leaf_clk),
@@ -137,10 +137,10 @@ module dac_digital (clk,
     .CLK(clknet_3_5__leaf_clk),
     .Q(t_q[28]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _29_ (.D(t_d[29]),
-    .CLK(clknet_3_2__leaf_clk),
+    .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[29]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _30_ (.D(t_d[30]),
-    .CLK(clknet_3_7__leaf_clk),
+    .CLK(clknet_3_6__leaf_clk),
     .Q(t_q[30]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _31_ (.D(din[9]),
     .CLK(clknet_3_4__leaf_clk),
@@ -170,7 +170,7 @@ module dac_digital (clk,
     .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[39]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _40_ (.D(t_d[40]),
-    .CLK(clknet_3_0__leaf_clk),
+    .CLK(clknet_3_1__leaf_clk),
     .Q(t_q[40]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _41_ (.D(t_d[41]),
     .CLK(clknet_3_0__leaf_clk),
@@ -188,16 +188,16 @@ module dac_digital (clk,
     .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[45]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _46_ (.D(t_d[46]),
-    .CLK(clknet_3_6__leaf_clk),
+    .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[46]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _47_ (.D(t_d[47]),
     .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[47]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _48_ (.D(t_d[48]),
-    .CLK(clknet_3_2__leaf_clk),
+    .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[48]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _49_ (.D(t_d[49]),
-    .CLK(clknet_3_5__leaf_clk),
+    .CLK(clknet_3_1__leaf_clk),
     .Q(t_q[49]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _50_ (.D(t_d[50]),
     .CLK(clknet_3_3__leaf_clk),
@@ -206,7 +206,7 @@ module dac_digital (clk,
     .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[51]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _52_ (.D(t_d[52]),
-    .CLK(clknet_3_6__leaf_clk),
+    .CLK(clknet_3_7__leaf_clk),
     .Q(t_q[52]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _53_ (.D(t_d[53]),
     .CLK(clknet_3_0__leaf_clk),
@@ -215,13 +215,13 @@ module dac_digital (clk,
     .CLK(clknet_3_6__leaf_clk),
     .Q(t_q[54]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _55_ (.D(t_d[55]),
-    .CLK(clknet_3_6__leaf_clk),
+    .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[55]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _56_ (.D(t_d[56]),
     .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[56]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _57_ (.D(t_d[57]),
-    .CLK(clknet_3_3__leaf_clk),
+    .CLK(clknet_3_2__leaf_clk),
     .Q(t_q[57]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _58_ (.D(t_d[58]),
     .CLK(clknet_3_3__leaf_clk),
@@ -230,10 +230,10 @@ module dac_digital (clk,
     .CLK(clknet_3_1__leaf_clk),
     .Q(t_q[59]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _60_ (.D(t_d[60]),
-    .CLK(clknet_3_1__leaf_clk),
+    .CLK(clknet_3_0__leaf_clk),
     .Q(t_q[60]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _61_ (.D(t_d[61]),
-    .CLK(clknet_3_2__leaf_clk),
+    .CLK(clknet_3_3__leaf_clk),
     .Q(t_q[61]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _62_ (.D(t_d[62]),
     .CLK(clknet_3_1__leaf_clk),
@@ -242,7 +242,7 @@ module dac_digital (clk,
     .CLK(clknet_3_7__leaf_clk),
     .Q(b_q[0]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _64_ (.D(din[1]),
-    .CLK(clknet_3_7__leaf_clk),
+    .CLK(clknet_3_5__leaf_clk),
     .Q(b_q[1]));
  gf180mcu_fd_sc_mcu7t5v0__dffq_1 _65_ (.D(din[2]),
     .CLK(clknet_3_7__leaf_clk),
@@ -268,12 +268,12 @@ module dac_digital (clk,
     .Z(clknet_3_6__leaf_clk));
  gf180mcu_fd_sc_mcu7t5v0__buf_4 clkbuf_3_7__f_clk (.I(clknet_0_clk),
     .Z(clknet_3_7__leaf_clk));
- gf180mcu_fd_sc_mcu7t5v0__clkinv_4 clkload0 (.I(clknet_3_0__leaf_clk));
+ gf180mcu_fd_sc_mcu7t5v0__buf_4 clkload0 (.I(clknet_3_0__leaf_clk));
  gf180mcu_fd_sc_mcu7t5v0__clkinv_4 clkload1 (.I(clknet_3_1__leaf_clk));
- gf180mcu_fd_sc_mcu7t5v0__clkinv_4 clkload2 (.I(clknet_3_3__leaf_clk));
- gf180mcu_fd_sc_mcu7t5v0__inv_4 clkload3 (.I(clknet_3_4__leaf_clk));
+ gf180mcu_fd_sc_mcu7t5v0__buf_4 clkload2 (.I(clknet_3_3__leaf_clk));
+ gf180mcu_fd_sc_mcu7t5v0__clkinv_4 clkload3 (.I(clknet_3_4__leaf_clk));
  gf180mcu_fd_sc_mcu7t5v0__clkinv_8 clkload4 (.I(clknet_3_5__leaf_clk));
- gf180mcu_fd_sc_mcu7t5v0__inv_4 clkload5 (.I(clknet_3_6__leaf_clk));
+ gf180mcu_fd_sc_mcu7t5v0__clkinv_4 clkload5 (.I(clknet_3_6__leaf_clk));
  gf180mcu_fd_sc_mcu7t5v0__clkinv_8 clkload6 (.I(clknet_3_7__leaf_clk));
  gf180mcu_fd_sc_mcu7t5v0__nand2_4 \u_dec/_038_  (.A1(din[8]),
     .A2(din[9]),

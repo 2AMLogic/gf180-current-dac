@@ -15,7 +15,7 @@
         "check": "stream_readable",
         "role": "layout",
         "passed": true,
-        "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
       },
       {
         "check": "top_cell_non_empty",
@@ -43,11 +43,11 @@
         "path": "layout/pnr/dac_digital.gds",
         "scope": "repo"
       },
-      "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
     },
     "regeneration": {
       "generator": "layout/pnr/run.sh",
-      "regenerated_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+      "regenerated_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
     }
   }
 }

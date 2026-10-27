@@ -14,10 +14,45 @@
   },
   "power": {
     "pdn": true,
-    "preset": "gf180mcu_7t_6M",
     "tapcell": {
-      "distance_um": 50
-    }
+      "distance_um": 20
+    },
+    "connects": [
+      {
+        "layers": [
+          "Metal1",
+          "Metal4"
+        ],
+        "max_columns": 1,
+        "ongrid": [
+          "Metal2",
+          "Metal3",
+          "Metal4"
+        ]
+      }
+    ],
+    "straps": [
+      {
+        "layer": "Metal1",
+        "width_um": 0.6,
+        "pitch_um": 3.92,
+        "offset_um": 0.0,
+        "followpins": true
+      },
+      {
+        "layer": "Metal4",
+        "width_um": 4.48,
+        "pitch_um": 44.8,
+        "offset_um": 22.4,
+        "spacing_um": 0.56
+      },
+      {
+        "layer": "Metal5",
+        "width_um": 4.48,
+        "pitch_um": 89.6,
+        "offset_um": 44.8
+      }
+    ]
   },
   "constraints": {
     "clock_port": "clk",

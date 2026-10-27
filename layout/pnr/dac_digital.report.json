@@ -4,13 +4,13 @@
   "engine_version": "26Q3-1510-g6cb3f2b704",
   "engine_logs": [
     {
-      "invocation_id": "97368657204c498ca0ce316afc3cef46",
+      "invocation_id": "4a9caf0b2f80410aa0af054e48131e6e",
       "script_name": "pnr_dac_digital_floorplan.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_floorplan.tcl",
         "scope": "repo"
       },
-      "script_sha256": "53265c013ea420ca624b79562a72d4d209795079003c32509f48b4e80c9a336e",
+      "script_sha256": "3ede726e37687c2bea258d2656e43bbc26c71ea2cd4e197d66924aa44016bb27",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_floorplan_metrics.json",
         "scope": "repo"
@@ -18,31 +18,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/97368657204c498ca0ce316afc3cef46",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4a9caf0b2f80410aa0af054e48131e6e",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/97368657204c498ca0ce316afc3cef46/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4a9caf0b2f80410aa0af054e48131e6e/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/97368657204c498ca0ce316afc3cef46/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4a9caf0b2f80410aa0af054e48131e6e/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/97368657204c498ca0ce316afc3cef46/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4a9caf0b2f80410aa0af054e48131e6e/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "de0ff874558f458c9294671a087faac2",
+      "invocation_id": "5010fe5f7b8b46f58e4e4e22741eed24",
       "script_name": "pnr_dac_digital_place.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_place.tcl",
         "scope": "repo"
       },
-      "script_sha256": "4b99ac45970ea2c1178d90411d90f2d0dbda8932f71feffec80b6119f8ff1a76",
+      "script_sha256": "ae9c2824fe7a551c4e5655c8362ace250f21435d8fd24fae266d97e0d8eb8a90",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_place_metrics.json",
         "scope": "repo"
@@ -50,31 +50,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/de0ff874558f458c9294671a087faac2",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5010fe5f7b8b46f58e4e4e22741eed24",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/de0ff874558f458c9294671a087faac2/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5010fe5f7b8b46f58e4e4e22741eed24/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/de0ff874558f458c9294671a087faac2/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5010fe5f7b8b46f58e4e4e22741eed24/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/de0ff874558f458c9294671a087faac2/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5010fe5f7b8b46f58e4e4e22741eed24/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "f87bb40312ff4102b287a3fcfea86c01",
+      "invocation_id": "2bb03d7f764a4c1c83a444f22b98c4dc",
       "script_name": "pnr_dac_digital_cts.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_cts.tcl",
         "scope": "repo"
       },
-      "script_sha256": "7f0e0349d61e89adbebca4fc165b3e179691be7c0cacfcab17ee5611c13a85b5",
+      "script_sha256": "7f22bf58652c1c6497b02100e5b02548b073babffc678228ba96dc09318adf53",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_cts_metrics.json",
         "scope": "repo"
@@ -82,31 +82,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f87bb40312ff4102b287a3fcfea86c01",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2bb03d7f764a4c1c83a444f22b98c4dc",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f87bb40312ff4102b287a3fcfea86c01/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2bb03d7f764a4c1c83a444f22b98c4dc/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f87bb40312ff4102b287a3fcfea86c01/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2bb03d7f764a4c1c83a444f22b98c4dc/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f87bb40312ff4102b287a3fcfea86c01/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2bb03d7f764a4c1c83a444f22b98c4dc/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "9094503fcf2243fdbbded3c8316a9019",
+      "invocation_id": "27aeb3bf1bd84b14bacde2a97a0f042d",
       "script_name": "pnr_dac_digital_route.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route.tcl",
         "scope": "repo"
       },
-      "script_sha256": "3bc32e676216cdba400cd0e5afb362fa0e0d7983f14014f4f220903235164b9b",
+      "script_sha256": "a39ce5ef9b3135bdeeee9412e02a3c3c9dce5a21a5e0fad6f96410a524db84b6",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_metrics.json",
         "scope": "repo"
@@ -114,31 +114,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9094503fcf2243fdbbded3c8316a9019",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/27aeb3bf1bd84b14bacde2a97a0f042d",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9094503fcf2243fdbbded3c8316a9019/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/27aeb3bf1bd84b14bacde2a97a0f042d/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9094503fcf2243fdbbded3c8316a9019/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/27aeb3bf1bd84b14bacde2a97a0f042d/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9094503fcf2243fdbbded3c8316a9019/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/27aeb3bf1bd84b14bacde2a97a0f042d/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "b956342570ee462ebae5e6cc7bda08c7",
+      "invocation_id": "210625a50b6f436fa1a9d50aa61a4ba8",
       "script_name": "pnr_dac_digital_route_corners.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corners.tcl",
         "scope": "repo"
       },
-      "script_sha256": "11d7b41570d8ff1cdf44ce6c55c3eb2fcfad07502668bd11d8ef2cce4acc9c00",
+      "script_sha256": "c0cf45e4da27fc7066265bebc19e866a44150031c80f792e7994e6296f3fd5ac",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corners_metrics.json",
         "scope": "repo"
@@ -146,31 +146,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b956342570ee462ebae5e6cc7bda08c7",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/210625a50b6f436fa1a9d50aa61a4ba8",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b956342570ee462ebae5e6cc7bda08c7/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/210625a50b6f436fa1a9d50aa61a4ba8/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b956342570ee462ebae5e6cc7bda08c7/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/210625a50b6f436fa1a9d50aa61a4ba8/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b956342570ee462ebae5e6cc7bda08c7/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/210625a50b6f436fa1a9d50aa61a4ba8/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "5a524e1e7ff14d3bb2c02636f4661640",
+      "invocation_id": "1e522d2ea39a4e93afb3289a26dca0ff",
       "script_name": "pnr_dac_digital_route_corner_ff_125C_1v98.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_125C_1v98.tcl",
         "scope": "repo"
       },
-      "script_sha256": "c1531b0b4e6983c719cb42202c94c099d9ea3abf9bfa83f287239f1da4763b64",
+      "script_sha256": "c7f5171aee6ada32d9b7382e9bdec0369e3c85e3dd1529d351805f3aee2cbb8b",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_125C_1v98_metrics.json",
         "scope": "repo"
@@ -178,31 +178,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5a524e1e7ff14d3bb2c02636f4661640",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1e522d2ea39a4e93afb3289a26dca0ff",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5a524e1e7ff14d3bb2c02636f4661640/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1e522d2ea39a4e93afb3289a26dca0ff/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5a524e1e7ff14d3bb2c02636f4661640/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1e522d2ea39a4e93afb3289a26dca0ff/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/5a524e1e7ff14d3bb2c02636f4661640/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1e522d2ea39a4e93afb3289a26dca0ff/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "4da686a849004ee29021295b468ac2f2",
+      "invocation_id": "138e917e82d9497da3f67a6fd6b5aa0e",
       "script_name": "pnr_dac_digital_route_corner_ff_125C_3v60.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_125C_3v60.tcl",
         "scope": "repo"
       },
-      "script_sha256": "40b039ebfc8dcdb10f51ac8331f9a32ea2a57487d99500d8ed192a8abc94e569",
+      "script_sha256": "b9165fafb59bdde02db17597d7f6d0aa068422b6be92d6a15af07fcd97619bff",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_125C_3v60_metrics.json",
         "scope": "repo"
@@ -210,31 +210,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4da686a849004ee29021295b468ac2f2",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/138e917e82d9497da3f67a6fd6b5aa0e",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4da686a849004ee29021295b468ac2f2/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/138e917e82d9497da3f67a6fd6b5aa0e/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4da686a849004ee29021295b468ac2f2/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/138e917e82d9497da3f67a6fd6b5aa0e/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4da686a849004ee29021295b468ac2f2/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/138e917e82d9497da3f67a6fd6b5aa0e/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "1ae97544ccda4748b9189609ffe5cd19",
+      "invocation_id": "2b06e3db46814a26bd86af5f0cfca449",
       "script_name": "pnr_dac_digital_route_corner_ff_125C_5v50.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_125C_5v50.tcl",
         "scope": "repo"
       },
-      "script_sha256": "66bc08adc5987a82d119267ea0f18bc07ad268a148898ddf2db13f1df3dfd5d3",
+      "script_sha256": "b25a2450cf7913d55813c935f0907993bdc6c858efc4fc344ca50f60ea6a64d7",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_125C_5v50_metrics.json",
         "scope": "repo"
@@ -242,31 +242,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1ae97544ccda4748b9189609ffe5cd19",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2b06e3db46814a26bd86af5f0cfca449",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1ae97544ccda4748b9189609ffe5cd19/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2b06e3db46814a26bd86af5f0cfca449/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1ae97544ccda4748b9189609ffe5cd19/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2b06e3db46814a26bd86af5f0cfca449/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1ae97544ccda4748b9189609ffe5cd19/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/2b06e3db46814a26bd86af5f0cfca449/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "b2f02cf777c649e8ab5f217b1e332ea3",
+      "invocation_id": "228c953c0fc047ddb30319eadd65f227",
       "script_name": "pnr_dac_digital_route_corner_ff_n40C_1v98.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_n40C_1v98.tcl",
         "scope": "repo"
       },
-      "script_sha256": "beea21bbada48a5b4798d9f2c56be51f561dd21a40b3068e6d3375c777f6ddf5",
+      "script_sha256": "17c36f52dd8b73518d57df6a3fe4e03081b9bc0515809aa1c9751c7440b01c77",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_n40C_1v98_metrics.json",
         "scope": "repo"
@@ -274,31 +274,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b2f02cf777c649e8ab5f217b1e332ea3",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/228c953c0fc047ddb30319eadd65f227",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b2f02cf777c649e8ab5f217b1e332ea3/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/228c953c0fc047ddb30319eadd65f227/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b2f02cf777c649e8ab5f217b1e332ea3/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/228c953c0fc047ddb30319eadd65f227/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b2f02cf777c649e8ab5f217b1e332ea3/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/228c953c0fc047ddb30319eadd65f227/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "fc7f2f1ba6f74643983ce4575bfe8ac6",
+      "invocation_id": "b3ebe0f41b3b4ef0b1cecf7a2dc2db4a",
       "script_name": "pnr_dac_digital_route_corner_ff_n40C_3v60.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_n40C_3v60.tcl",
         "scope": "repo"
       },
-      "script_sha256": "a9068f6df95234ca94206360356033ed89bac6bc0bbb7848b088d201dd65a8d7",
+      "script_sha256": "4f348b036c27d1d4003598c6386beffa35b1a05b2b5fb5940f0068473d323c90",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_n40C_3v60_metrics.json",
         "scope": "repo"
@@ -306,31 +306,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fc7f2f1ba6f74643983ce4575bfe8ac6",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b3ebe0f41b3b4ef0b1cecf7a2dc2db4a",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fc7f2f1ba6f74643983ce4575bfe8ac6/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b3ebe0f41b3b4ef0b1cecf7a2dc2db4a/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fc7f2f1ba6f74643983ce4575bfe8ac6/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b3ebe0f41b3b4ef0b1cecf7a2dc2db4a/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fc7f2f1ba6f74643983ce4575bfe8ac6/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/b3ebe0f41b3b4ef0b1cecf7a2dc2db4a/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "85514ada0edd495eb6dac4329c27055f",
+      "invocation_id": "454ca226632d4180ae05436f999cfbe0",
       "script_name": "pnr_dac_digital_route_corner_ff_n40C_5v50.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ff_n40C_5v50.tcl",
         "scope": "repo"
       },
-      "script_sha256": "a0e5c23f86f3040561be14cadc186cf7347a4fec3577d45400fb452a0764a366",
+      "script_sha256": "6618aade0badb8972bb8e1337b0fec3a692130adb558d57a954522bb0f20535c",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ff_n40C_5v50_metrics.json",
         "scope": "repo"
@@ -338,31 +338,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/85514ada0edd495eb6dac4329c27055f",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/454ca226632d4180ae05436f999cfbe0",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/85514ada0edd495eb6dac4329c27055f/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/454ca226632d4180ae05436f999cfbe0/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/85514ada0edd495eb6dac4329c27055f/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/454ca226632d4180ae05436f999cfbe0/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/85514ada0edd495eb6dac4329c27055f/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/454ca226632d4180ae05436f999cfbe0/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "6083a4fadddd425a9b5373af1eec735d",
+      "invocation_id": "f43ea2a320b8497c9b2613d8af34bacd",
       "script_name": "pnr_dac_digital_route_corner_ss_125C_1v62.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_125C_1v62.tcl",
         "scope": "repo"
       },
-      "script_sha256": "f50ce067bd203ed9a71a57cca40b1b54d870ef51ba8c5ca5b62af0c17fbf8f25",
+      "script_sha256": "f56d943fb4b6b9b8d99f56c23614339cdf20885b44cc17cf624933a4c7da51cc",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_125C_1v62_metrics.json",
         "scope": "repo"
@@ -370,31 +370,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/6083a4fadddd425a9b5373af1eec735d",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f43ea2a320b8497c9b2613d8af34bacd",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/6083a4fadddd425a9b5373af1eec735d/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f43ea2a320b8497c9b2613d8af34bacd/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/6083a4fadddd425a9b5373af1eec735d/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f43ea2a320b8497c9b2613d8af34bacd/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/6083a4fadddd425a9b5373af1eec735d/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f43ea2a320b8497c9b2613d8af34bacd/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "67c189b5ed3544f48e6807d3abefc3ea",
+      "invocation_id": "559d1e8f2a2f4b879995264ab56f594c",
       "script_name": "pnr_dac_digital_route_corner_ss_125C_3v00.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_125C_3v00.tcl",
         "scope": "repo"
       },
-      "script_sha256": "b53e5a008a59f62e9915e8481e24e4c2983a245a4b1fdeab00312efc9e25214b",
+      "script_sha256": "4547931f525ef2ce06f103ee9975691461491822911bc10be1507313dfdf8a45",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_125C_3v00_metrics.json",
         "scope": "repo"
@@ -402,31 +402,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/67c189b5ed3544f48e6807d3abefc3ea",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/559d1e8f2a2f4b879995264ab56f594c",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/67c189b5ed3544f48e6807d3abefc3ea/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/559d1e8f2a2f4b879995264ab56f594c/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/67c189b5ed3544f48e6807d3abefc3ea/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/559d1e8f2a2f4b879995264ab56f594c/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/67c189b5ed3544f48e6807d3abefc3ea/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/559d1e8f2a2f4b879995264ab56f594c/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "38d64642f5ee4675905a83602a8c9b9a",
+      "invocation_id": "4ef40d1010114cc18ab1547a93a6e9e0",
       "script_name": "pnr_dac_digital_route_corner_ss_125C_4v50.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_125C_4v50.tcl",
         "scope": "repo"
       },
-      "script_sha256": "e579373baf6959b806afff1adfd5ddcf6d3be7b6a2b9adb8547eb170c635674f",
+      "script_sha256": "c3c686927aa2ff3c34100d8bdb771e8f27cceedc080a3edeee5670b01c59541d",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_125C_4v50_metrics.json",
         "scope": "repo"
@@ -434,31 +434,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/38d64642f5ee4675905a83602a8c9b9a",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4ef40d1010114cc18ab1547a93a6e9e0",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/38d64642f5ee4675905a83602a8c9b9a/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4ef40d1010114cc18ab1547a93a6e9e0/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/38d64642f5ee4675905a83602a8c9b9a/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4ef40d1010114cc18ab1547a93a6e9e0/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/38d64642f5ee4675905a83602a8c9b9a/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/4ef40d1010114cc18ab1547a93a6e9e0/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "3a0358a1a2e54174a318626ac9d47e4e",
+      "invocation_id": "1d0fbfa1d81f400f9a3a63da7b11f2f3",
       "script_name": "pnr_dac_digital_route_corner_ss_n40C_1v62.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_n40C_1v62.tcl",
         "scope": "repo"
       },
-      "script_sha256": "6d02bb944d78af85d90d47af916ed8da703ec18259bca309bc27e938a739e0f9",
+      "script_sha256": "27a69b6df2c92183ca39d8522ca7473b858cdb55a6c03d7e2e4be3e92603fc13",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_n40C_1v62_metrics.json",
         "scope": "repo"
@@ -466,31 +466,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/3a0358a1a2e54174a318626ac9d47e4e",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1d0fbfa1d81f400f9a3a63da7b11f2f3",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/3a0358a1a2e54174a318626ac9d47e4e/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1d0fbfa1d81f400f9a3a63da7b11f2f3/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/3a0358a1a2e54174a318626ac9d47e4e/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1d0fbfa1d81f400f9a3a63da7b11f2f3/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/3a0358a1a2e54174a318626ac9d47e4e/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/1d0fbfa1d81f400f9a3a63da7b11f2f3/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "f482b81009ea4dd09fd1d375f30a618e",
+      "invocation_id": "62d31ed2e79b4a22bf3a54daad58735e",
       "script_name": "pnr_dac_digital_route_corner_ss_n40C_3v00.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_n40C_3v00.tcl",
         "scope": "repo"
       },
-      "script_sha256": "03827e2a236f2d7cb9f29169faacbfff920a70a27f96fedd12fae7dea20e8a6b",
+      "script_sha256": "2375369a3187665ef85337c023c15db9d59ae81750c7a20ac6c31232ecab413e",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_n40C_3v00_metrics.json",
         "scope": "repo"
@@ -498,31 +498,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f482b81009ea4dd09fd1d375f30a618e",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/62d31ed2e79b4a22bf3a54daad58735e",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f482b81009ea4dd09fd1d375f30a618e/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/62d31ed2e79b4a22bf3a54daad58735e/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f482b81009ea4dd09fd1d375f30a618e/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/62d31ed2e79b4a22bf3a54daad58735e/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/f482b81009ea4dd09fd1d375f30a618e/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/62d31ed2e79b4a22bf3a54daad58735e/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "73b71ed0c6b243c08348c10fd9eb8592",
+      "invocation_id": "70810cc3072943f3b05a1632bc6bf34e",
       "script_name": "pnr_dac_digital_route_corner_ss_n40C_4v50.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_ss_n40C_4v50.tcl",
         "scope": "repo"
       },
-      "script_sha256": "3217657c32c5e7283962149b817761394ed86ec802c454187bc2ea02dea4f425",
+      "script_sha256": "aba29b8254023946380c9c60a4be6c43264b00661be3871817fbbff927a79a1a",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_ss_n40C_4v50_metrics.json",
         "scope": "repo"
@@ -530,31 +530,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/73b71ed0c6b243c08348c10fd9eb8592",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/70810cc3072943f3b05a1632bc6bf34e",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/73b71ed0c6b243c08348c10fd9eb8592/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/70810cc3072943f3b05a1632bc6bf34e/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/73b71ed0c6b243c08348c10fd9eb8592/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/70810cc3072943f3b05a1632bc6bf34e/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/73b71ed0c6b243c08348c10fd9eb8592/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/70810cc3072943f3b05a1632bc6bf34e/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "8c107c1199564c4796f0b6fbf6cc4b09",
+      "invocation_id": "ca88080a977a4d10944baa6f66bd1d99",
       "script_name": "pnr_dac_digital_route_corner_tt_025C_1v80.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_tt_025C_1v80.tcl",
         "scope": "repo"
       },
-      "script_sha256": "0bd4744e8e73c350303c57f6ab9383f29619e2b1ed7cfe4d75e643f3b5328749",
+      "script_sha256": "0774e195a49ea9152ff69f83c6812e187295efad34d6d65238f353ec21fea7a2",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_tt_025C_1v80_metrics.json",
         "scope": "repo"
@@ -562,31 +562,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/8c107c1199564c4796f0b6fbf6cc4b09",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ca88080a977a4d10944baa6f66bd1d99",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/8c107c1199564c4796f0b6fbf6cc4b09/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ca88080a977a4d10944baa6f66bd1d99/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/8c107c1199564c4796f0b6fbf6cc4b09/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ca88080a977a4d10944baa6f66bd1d99/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/8c107c1199564c4796f0b6fbf6cc4b09/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ca88080a977a4d10944baa6f66bd1d99/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "fd7b2beab6494eb8b89d3011f3822c42",
+      "invocation_id": "9a77e0b4b21e484fb8a346f4d65666e6",
       "script_name": "pnr_dac_digital_route_corner_tt_025C_3v30.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_tt_025C_3v30.tcl",
         "scope": "repo"
       },
-      "script_sha256": "1f9ddfad1069847a7ade3bb870908dbdc555b3f5fb5e0b8dc404d0699bdaff20",
+      "script_sha256": "c8685499e7b26deea46f4b41349b428cd661b89cb8440889788b8a868136ea90",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_tt_025C_3v30_metrics.json",
         "scope": "repo"
@@ -594,31 +594,31 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fd7b2beab6494eb8b89d3011f3822c42",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9a77e0b4b21e484fb8a346f4d65666e6",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fd7b2beab6494eb8b89d3011f3822c42/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9a77e0b4b21e484fb8a346f4d65666e6/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fd7b2beab6494eb8b89d3011f3822c42/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9a77e0b4b21e484fb8a346f4d65666e6/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/fd7b2beab6494eb8b89d3011f3822c42/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/9a77e0b4b21e484fb8a346f4d65666e6/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
     },
     {
-      "invocation_id": "ff4b48f8b68c43d48e03b1e46bea474b",
+      "invocation_id": "722ce59852694c258b3bea713299652a",
       "script_name": "pnr_dac_digital_route_corner_tt_025C_5v00.tcl",
       "script_path": {
         "path": "layout/pnr/.klt/place-and-route/pnr_dac_digital_route_corner_tt_025C_5v00.tcl",
         "scope": "repo"
       },
-      "script_sha256": "2ef5cc600dc861e2b864d154a6d5b3db23216599719f8222ad7ed9d7c4b4a289",
+      "script_sha256": "63f68d3a6de20735a87652f7e8a9e58710408efd2200359f399d34401cfddf14",
       "metrics_path": {
         "path": "layout/pnr/.klt/place-and-route/dac_digital_route_corner_tt_025C_5v00_metrics.json",
         "scope": "repo"
@@ -626,19 +626,19 @@
       "outcome": "exited",
       "returncode": 0,
       "directory": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ff4b48f8b68c43d48e03b1e46bea474b",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/722ce59852694c258b3bea713299652a",
         "scope": "repo"
       },
       "stdout_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ff4b48f8b68c43d48e03b1e46bea474b/stdout.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/722ce59852694c258b3bea713299652a/stdout.log",
         "scope": "repo"
       },
       "stderr_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ff4b48f8b68c43d48e03b1e46bea474b/stderr.log",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/722ce59852694c258b3bea713299652a/stderr.log",
         "scope": "repo"
       },
       "metadata_path": {
-        "path": "layout/pnr/.klt/place-and-route/openroad-logs/ff4b48f8b68c43d48e03b1e46bea474b/invocation.json",
+        "path": "layout/pnr/.klt/place-and-route/openroad-logs/722ce59852694c258b3bea713299652a/invocation.json",
         "scope": "repo"
       },
       "retention_errors": []
@@ -667,17 +667,17 @@
   "interconnect_corner": "nom",
   "die_area_um2": 21329.1,
   "core_area_um2": 15243.5,
-  "utilization_pct": 46.5006,
-  "wirelength_um": 10358,
+  "utilization_pct": 48.5167,
+  "wirelength_um": 10674,
   "worst_slack_ns": 1e+39,
   "total_negative_slack_ns": 0,
-  "fmax_mhz": 168.36,
+  "fmax_mhz": 163.847,
   "setup_violation_count": 0,
   "hold_violation_count": 0,
   "nominal_hold_slack_ns": 1e+39,
   "antenna_violation_count": 0,
   "route_drc_violation_count": 0,
-  "estimated_power_mw": 2.7275,
+  "estimated_power_mw": 2.7577,
   "clock_skew_ns": 0,
   "worst_setup_slack_ns": 1e+39,
   "worst_hold_slack_ns": 1e+39,
@@ -868,8 +868,8 @@
       "total_overflow": 0,
       "max_horizontal_overflow": 0,
       "max_vertical_overflow": 0,
-      "usage_pct": 8.77,
-      "max_layer_usage_pct": 21.37,
+      "usage_pct": 8.89,
+      "max_layer_usage_pct": 21.05,
       "overflow_per_layer": {
         "Metal1": {
           "resource": 0,
@@ -880,25 +880,25 @@
           "total_overflow": 0
         },
         "Metal2": {
-          "resource": 3725,
-          "demand": 796,
-          "usage_pct": 21.37,
+          "resource": 4085,
+          "demand": 860,
+          "usage_pct": 21.05,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "Metal3": {
-          "resource": 3995,
-          "demand": 369,
-          "usage_pct": 9.24,
+          "resource": 4081,
+          "demand": 387,
+          "usage_pct": 9.48,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "Metal4": {
-          "resource": 3477,
-          "demand": 30,
-          "usage_pct": 0.86,
+          "resource": 3440,
+          "demand": 0,
+          "usage_pct": 0.0,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
@@ -916,12 +916,12 @@
       "max_gcell_usage_pct": null
     },
     "detailed_route": {
-      "first_iteration_drc_violation_count": 97,
+      "first_iteration_drc_violation_count": 66,
       "iteration_count": 4,
       "drc_violations_per_iteration": [
-        97,
-        33,
-        19,
+        66,
+        25,
+        11,
         0
       ],
       "converged": true
@@ -934,7 +934,7 @@
     "placement": {
       "total_routing_overflow": 0.0,
       "overflowed_tile_count": 0,
-      "final_weighted_congestion": 0.7131
+      "final_weighted_congestion": 0.5488
     },
     "null_reasons": {
       "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
@@ -951,7 +951,7 @@
       "name": "floorplan",
       "die_area_um2": 21329.1,
       "core_area_um2": 15243.5,
-      "utilization_pct": 44.4268,
+      "utilization_pct": 46.3278,
       "worst_slack_ns": 1e+39,
       "total_negative_slack_ns": 0,
       "timing_status": "unconstrained"
@@ -960,12 +960,12 @@
       "name": "place",
       "die_area_um2": 21329.1,
       "core_area_um2": 15243.5,
-      "utilization_pct": 43.4476,
+      "utilization_pct": 45.3485,
       "worst_slack_ns": 1e+39,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 8214.94,
-      "fmax_mhz": 666.302,
-      "estimated_power_mw": 1.697,
+      "wirelength_um": 8585.78,
+      "fmax_mhz": 667.745,
+      "estimated_power_mw": 1.6975,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
       "nominal_hold_slack_ns": 1e+39,
@@ -975,12 +975,12 @@
       "name": "cts",
       "die_area_um2": 21329.1,
       "core_area_um2": 15243.5,
-      "utilization_pct": 46.5006,
+      "utilization_pct": 48.5167,
       "worst_slack_ns": 1e+39,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 8792.81,
-      "fmax_mhz": 168.925,
-      "estimated_power_mw": 2.7192,
+      "wirelength_um": 9117.25,
+      "fmax_mhz": 164.481,
+      "estimated_power_mw": 2.7505,
       "clock_skew_ns": 0,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
@@ -991,12 +991,12 @@
       "name": "route",
       "die_area_um2": 21329.1,
       "core_area_um2": 15243.5,
-      "utilization_pct": 46.5006,
+      "utilization_pct": 48.5167,
       "worst_slack_ns": 1e+39,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 10358,
-      "fmax_mhz": 168.36,
-      "estimated_power_mw": 2.7275,
+      "wirelength_um": 10674,
+      "fmax_mhz": 163.847,
+      "estimated_power_mw": 2.7577,
       "clock_skew_ns": 0,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
@@ -1196,8 +1196,8 @@
           "total_overflow": 0,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
-          "usage_pct": 8.77,
-          "max_layer_usage_pct": 21.37,
+          "usage_pct": 8.89,
+          "max_layer_usage_pct": 21.05,
           "overflow_per_layer": {
             "Metal1": {
               "resource": 0,
@@ -1208,25 +1208,25 @@
               "total_overflow": 0
             },
             "Metal2": {
-              "resource": 3725,
-              "demand": 796,
-              "usage_pct": 21.37,
+              "resource": 4085,
+              "demand": 860,
+              "usage_pct": 21.05,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "Metal3": {
-              "resource": 3995,
-              "demand": 369,
-              "usage_pct": 9.24,
+              "resource": 4081,
+              "demand": 387,
+              "usage_pct": 9.48,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "Metal4": {
-              "resource": 3477,
-              "demand": 30,
-              "usage_pct": 0.86,
+              "resource": 3440,
+              "demand": 0,
+              "usage_pct": 0.0,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
@@ -1244,12 +1244,12 @@
           "max_gcell_usage_pct": null
         },
         "detailed_route": {
-          "first_iteration_drc_violation_count": 97,
+          "first_iteration_drc_violation_count": 66,
           "iteration_count": 4,
           "drc_violations_per_iteration": [
-            97,
-            33,
-            19,
+            66,
+            25,
+            11,
             0
           ],
           "converged": true
@@ -1262,7 +1262,7 @@
         "placement": {
           "total_routing_overflow": 0.0,
           "overflowed_tile_count": 0,
-          "final_weighted_congestion": 0.7131
+          "final_weighted_congestion": 0.5488
         },
         "null_reasons": {
           "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
@@ -1867,14 +1867,14 @@
   },
   "spef_sta": null,
   "power": {
-    "preset": "gf180mcu_7t_6M",
+    "preset": null,
     "pdn": true,
     "global_connect": true,
     "power_net": "VDD",
     "ground_net": "VSS",
     "tapcell_master": "gf180mcu_fd_sc_mcu7t5v0__filltie",
     "endcap_master": "gf180mcu_fd_sc_mcu7t5v0__endcap",
-    "tapcell_distance_um": 50,
+    "tapcell_distance_um": 20,
     "filler_masters": [
       "gf180mcu_fd_sc_mcu7t5v0__fill_64",
       "gf180mcu_fd_sc_mcu7t5v0__fill_32",
@@ -1904,16 +1904,13 @@
           "Metal1",
           "Metal4"
         ],
-        "max_columns": 5,
+        "max_columns": 1,
         "ongrid": [
           "Metal2",
           "Metal3",
           "Metal4"
         ],
-        "split_cuts": {
-          "layer": "Metal3",
-          "width_um": 0.128
-        }
+        "split_cuts": null
       },
       {
         "layers": [
@@ -1941,17 +1938,17 @@
       "unavailable_reason": null,
       "status": "complete",
       "missing": [],
-      "components": 725,
-      "tapcells": 33,
+      "components": 821,
+      "tapcells": 99,
       "endcaps": 62,
-      "fillers": 454,
+      "fillers": 484,
       "special_nets": [
         {
           "name": "VDD",
           "use": "POWER",
           "followpin_segments": 16,
-          "stripe_segments": 1975,
-          "other_segments": 48,
+          "stripe_segments": 151,
+          "other_segments": 96,
           "stripe_layers": [
             "Metal5",
             "Metal4",
@@ -1959,14 +1956,14 @@
             "Metal2",
             "Metal1"
           ],
-          "vias": 1971
+          "vias": 147
         },
         {
           "name": "VSS",
           "use": "GROUND",
           "followpin_segments": 16,
-          "stripe_segments": 1975,
-          "other_segments": 48,
+          "stripe_segments": 151,
+          "other_segments": 96,
           "stripe_layers": [
             "Metal5",
             "Metal4",
@@ -1974,7 +1971,7 @@
             "Metal2",
             "Metal1"
           ],
-          "vias": 1971
+          "vias": 147
         }
       ]
     }

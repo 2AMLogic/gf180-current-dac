@@ -28,8 +28,10 @@ Attestation: `evidence/item2-digital.json`, from `klt signoff --attest 2
 ## Request
 
 [`request.json`](request.json): gf180mcu 7-track 5 V library, `tt_025C_3v30`;
-40 % utilization with a 10 um core margin; PDN from klt's `gf180mcu_7t_6M`
-preset with tap cells every 50 um; clock `clk` at 10 ns (100 MS/s, the update
+40 % utilization with a 10 um core margin; PDN straps of klt's
+`gf180mcu_7t_6M` preset, spelled out without the preset's `connects` via
+tuning (see [`../drc/README.md`](../drc/README.md)), and tap cells every 20 um;
+clock `clk` at 10 ns (100 MS/s, the update
 rate row of `spec/target-spec.md`, which is still PROPOSED: re-check when it is
 ratified); pins on Metal3 (horizontal) and Metal2 (vertical).
 
@@ -42,16 +44,17 @@ the driver band is a placeholder; final abutment belongs to integration.
 
 Reported by the tool (`dac_digital.report.json`): route reached, 0 route DRC
 violations, 0 antenna violations, 0 max-transition/capacitance violations, PDN
-audit `complete` (33 tap cells, 62 endcaps, 454 fillers), die 21329 um^2,
-utilization 46.5 %.
+audit `complete` (99 tap cells, 62 endcaps, 484 fillers), die 21329 um^2,
+utilization 48.5 %.
 
 - **Timing is not closed, it is unconstrained.** The request has a clock but
   no input/output delays, and the spec has no I/O timing, so the tool reports
   `timing_status: unconstrained` and slack `1e39` at every corner. The
   `fmax_mhz` of 168.36 it prints is not a slack-checked result. Do not cite it
   as meeting 100 MS/s.
-- Layout-level DRC, LVS and extraction of this stream are other T1 items and
-  are not claimed. `route_drc_violation_count` is OpenROAD's router DRC, not
+- `klt drc` of this stream is item 3 (`../drc/README.md`: clean, with the
+  coverage gaps listed there). LVS and extraction are other T1 items and are
+  not claimed. `route_drc_violation_count` is OpenROAD's router DRC, not
   the `klt drc` deck. Metal density is not evaluated.
 - The attestation checks only that the stream reads, has a non-empty top cell
   and is on grid, plus the regeneration hash.

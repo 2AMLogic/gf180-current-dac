@@ -16,20 +16,33 @@ The curated deck is klt's own transcription, not the foundry's native deck.
 | Partition | Stream | Envelope | Status |
 |---|---|---|---|
 | analog | `layout/gf180-current-dac-analog.gds` (`dac_analog_layout`) | `evidence/item3-analog.json` | `clean`, 0 violations |
-| digital | `layout/pnr/dac_digital.gds` (`dac_digital`) | `evidence/item3-digital.json` | `violations`, 1952 |
+| digital | `layout/pnr/dac_digital.gds` (`dac_digital`) | `evidence/item3-digital.json` | `clean`, 0 violations |
 
-Item 3 grades **met for analog and unmet for digital**. Nothing was waived or
-filtered to change that.
+Item 3 grades **met for both partitions**. Nothing was waived or filtered.
 
-### Digital violations (`rule_counts`)
+### How the digital stream got to clean
 
-`metal2.ongrid.1` 384, `metal3.ongrid.1` 384, `via2.ongrid.1` 384,
-`via3.ongrid.1` 384, `metal4.ongrid.1` 24, `via2.width.1` 96,
-`via3.width.1` 96, `comp.tap_distance.nwell.mv.1` 101,
-`comp.tap_distance.psub.mv.1` 99. The ongrid/width findings sit on the router's
-metal2-4 and via2-3 shapes, and the tap-distance findings are inside the
-standard-cell flip-flops; both point at the P&R stream (#33), not the analog
-generator. Triage is a follow-up, not part of this item.
+The first digital stream (tapcells every 50 um, klt's `gf180mcu_7t_6M` PDN
+preset) reported 1952 violations. Triage, one single-unit run each:
+
+- `comp.tap_distance.{nwell,psub}.mv.1` (101 + 99): the foundry `dffq_1`
+  cell fails the same two rules on its own under this deck (6 violations
+  running `klt drc` on the cell in the PDK stream), so they depend on tap
+  density, not on the router. `tapcell.distance_um` 50 -> 20 in
+  `layout/pnr/request.json` cleared them (99 tap cells).
+- `metal{2,3,4}.ongrid.1`, `via{2,3}.ongrid.1`, `via{2,3}.width.1` (1752):
+  all on the PDN via arrays (`VIA_via2_3_*`) the preset's
+  `add_pdn_connect ... -split_cuts {Metal3 0.128}` tuning generates. The
+  request now spells the preset's three straps out explicitly (same
+  Metal1/Metal4/Metal5 width, pitch, offset) and omits the `connects` tuning
+  (`preset` and `connects` are mutually exclusive in klt, so dropping the
+  tuning means dropping the preset). That cleared all of them.
+
+Consequence: the PDN no longer carries the platform's `-split_cuts`/`-ongrid`
+tuning, which the preset adds for this exact DRC question; the deck here
+passes without it. Whether the preset's tuning is wrong for this deck, or
+the deck's ongrid/width on merged via arrays is the artefact, was not
+established; filed as 2AMLogic/klayout-tools#4348.
 
 ## Coverage disclosure (quoted from each envelope's `coverage` block)
 
@@ -48,5 +61,6 @@ generator. Triage is a follow-up, not part of this item.
 ### Digital
 
 - `coverage.layers_in_stream_without_rules`: 0/0, 21/10, 34/10, 36/10, 63/63,
-  81/10, 204/10
-- `coverage.rules_skipped`: see `evidence/item3-digital.json`
+  81/10, 204/10 (non-empty: the deck has no rule for these drawn layers)
+- `coverage.rules_skipped` (42): `bjt.separation.comp.1`, `cap_mk.ongrid.1`, `comp.separation.guard_ring_mk.1`, `comp.tap_distance.nwell.lv.1`, `comp.tap_distance.psub.lv.1`, `diode_mk.ongrid.1`, `dnwell.ongrid.1`, `drc_bjt.ongrid.1`, `efuse_mk.ongrid.1`, `esd.area.1`, `esd.holes_area.1`, `esd.overlap.comp.1`, `esd.separation.nplus.1`, `esd.separation.pplus.1`, `esd.space.1`, `esd.width.1`, `fusetop.ongrid.1`, `metal1.separation.guard_ring_mk.1`, `metal2.separation.guard_ring_mk.1`, `metal3.separation.guard_ring_mk.1`, `metal4.separation.guard_ring_mk.1`, `metal5.separation.guard_ring_mk.1`, `metaltop.ongrid.1`, `metaltop.separation.guard_ring_mk.1`, `metaltop.space.1`, `metaltop.width.1`, `mim.enclosing.fusetop.1`, `mim.enclosing.via4.1`, `mim.space.1`, `mim_l_mk.ongrid.1`, `nwell.separation.guard_ring_mk.1`, `pad.enclosing.metal5.1`, `pad.ongrid.1`, `plfuse.ongrid.1`, `poly2.enclosing.sab.1`, `poly2.separation.guard_ring_mk.1`, `res_mk.ongrid.1`, `resistor.ongrid.1`, `sab.ongrid.1`, `sab.separation.contact.1`, `sab.space.1`, `sab.width.1`
+- `coverage.layers_checked`: 21/0, 22/0, 30/0, 31/0, 32/0, 33/0, 34/0, 35/0, 36/0, 38/0, 40/0, 41/0, 42/0, 46/0, 55/0, 81/0, 112/1, 204/0

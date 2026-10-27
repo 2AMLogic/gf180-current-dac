@@ -24,7 +24,7 @@
     },
     "2.digital": {
       "file": "evidence/item2-digital.json",
-      "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
     },
     "3.analog": {
       "file": "evidence/item3-analog.json",
@@ -32,7 +32,7 @@
     },
     "3.digital": {
       "file": "evidence/item3-digital.json",
-      "content_hash": "sha256:65327fd20d978808d96c8ab4fb8b9225c6dc9a81ea9882762d9d720905ff1cab"
+      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
     }
   }
 }
