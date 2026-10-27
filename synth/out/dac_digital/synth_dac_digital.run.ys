@@ -1,0 +1,15 @@
+# Machine-local rehydration of 'synth_dac_digital.ys' (issue #1870): the PDK-root
+# placeholder has been substituted with this machine's resolved PDK
+# install root, so this file is runnable but NOT commit-safe. Commit
+# 'synth_dac_digital.ys' instead.
+read_verilog rtl/thermo_decoder.v
+read_verilog rtl/dac_digital.v
+hierarchy -check -top dac_digital
+synth -top dac_digital
+dfflibmap -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib
+tee -q -o synth/out/dac_digital/dac_digital_abc.log abc -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib -constr synth/out/dac_digital/dac_digital_abc.constr
+clean
+setundef -zero
+hilomap -hicell gf180mcu_fd_sc_mcu7t5v0__tieh Z -locell gf180mcu_fd_sc_mcu7t5v0__tiel ZN
+tee -q -o synth/out/dac_digital/dac_digital_stats.json stat -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib -json -top dac_digital
+write_verilog -noattr synth/out/dac_digital/dac_digital_synth.v

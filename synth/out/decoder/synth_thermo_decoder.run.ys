@@ -1,0 +1,14 @@
+# Machine-local rehydration of 'synth_thermo_decoder.ys' (issue #1870): the PDK-root
+# placeholder has been substituted with this machine's resolved PDK
+# install root, so this file is runnable but NOT commit-safe. Commit
+# 'synth_thermo_decoder.ys' instead.
+read_verilog rtl/thermo_decoder.v
+hierarchy -check -top thermo_decoder
+synth -top thermo_decoder
+dfflibmap -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib
+tee -q -o synth/out/decoder/thermo_decoder_abc.log abc -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib -constr synth/out/decoder/thermo_decoder_abc.constr
+clean
+setundef -zero
+hilomap -hicell gf180mcu_fd_sc_mcu7t5v0__tieh Z -locell gf180mcu_fd_sc_mcu7t5v0__tiel ZN
+tee -q -o synth/out/decoder/thermo_decoder_stats.json stat -liberty /home/ubuntu/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30.lib -json -top thermo_decoder
+write_verilog -noattr synth/out/decoder/thermo_decoder_synth.v

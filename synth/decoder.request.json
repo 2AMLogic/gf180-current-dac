@@ -1,0 +1,18 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "sources": [
+    "../rtl/thermo_decoder.v"
+  ],
+  "hdl_toplevel": "thermo_decoder",
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu7t5v0",
+    "corner": "tt_025C_3v30"
+  },
+  "constraints": {
+    "clock_period_ns": null
+  },
+  "outputs": {
+    "dir": "out/decoder"
+  }
+}

@@ -24,6 +24,12 @@ JSON_FILES = [
     "manifests/gf180-current-dac.signoff.json",
     "design/inventory-item1-analog.json",
     "evidence/item1-analog.json",
+    "design/inventory-item1-digital.json",
+    "evidence/item1-digital.json",
+    "synth/decoder.request.json",
+    "synth/decoder.report.json",
+    "synth/dac_digital.request.json",
+    "synth/dac_digital.report.json",
 ]
 TESTS = [
     [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],

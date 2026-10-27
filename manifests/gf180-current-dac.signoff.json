@@ -9,7 +9,7 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 1,
+  "t1_met_count": 2,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:3fadfde021edf03225e769da0390a8f3463c05f07aa5f39aa0043f962a9eca22",
   "build": {
@@ -68,10 +68,35 @@
       "partition_boundary": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs",
       "text": "committed RTL sources plus the synthesized gate-level netlist derived from them, regenerated on design change. For a hand-captured full-custom digital partition (no RTL, no synthesis step \u2014 see \"Full-custom digital sub-case\" above), this item is satisfied instead by the Analog column's artifact: committed schematic sources (or generator) plus the netlist derived from them, regenerated on design change, with every logic gate captured as a schematic exactly like an analog partition's.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item1-digital.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:514a4380249b2013d13c7ea0b32ad098d17982151426b4078c867334b376039d",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 1,
+          "path": {
+            "path": "design/inventory-item1-digital.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:514a4380249b2013d13c7ea0b32ad098d17982151426b4078c867334b376039d",
+          "input_verified": true,
+          "summary": "T1 item 1 (Design sources): 15/15 attestation checks passed (klt signoff --attest)",
+          "source": "design/inventory-item1-digital.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 15,
+            "passed_count": 15
+          }
+        }
+      }
     },
     {
       "tier": "T1",
