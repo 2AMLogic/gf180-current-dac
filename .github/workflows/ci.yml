@@ -19,6 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      # layout/gen_array.py needs the pip klayout pinned in layout/toolchain.json
+      - run: pip install klayout==0.30.12
       - run: python3 scripts/check_ci.py
 
   signoff:
@@ -32,6 +34,8 @@ jobs:
           python-version: "3.11"
       - name: Install uv
         run: pip install uv
+      # the item 10 attestation re-runs scripts/check_ci.py, which needs klayout
+      - run: pip install klayout==0.30.12
       # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.8.0).
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh

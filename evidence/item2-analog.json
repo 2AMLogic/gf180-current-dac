@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 2,
+  "summary": "analog-partition layout stream regenerated from layout/gen_array.py; byte-identical on a second run. Placement only, no routing.",
+  "source": "layout/gf180-current-dac-analog.gds",
+  "provenance": {
+    "klt_version": null,
+    "klayout_version": "0.30.12",
+    "pdk": "gf180mcuD",
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "layout/gf180-current-dac-analog.gds",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:bf0643cd3a181d17d49bd2c68872a1b58dbc1684f7ae5a265766acabc3941d7f"
+    },
+    "regeneration": {
+      "generator": "python3 layout/gen_array.py",
+      "regenerated_hash": "sha256:bf0643cd3a181d17d49bd2c68872a1b58dbc1684f7ae5a265766acabc3941d7f"
+    }
+  }
+}
