@@ -15,10 +15,18 @@
     "  klt_install              VCS URL pinned with @<sha>, never a branch.",
     "  klt_required_commands    every `klt <command>` this repo's runners use.",
     "  klt_last_verified_commit klt_install's commit, restated; update both.",
-    "  klayout_package_min      floor for the pip `klayout` package."
+    "  klayout_package_min      floor for the pip `klayout` package.",
+    "  klayout_package_pin      exact pip `klayout` that layout/gen_array.py's committed",
+    "                           stream was written with (CI installs this one; the byte",
+    "                           hash is only claimed for it).",
+    "",
+    "Issue #32: gen_array.py reads the committed layout/prims/*.gds and needs no",
+    "klt; `klt gen` (gen_prims.sh) and `klt diff` are used locally to refresh and",
+    "re-verify the primitives, `klt cells|stats` to inspect the stream."
   ],
   "klt_install": "git+https://github.com/2AMLogic/klayout-tools@b61f753d036932a252329c9b6d4673d9ac2801e7",
-  "klt_required_commands": ["drc"],
+  "klt_required_commands": ["drc", "gen", "diff", "cells", "stats"],
   "klt_last_verified_commit": "b61f753d036932a252329c9b6d4673d9ac2801e7",
-  "klayout_package_min": "0.30"
+  "klayout_package_min": "0.30",
+  "klayout_package_pin": "0.30.12"
 }

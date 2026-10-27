@@ -13,6 +13,14 @@
     "1.digital": {
       "file": "evidence/item1-digital.json",
       "content_hash": "sha256:514a4380249b2013d13c7ea0b32ad098d17982151426b4078c867334b376039d"
+    },
+    "10": {
+      "file": "evidence/item10.json",
+      "content_hash": "sha256:adeda6289b44dee3c5e4da40f836d61c8144bd7787dfee354c41652f74cd34cc"
+    },
+    "2.analog": {
+      "file": "evidence/item2-analog.json",
+      "content_hash": "sha256:bf0643cd3a181d17d49bd2c68872a1b58dbc1684f7ae5a265766acabc3941d7f"
     }
   }
 }
