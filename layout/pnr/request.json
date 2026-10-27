@@ -1,0 +1,49 @@
+{
+  "engine": "openroad",
+  "netlist": "../../synth/out/dac_digital/dac_digital_synth.v",
+  "hdl_toplevel": "dac_digital",
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu7t5v0",
+    "corner": "tt_025C_3v30"
+  },
+  "floorplan": {
+    "method": "utilization",
+    "utilization_pct": 40,
+    "site": "GF018hv5v_mcu_sc7",
+    "core_margin_um": 10
+  },
+  "power": {
+    "pdn": true,
+    "preset": "gf180mcu_7t_6M",
+    "tapcell": {
+      "distance_um": 50
+    }
+  },
+  "constraints": {
+    "clock_port": "clk",
+    "clock_period_ns": 10.0
+  },
+  "seed": 1,
+  "target_stage": "route",
+  "portable_paths": true,
+  "io": {
+    "layer_h": "Metal3",
+    "layer_v": "Metal2",
+    "pin_constraints": [
+      {
+        "pins": [
+          "t_q[*]",
+          "b_q[*]"
+        ],
+        "edge": "south"
+      },
+      {
+        "pins": [
+          "din[*]",
+          "clk"
+        ],
+        "edge": "north"
+      }
+    ]
+  }
+}

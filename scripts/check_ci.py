@@ -31,6 +31,9 @@ JSON_FILES = [
     "synth/dac_digital.request.json",
     "synth/dac_digital.report.json",
     "evidence/item2-analog.json",
+    "evidence/item2-digital.json",
+    "layout/pnr/request.json",
+    "layout/pnr/dac_digital.report.json",
     "layout/switching_sequence.json",
     "attest/item10.json",
 ]
