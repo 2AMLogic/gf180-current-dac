@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 1,
+  "summary": "T1 item 1 (Design sources): 15/15 attestation checks passed (klt signoff --attest)",
+  "source": "design/inventory-item1-digital.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 15,
+    "passed_count": 15,
+    "checks": [
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/dac_digital.v",
+        "passed": true,
+        "content_hash": "sha256:81d3f50951dabb704447ad6381e37c1309b038a7f8430a6436d71abb43390332"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/thermo_decoder.v",
+        "passed": true,
+        "content_hash": "sha256:feea0d8aa5ef4d14bfcc85c374f2472a1fbae71756c231cfe72321dfaeb7e058"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "synth/check_netlist_hash.py",
+        "passed": true,
+        "content_hash": "sha256:99de6ae686f28e5192f4300510a8e249d6b70b2c7de85a4e8dc8ffed5e063af8"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "synth/dac_digital.request.json",
+        "passed": true,
+        "content_hash": "sha256:6a80dd4a05b87e4c463f781204dc728e34a288c2e533dfc83d22038ed4a97f4e"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "synth/decoder.request.json",
+        "passed": true,
+        "content_hash": "sha256:adf7ef22a7df4ce50b8c433c85b743ec5a05196ea48b35c56c3f8aac76647608"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "verification/rtl/tb_dac_digital.result",
+        "passed": true,
+        "content_hash": "sha256:c1d4c8952cd49e5399ceb1258951ad4c2cb90c24ea79e9342312200943ff4c59"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "verification/rtl/tb_dac_digital.v",
+        "passed": true,
+        "content_hash": "sha256:ccd5b8eb257626bd151fa6a9e3c93ac00683bcae62dc0be85fd46d3cacfd7810"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "synth/dac_digital.report.json",
+        "passed": true,
+        "content_hash": "sha256:35d388f6d6ec91477fd4b0f59a5e39add30498deecb7ee97a02286049fec8eac"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "synth/decoder.report.json",
+        "passed": true,
+        "content_hash": "sha256:8a54803e407a8ffe17f71866abce1b510aa893d2bfd9b6fdf9a3ca7353d7388f"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "synth/out/dac_digital/dac_digital_synth.v",
+        "passed": true,
+        "content_hash": "sha256:a7609d822ab308a1627d9deab4989e203a9f5d1a9ebd45c4aa0e9e5598a2f16f"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "synth/out/decoder/thermo_decoder_synth.v",
+        "passed": true,
+        "content_hash": "sha256:fe07f1eda25e891278187cdc80f839b70fc1b21484a80452397bfcde36d0355d"
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "synth/dac_digital.report.json",
+        "generator": "klt synthesize --format json",
+        "argv": [
+          "klt",
+          "synthesize",
+          "synth/dac_digital.request.json",
+          "--pdk",
+          "gf180mcuD",
+          "--check",
+          "synth/dac_digital.report.json"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "synth/decoder.report.json",
+        "generator": "klt synthesize --format json",
+        "argv": [
+          "klt",
+          "synthesize",
+          "synth/decoder.request.json",
+          "--pdk",
+          "gf180mcuD",
+          "--check",
+          "synth/decoder.report.json"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "synth/out/dac_digital/dac_digital_synth.v",
+        "generator": "klt synthesize",
+        "argv": [
+          "python3",
+          "-I",
+          "synth/check_netlist_hash.py",
+          "synth/dac_digital.report.json",
+          "synth/out/dac_digital/dac_digital_synth.v"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "synth/out/decoder/thermo_decoder_synth.v",
+        "generator": "klt synthesize",
+        "argv": [
+          "python3",
+          "-I",
+          "synth/check_netlist_hash.py",
+          "synth/decoder.report.json",
+          "synth/out/decoder/thermo_decoder_synth.v"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "design/inventory-item1-digital.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:514a4380249b2013d13c7ea0b32ad098d17982151426b4078c867334b376039d"
+    }
+  }
+}

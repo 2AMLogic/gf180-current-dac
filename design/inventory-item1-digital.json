@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 1,
+  "description": "Digital partition design sources: thermometer decoder and retiming register RTL, klt synthesize requests, and the gate-level netlists derived from them (gf180mcu_fd_sc_mcu7t5v0 tt_025C_3v30). Existence and freshness only; no timing or performance claim.",
+  "sources": [
+    "rtl/thermo_decoder.v",
+    "rtl/dac_digital.v",
+    "synth/decoder.request.json",
+    "synth/dac_digital.request.json",
+    "synth/check_netlist_hash.py",
+    "verification/rtl/tb_dac_digital.v",
+    "verification/rtl/tb_dac_digital.result"
+  ],
+  "derived": [
+    {
+      "path": "synth/out/dac_digital/dac_digital_synth.v",
+      "generator": "klt synthesize",
+      "check": {
+        "argv": [
+          "python3",
+          "-I",
+          "synth/check_netlist_hash.py",
+          "synth/dac_digital.report.json",
+          "synth/out/dac_digital/dac_digital_synth.v"
+        ]
+      }
+    },
+    {
+      "path": "synth/dac_digital.report.json",
+      "generator": "klt synthesize --format json",
+      "check": {
+        "argv": [
+          "klt",
+          "synthesize",
+          "synth/dac_digital.request.json",
+          "--pdk",
+          "gf180mcuD",
+          "--check",
+          "synth/dac_digital.report.json"
+        ],
+        "local_only": true
+      }
+    },
+    {
+      "path": "synth/out/decoder/thermo_decoder_synth.v",
+      "generator": "klt synthesize",
+      "check": {
+        "argv": [
+          "python3",
+          "-I",
+          "synth/check_netlist_hash.py",
+          "synth/decoder.report.json",
+          "synth/out/decoder/thermo_decoder_synth.v"
+        ]
+      }
+    },
+    {
+      "path": "synth/decoder.report.json",
+      "generator": "klt synthesize --format json",
+      "check": {
+        "argv": [
+          "klt",
+          "synthesize",
+          "synth/decoder.request.json",
+          "--pdk",
+          "gf180mcuD",
+          "--check",
+          "synth/decoder.report.json"
+        ],
+        "local_only": true
+      }
+    }
+  ]
+}
