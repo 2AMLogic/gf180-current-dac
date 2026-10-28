@@ -13,19 +13,61 @@ path is relative to the report).
 
 | Partition | Layout | Reference | Verdict |
 |---|---|---|---|
-| analog | `layout/gf180-current-dac-analog.gds`, extracted inline (gf180mcu deck, ~5 min) | `design/analog/dac_analog.spice`, `form: subckt-call` | `mismatch`, 0 of 207 nets matched |
+| analog | `layout/gf180-current-dac-analog.gds`, extracted inline (gf180mcu deck, ~6 min) | `design/analog/dac_analog.spice`, `form: subckt-call` | `mismatch` (hierarchical reference vs flat layout, 0 nets matched); 72 of 72 pins extracted |
 | digital | `layout/pnr/dac_digital.gds`, extracted to `dac_digital.gate.spice` | `layout/pnr/dac_digital.asbuilt.v`, `form: gate-level-verilog` | `match`, 0 errors, `power_connectivity` = `match` |
 
 ## Analog
 
-The layout is placement only (`layout/README.md`: nothing wired, no pins, no
-labels), so the extraction finds 5046 devices on 15340 nets and one pin against
-72 reference pins and 207 nets; the top circuit and every sub-circuit report
-"could not be matched". The compare cannot succeed until routing and pins
-exist. Extraction at this array size finished (about 5 minutes, one core).
-The `body_unverified` warnings (4845 NMOS on the synthesized `vsubs`, 201 PMOS
-on anonymous wells) are listed with the claim: no substrate or well taps are
-drawn.
+**The routed and pinned stream (`layout/gen_array.py`, issue #51) extracts to
+72 pins against the reference's 72, 5046 devices and 2586 nets, with the body
+terminals resolved to real taps (`body_verification: verified`); the verdict
+is still `mismatch`, and the `match` is #35's gate.** The committed
+[`analog.report.json`](analog.report.json) is the unchanged
+[`analog.request.json`](analog.request.json) run on that stream (about 6 min,
+one core, one compare). It reads `mismatch` for a structural reason, not a
+connectivity one: the reference netlist is hierarchical (`bias`, `driver`,
+`elem_*`, `unit_cell`, ...) and the layout is extracted flat, so no circuit
+pairs ("circuit could not be matched", 10 errors) and 0 nets match.
+
+To see the residual under the compare, the same request with
+`flatten_reference: true` is committed as
+[`analog.flatref.request.json`](analog.flatref.request.json). It is a
+diagnostic run, one compare, about 6 min; its 1.0 MB report is not committed.
+Result, as the tool counts it:
+
+| | layout | reference | matched |
+|---|---|---|---|
+| devices | 5046 | 4646 | 4646 |
+| nets | 2586 | 2386 | 2385 |
+| pins | 72 | 72 | 72 |
+
+All 600 errors are layout-only: 400 `device.unmatched` (nfets) and 200
+`net.split`. They are 100 dummy cells: the layout has 133
+`dummy_cell` (132 ring + 1 filler) and the schematic 33 (32 ring placeholders
++ 1 filler), the placeholder `layout/README.md` lists under "Known gaps" and
+DR-0006 defers to the layout; 100 dummies x 4 nfets = 400 devices, and 100 x
+2 internal nets (`n1`, `n2`) = 200 nets. The 1056 `topology` warnings are
+ambiguous pairings among identical, symmetric units that the comparer resolved
+structurally. All 4646 reference devices found a layout device. Per-cell compares of `unit_cell`, `dummy_cell` and `driver`
+against their reference subcircuits are `match` (scratch requests, not
+committed); `bias` alone is not meaningful because its ten pairs only join at
+the top-level rails.
+
+The report gives no hint that `flatten_reference` is the fix; filed as
+2AMLogic/klayout-tools#4548.
+
+Nothing was edited, shrunk or waived to move a verdict: the reference netlist
+is the committed one. What closes it is outside this issue: the reference
+dummy count and the compare option (#35).
+
+### History: the placement-only report
+
+The previous `analog.report.json` (layout hash `bf0643cd...`, placement only)
+read `mismatch`, 0 of 207 nets matched, 5046 extracted devices on 15340 nets,
+1 pin against 72, `power_connectivity` unchecked, and `body_unverified`
+warnings for 4845 NMOS (on the synthesized `vsubs`) and 201 PMOS (anonymous
+wells), because nothing was wired and no tap was tied. It is in the git
+history; the numbers above replace it for the current stream.
 
 ## Digital
 
