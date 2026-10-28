@@ -41,7 +41,7 @@ instance.
 ```
 $ python3 design/count_netlist.py design/analog/dac_analog.spice
 unit_cell: 1023
-dummy_cell: 33
+dummy_cell: 133
 driver: 67
 bias: 1
 elem_1: 1 elements x 1 units = 1

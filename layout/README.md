@@ -153,11 +153,9 @@ connectivity extraction).
   (every M2-M5 wire is the 0.28 um minimum width, with no electromigration or
   IR check), clock and digital-side interface. The
   decoder is not connected to the `t` / `b` inputs: they are pins.
-- The schematic carries 33 `dummy_cell` (32 ring placeholders + 1 filler,
-  DR-0006); this layout has 133 (the real one-cell ring). The schematic count
-  is a placeholder that DR-0006 defers to the layout; until it is updated the
-  compare leaves 100 layout dummies unmatched (see the LVS README). That is
-  the issue-#35 gate, not changed here.
+- The schematic carries the same 133 `dummy_cell` as the layout (132 ring + 1
+  filler); the DR-0006 placeholder of 32 was replaced in issue #35 and the
+  analog LVS reads `match` (see the LVS README).
 - Unit-cell device positions inside the cell are a first arrangement
   ([DR-0007](../spec/decision-records/0007-analog-layout-assumptions.md)),
   not optimised for matching or routing.

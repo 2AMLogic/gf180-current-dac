@@ -1,4 +1,4 @@
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dac_analog.sch
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/dac_analog.sch
 .subckt dac_analog iref vdd vss outp outn t0 t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15
 + t16 t17 t18 t19 t20 t21 t22 t23 t24 t25 t26 t27 t28 t29 t30 t31 t32 t33 t34 t35 t36 t37 t38 t39 t40 t41
 + t42 t43 t44 t45 t46 t47 t48 t49 t50 t51 t52 t53 t54 t55 t56 t57 t58 t59 t60 t61 t62 b0 b1 b2 b3
@@ -242,11 +242,111 @@ xdum_r28 vss dummy_cell
 xdum_r29 vss dummy_cell
 xdum_r30 vss dummy_cell
 xdum_r31 vss dummy_cell
+xdum_r32 vss dummy_cell
+xdum_r33 vss dummy_cell
+xdum_r34 vss dummy_cell
+xdum_r35 vss dummy_cell
+xdum_r36 vss dummy_cell
+xdum_r37 vss dummy_cell
+xdum_r38 vss dummy_cell
+xdum_r39 vss dummy_cell
+xdum_r40 vss dummy_cell
+xdum_r41 vss dummy_cell
+xdum_r42 vss dummy_cell
+xdum_r43 vss dummy_cell
+xdum_r44 vss dummy_cell
+xdum_r45 vss dummy_cell
+xdum_r46 vss dummy_cell
+xdum_r47 vss dummy_cell
+xdum_r48 vss dummy_cell
+xdum_r49 vss dummy_cell
+xdum_r50 vss dummy_cell
+xdum_r51 vss dummy_cell
+xdum_r52 vss dummy_cell
+xdum_r53 vss dummy_cell
+xdum_r54 vss dummy_cell
+xdum_r55 vss dummy_cell
+xdum_r56 vss dummy_cell
+xdum_r57 vss dummy_cell
+xdum_r58 vss dummy_cell
+xdum_r59 vss dummy_cell
+xdum_r60 vss dummy_cell
+xdum_r61 vss dummy_cell
+xdum_r62 vss dummy_cell
+xdum_r63 vss dummy_cell
+xdum_r64 vss dummy_cell
+xdum_r65 vss dummy_cell
+xdum_r66 vss dummy_cell
+xdum_r67 vss dummy_cell
+xdum_r68 vss dummy_cell
+xdum_r69 vss dummy_cell
+xdum_r70 vss dummy_cell
+xdum_r71 vss dummy_cell
+xdum_r72 vss dummy_cell
+xdum_r73 vss dummy_cell
+xdum_r74 vss dummy_cell
+xdum_r75 vss dummy_cell
+xdum_r76 vss dummy_cell
+xdum_r77 vss dummy_cell
+xdum_r78 vss dummy_cell
+xdum_r79 vss dummy_cell
+xdum_r80 vss dummy_cell
+xdum_r81 vss dummy_cell
+xdum_r82 vss dummy_cell
+xdum_r83 vss dummy_cell
+xdum_r84 vss dummy_cell
+xdum_r85 vss dummy_cell
+xdum_r86 vss dummy_cell
+xdum_r87 vss dummy_cell
+xdum_r88 vss dummy_cell
+xdum_r89 vss dummy_cell
+xdum_r90 vss dummy_cell
+xdum_r91 vss dummy_cell
+xdum_r92 vss dummy_cell
+xdum_r93 vss dummy_cell
+xdum_r94 vss dummy_cell
+xdum_r95 vss dummy_cell
+xdum_r96 vss dummy_cell
+xdum_r97 vss dummy_cell
+xdum_r98 vss dummy_cell
+xdum_r99 vss dummy_cell
+xdum_r100 vss dummy_cell
+xdum_r101 vss dummy_cell
+xdum_r102 vss dummy_cell
+xdum_r103 vss dummy_cell
+xdum_r104 vss dummy_cell
+xdum_r105 vss dummy_cell
+xdum_r106 vss dummy_cell
+xdum_r107 vss dummy_cell
+xdum_r108 vss dummy_cell
+xdum_r109 vss dummy_cell
+xdum_r110 vss dummy_cell
+xdum_r111 vss dummy_cell
+xdum_r112 vss dummy_cell
+xdum_r113 vss dummy_cell
+xdum_r114 vss dummy_cell
+xdum_r115 vss dummy_cell
+xdum_r116 vss dummy_cell
+xdum_r117 vss dummy_cell
+xdum_r118 vss dummy_cell
+xdum_r119 vss dummy_cell
+xdum_r120 vss dummy_cell
+xdum_r121 vss dummy_cell
+xdum_r122 vss dummy_cell
+xdum_r123 vss dummy_cell
+xdum_r124 vss dummy_cell
+xdum_r125 vss dummy_cell
+xdum_r126 vss dummy_cell
+xdum_r127 vss dummy_cell
+xdum_r128 vss dummy_cell
+xdum_r129 vss dummy_cell
+xdum_r130 vss dummy_cell
+xdum_r131 vss dummy_cell
 .ends
 
 * expanding   symbol:  bias.sym # of pins=3
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/bias.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/bias.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/bias.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/bias.sch
 .subckt bias iref vss vbn
 *.iopin iref
 *.iopin vss
@@ -315,8 +415,8 @@ XMb9 vbn vbn vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.
 
 
 * expanding   symbol:  driver.sym # of pins=5
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/driver.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/driver.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/driver.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/driver.sch
 .subckt driver d vdd vss sp sn
 *.ipin d
 *.iopin vdd
@@ -345,8 +445,8 @@ XMn3 sn sp vss vss nfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u'
 
 
 * expanding   symbol:  elem_16.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_16.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_16.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_16.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_16.sch
 .subckt elem_16 vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas
@@ -375,8 +475,8 @@ xu15 vbn vcas sp sn vss outp outn unit_cell
 
 
 * expanding   symbol:  elem_1.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_1.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_1.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_1.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_1.sch
 .subckt elem_1 vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas
@@ -390,8 +490,8 @@ xu0 vbn vcas sp sn vss outp outn unit_cell
 
 
 * expanding   symbol:  elem_2.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_2.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_2.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_2.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_2.sch
 .subckt elem_2 vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas
@@ -406,8 +506,8 @@ xu1 vbn vcas sp sn vss outp outn unit_cell
 
 
 * expanding   symbol:  elem_4.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_4.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_4.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_4.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_4.sch
 .subckt elem_4 vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas
@@ -424,8 +524,8 @@ xu3 vbn vcas sp sn vss outp outn unit_cell
 
 
 * expanding   symbol:  elem_8.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_8.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/elem_8.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_8.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/elem_8.sch
 .subckt elem_8 vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas
@@ -446,8 +546,8 @@ xu7 vbn vcas sp sn vss outp outn unit_cell
 
 
 * expanding   symbol:  dummy_cell.sym # of pins=1
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dummy_cell.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/dummy_cell.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/dummy_cell.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/dummy_cell.sch
 .subckt dummy_cell vss
 *.iopin vss
 XM1 n1 vss vss vss nfet_03v3 L=10.3u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
@@ -466,8 +566,8 @@ XMsn vss vss n2 vss nfet_03v3 L=0.28u W=2.6u nf=1 ad='int((nf+1)/2) * W/nf * 0.1
 
 
 * expanding   symbol:  unit_cell.sym # of pins=7
-** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sym
-** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-30/design/analog/unit_cell.sch
+** sym_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/unit_cell.sym
+** sch_path: /home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-35/design/analog/unit_cell.sch
 .subckt unit_cell vbn vcas sp sn vss outp outn
 *.ipin vbn
 *.ipin vcas

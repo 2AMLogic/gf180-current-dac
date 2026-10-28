@@ -28,7 +28,7 @@ INVENTORY = ROOT / "design" / "inventory-item1-analog.json"
 N_UNARY = 63            # 6 unary bits -> 2^6 - 1 elements
 UNITS_PER_UNARY = 16    # 2^4 unit cells each
 BINARY_UNITS = [1, 2, 4, 8]
-N_RING_DUMMY = 32       # placeholder; the layout issue sets the real ring
+N_RING_DUMMY = 132      # one-cell ring of the real layout (layout/gen_array.py); was a 32 placeholder, DR-0006
 IREF_MIRROR_UNITS = 10  # reference leg: 10 unit sources (see DR-0006)
 
 # ---- device sizes (ASSUMED, DR-0006) ---------------------------------------
