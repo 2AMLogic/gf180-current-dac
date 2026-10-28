@@ -57,9 +57,20 @@
       "31/0",
       "32/0",
       "33/0",
-      "34/0"
+      "34/0",
+      "35/0",
+      "36/0",
+      "38/0",
+      "40/0",
+      "41/0",
+      "42/0",
+      "46/0",
+      "81/0"
     ],
-    "layers_in_stream_without_rules": [],
+    "layers_in_stream_without_rules": [
+      "42/10",
+      "46/10"
+    ],
     "rules_checked": [
       "comp.coverage.1",
       "comp.enclosing.contact.1",
@@ -72,9 +83,29 @@
       "contact.space.1",
       "contact.width.1",
       "metal1.enclosing.contact.1",
+      "metal1.enclosing.via1.1",
       "metal1.ongrid.1",
       "metal1.space.1",
       "metal1.width.1",
+      "metal2.enclosing.via1.1",
+      "metal2.enclosing.via2.1",
+      "metal2.ongrid.1",
+      "metal2.space.1",
+      "metal2.width.1",
+      "metal3.enclosing.via2.1",
+      "metal3.enclosing.via3.1",
+      "metal3.ongrid.1",
+      "metal3.space.1",
+      "metal3.width.1",
+      "metal4.enclosing.via3.1",
+      "metal4.enclosing.via4.1",
+      "metal4.ongrid.1",
+      "metal4.space.1",
+      "metal4.width.1",
+      "metal5.enclosing.via4.1",
+      "metal5.ongrid.1",
+      "metal5.space.1",
+      "metal5.width.1",
       "nplus.enclosing.comp.1",
       "nplus.enclosing.poly2.1",
       "nplus.ongrid.1",
@@ -95,7 +126,19 @@
       "pplus.ongrid.1",
       "pplus.space.1",
       "pplus.space.ncomp.1",
-      "pplus.width.1"
+      "pplus.width.1",
+      "via1.ongrid.1",
+      "via1.space.1",
+      "via1.width.1",
+      "via2.ongrid.1",
+      "via2.space.1",
+      "via2.width.1",
+      "via3.ongrid.1",
+      "via3.space.1",
+      "via3.width.1",
+      "via4.ongrid.1",
+      "via4.space.1",
+      "via4.width.1"
     ],
     "rules_skipped": [
       "bjt.separation.comp.1",
@@ -120,31 +163,11 @@
       "esd.space.1",
       "esd.width.1",
       "fusetop.ongrid.1",
-      "metal1.enclosing.via1.1",
       "metal1.separation.guard_ring_mk.1",
-      "metal2.enclosing.via1.1",
-      "metal2.enclosing.via2.1",
-      "metal2.ongrid.1",
       "metal2.separation.guard_ring_mk.1",
-      "metal2.space.1",
-      "metal2.width.1",
-      "metal3.enclosing.via2.1",
-      "metal3.enclosing.via3.1",
-      "metal3.ongrid.1",
       "metal3.separation.guard_ring_mk.1",
-      "metal3.space.1",
-      "metal3.width.1",
-      "metal4.enclosing.via3.1",
-      "metal4.enclosing.via4.1",
-      "metal4.ongrid.1",
       "metal4.separation.guard_ring_mk.1",
-      "metal4.space.1",
-      "metal4.width.1",
-      "metal5.enclosing.via4.1",
-      "metal5.ongrid.1",
       "metal5.separation.guard_ring_mk.1",
-      "metal5.space.1",
-      "metal5.width.1",
       "metaltop.ongrid.1",
       "metaltop.separation.guard_ring_mk.1",
       "metaltop.space.1",
@@ -164,19 +187,7 @@
       "sab.ongrid.1",
       "sab.separation.contact.1",
       "sab.space.1",
-      "sab.width.1",
-      "via1.ongrid.1",
-      "via1.space.1",
-      "via1.width.1",
-      "via2.ongrid.1",
-      "via2.space.1",
-      "via2.width.1",
-      "via3.ongrid.1",
-      "via3.space.1",
-      "via3.width.1",
-      "via4.ongrid.1",
-      "via4.space.1",
-      "via4.width.1"
+      "sab.width.1"
     ],
     "voltage_domain_warnings": [],
     "unchecked_rules": [],
@@ -312,9 +323,29 @@
       "contact.space.1",
       "contact.width.1",
       "metal1.enclosing.contact.1",
+      "metal1.enclosing.via1.1",
       "metal1.ongrid.1",
       "metal1.space.1",
       "metal1.width.1",
+      "metal2.enclosing.via1.1",
+      "metal2.enclosing.via2.1",
+      "metal2.ongrid.1",
+      "metal2.space.1",
+      "metal2.width.1",
+      "metal3.enclosing.via2.1",
+      "metal3.enclosing.via3.1",
+      "metal3.ongrid.1",
+      "metal3.space.1",
+      "metal3.width.1",
+      "metal4.enclosing.via3.1",
+      "metal4.enclosing.via4.1",
+      "metal4.ongrid.1",
+      "metal4.space.1",
+      "metal4.width.1",
+      "metal5.enclosing.via4.1",
+      "metal5.ongrid.1",
+      "metal5.space.1",
+      "metal5.width.1",
       "nplus.enclosing.comp.1",
       "nplus.enclosing.poly2.1",
       "nplus.ongrid.1",
@@ -335,7 +366,19 @@
       "pplus.ongrid.1",
       "pplus.space.1",
       "pplus.space.ncomp.1",
-      "pplus.width.1"
+      "pplus.width.1",
+      "via1.ongrid.1",
+      "via1.space.1",
+      "via1.width.1",
+      "via2.ongrid.1",
+      "via2.space.1",
+      "via2.width.1",
+      "via3.ongrid.1",
+      "via3.space.1",
+      "via3.width.1",
+      "via4.ongrid.1",
+      "via4.space.1",
+      "via4.width.1"
     ],
     "skipped": [],
     "inapplicable": [
@@ -428,23 +471,7 @@
         "reason": "no_applicable_geometry"
       },
       {
-        "id": "metal1.enclosing.via1.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
         "id": "metal1.separation.guard_ring_mk.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal2.enclosing.via1.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal2.enclosing.via2.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal2.ongrid.1",
         "reason": "no_applicable_geometry"
       },
       {
@@ -452,47 +479,7 @@
         "reason": "no_applicable_geometry"
       },
       {
-        "id": "metal2.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal2.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal3.enclosing.via2.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal3.enclosing.via3.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal3.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
         "id": "metal3.separation.guard_ring_mk.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal3.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal3.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal4.enclosing.via3.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal4.enclosing.via4.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal4.ongrid.1",
         "reason": "no_applicable_geometry"
       },
       {
@@ -500,31 +487,7 @@
         "reason": "no_applicable_geometry"
       },
       {
-        "id": "metal4.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal4.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal5.enclosing.via4.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal5.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
         "id": "metal5.separation.guard_ring_mk.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal5.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "metal5.width.1",
         "reason": "no_applicable_geometry"
       },
       {
@@ -606,54 +569,6 @@
       {
         "id": "sab.width.1",
         "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via1.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via1.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via1.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via2.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via2.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via2.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via3.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via3.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via3.width.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via4.ongrid.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via4.space.1",
-        "reason": "no_applicable_geometry"
-      },
-      {
-        "id": "via4.width.1",
-        "reason": "no_applicable_geometry"
       }
     ],
     "unknown": [],
@@ -677,7 +592,7 @@
       "released": true
     },
     "input": {
-      "content_hash": "sha256:bf0643cd3a181d17d49bd2c68872a1b58dbc1684f7ae5a265766acabc3941d7f",
+      "content_hash": "sha256:0a66ac7d1fb8605866e0c41a1de57af18d2f8aa85a4a04d19b1fcfece626510a",
       "role": "layout"
     },
     "klayout_version_mismatch": false
