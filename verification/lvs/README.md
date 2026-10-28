@@ -4,61 +4,43 @@ T1 item 4 (LVS) runs, one `klt lvs` request per partition, with the klt pinned
 in [`layout/toolchain.json`](../../layout/toolchain.json) (run through `uvx`;
 engine `klayout` 0.30.12). Both runs were single compares, no grid.
 
-**The digital partition is LVS clean (`status: match`); the analog partition
-is not (`status: mismatch`).** Both reports are committed as they came out.
-Nothing was edited, shrunk or waived to move a verdict, and no manifest entry
-cites these reports yet, so item 4 stays unmet until the analog half closes.
+**Both partitions are LVS clean (`status: match`).** Both reports are
+committed as they came out, and `manifests/gf180-current-dac.json` cites them
+as `4.analog` / `4.digital`. Nothing was shrunk or waived to move a verdict.
 `klt lvs --check` exits 0 on both (run it from this directory: the reference
-path is relative to the report).
+path is relative to the report). Both runs were single compares, no grid.
 
 | Partition | Layout | Reference | Verdict |
 |---|---|---|---|
-| analog | `layout/gf180-current-dac-analog.gds`, extracted inline (gf180mcu deck, ~6 min) | `design/analog/dac_analog.spice`, `form: subckt-call` | `mismatch` (hierarchical reference vs flat layout, 0 nets matched); 72 of 72 pins extracted |
+| analog | `layout/gf180-current-dac-analog.gds`, extracted inline (gf180mcu deck, ~6 min) | `design/analog/dac_analog.spice`, `form: subckt-call` | `match` (`flatten_reference: true`, 133 dummies on both sides); 72 of 72 pins extracted |
 | digital | `layout/pnr/dac_digital.gds`, extracted to `dac_digital.gate.spice` | `layout/pnr/dac_digital.asbuilt.v`, `form: gate-level-verilog` | `match`, 0 errors, `power_connectivity` = `match` |
 
 ## Analog
 
-**The routed and pinned stream (`layout/gen_array.py`, issue #51) extracts to
-72 pins against the reference's 72, 5046 devices and 2586 nets, with the body
-terminals resolved to real taps (`body_verification: verified`); the verdict
-is still `mismatch`, and the `match` is #35's gate.** The committed
-[`analog.report.json`](analog.report.json) is the unchanged
-[`analog.request.json`](analog.request.json) run on that stream (about 6 min,
-one core, one compare). It reads `mismatch` for a structural reason, not a
-connectivity one: the reference netlist is hierarchical (`bias`, `driver`,
-`elem_*`, `unit_cell`, ...) and the layout is extracted flat, so no circuit
-pairs ("circuit could not be matched", 10 errors) and 0 nets match.
+The routed and pinned stream (`layout/gen_array.py`, issue #51) extracts to 72
+pins against the reference's 72, 5046 devices and 2586 nets, with the body
+terminals resolved to real taps. [`analog.request.json`](analog.request.json)
+is one compare, about 6 min on one core, and reads `match`. Two things moved
+it from the earlier `mismatch`, neither a waiver:
 
-To see the residual under the compare, the same request with
-`flatten_reference: true` is committed as
-[`analog.flatref.request.json`](analog.flatref.request.json). It is a
-diagnostic run, one compare, about 6 min; its 1.0 MB report is not committed.
-Result, as the tool counts it:
+- **`options.flatten_reference: true`.** The reference netlist is hierarchical
+  (`bias`, `driver`, `elem_*`, `unit_cell`, ...) and the layout is extracted
+  flat, so without it no circuit pairs and 0 nets match. The report gives no
+  hint of that; filed as 2AMLogic/klayout-tools#4548.
+- **Reference dummy count 33 -> 133.** `design/gen_analog.py` carried
+  `N_RING_DUMMY = 32` as a placeholder that DR-0006 defers to the layout; the
+  layout's one-cell ring is 132 plus the filler. The constant is now 132, the
+  schematic and `dac_analog.spice` are regenerated (`klt netlist`) and the
+  item-1 attestation is refreshed. The array of 1023 live unit cells is
+  unchanged; only the ring placeholders grew. Before this, the flat compare
+  left exactly the 100 extra layout dummies unmatched (400 `device.unmatched`,
+  200 `net.split`, all layout-only).
 
-| | layout | reference | matched |
-|---|---|---|---|
-| devices | 5046 | 4646 | 4646 |
-| nets | 2586 | 2386 | 2385 |
-| pins | 72 | 72 | 72 |
-
-All 600 errors are layout-only: 400 `device.unmatched` (nfets) and 200
-`net.split`. They are 100 dummy cells: the layout has 133
-`dummy_cell` (132 ring + 1 filler) and the schematic 33 (32 ring placeholders
-+ 1 filler), the placeholder `layout/README.md` lists under "Known gaps" and
-DR-0006 defers to the layout; 100 dummies x 4 nfets = 400 devices, and 100 x
-2 internal nets (`n1`, `n2`) = 200 nets. The 1056 `topology` warnings are
-ambiguous pairings among identical, symmetric units that the comparer resolved
-structurally. All 4646 reference devices found a layout device. Per-cell compares of `unit_cell`, `dummy_cell` and `driver`
-against their reference subcircuits are `match` (scratch requests, not
-committed); `bias` alone is not meaningful because its ten pairs only join at
-the top-level rails.
-
-The report gives no hint that `flatten_reference` is the fix; filed as
-2AMLogic/klayout-tools#4548.
-
-Nothing was edited, shrunk or waived to move a verdict: the reference netlist
-is the committed one. What closes it is outside this issue: the reference
-dummy count and the compare option (#35).
+`power_connectivity` is `unchecked` for this report: the reference form is
+`subckt-call`, whose netlist carries its own supply pins and nets, so they take
+part in the ordinary compare and the signal-only power check does not apply.
+That is "does not apply", not "verified"; no rail-continuity or IR claim is
+made from this report.
 
 ### History: the placement-only report
 

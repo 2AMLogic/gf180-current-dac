@@ -14,6 +14,7 @@
     "deck": "gf180mcu"
   },
   "options": {
-    "keep_extracted": true
+    "keep_extracted": true,
+    "flatten_reference": true
   }
 }

@@ -33,6 +33,14 @@
     "3.digital": {
       "file": "evidence/item3-digital.json",
       "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
+    },
+    "4.analog": {
+      "file": "verification/lvs/analog.report.json",
+      "content_hash": "sha256:0a66ac7d1fb8605866e0c41a1de57af18d2f8aa85a4a04d19b1fcfece626510a"
+    },
+    "4.digital": {
+      "file": "verification/lvs/digital.report.json",
+      "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87"
     }
   }
 }
