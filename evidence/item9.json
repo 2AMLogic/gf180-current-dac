@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 9,
+  "summary": "T1 item 9 (Testbenches shipped): 10/10 attestation checks passed (klt signoff --attest)",
+  "source": "attest/item9.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 10,
+    "passed_count": 10,
+    "checks": [
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/smoke/cs_tb.spice",
+        "passed": true,
+        "content_hash": "sha256:7aed03bb20358ddfb81a6161351f4bfd5eaad2b4de3a717e1724b6177c99239c"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/smoke/cs_tb_mc.spice",
+        "passed": true,
+        "content_hash": "sha256:a9ad8cfcffa1612530389c201236a76e20884b7354df7ad02e462d622f9e0c25"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/smoke/request-corners.json",
+        "passed": true,
+        "content_hash": "sha256:048958effd025379620813efda01c86c27d681736d35ac9f78016dbfe0b6152d"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "sim/smoke/request-mc.json",
+        "passed": true,
+        "content_hash": "sha256:8eb779a8498a6f69eb21e204e59cc9b6a8caf230683bd823149b5b06ac202305"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "spec/sizing/probe/instance_inst.sp",
+        "passed": true,
+        "content_hash": "sha256:dce89e0846309adc008f5210fffe545a5e1f693579c2c764da10290453b9409c"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "spec/sizing/probe/instance_m.sp",
+        "passed": true,
+        "content_hash": "sha256:6cfcf0e6b40b502e7a868fb84afcc54016d2a5f958d37f2c1d449ce970d223da"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "spec/sizing/size.py",
+        "passed": true,
+        "content_hash": "sha256:ac1e5fdbf790d016100375dbeb00f7c73c0ce4f51473edcf77a1500a2fcc5c42"
+      },
+      {
+        "check": "command",
+        "role": "cold_start",
+        "argv": [
+          "python3",
+          "-m",
+          "sim.harness",
+          "run",
+          "smoke"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "pin",
+        "role": "pdk",
+        "passed": true,
+        "value": {
+          "name": "gf180mcuD",
+          "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+        }
+      },
+      {
+        "check": "pin",
+        "role": "tools",
+        "passed": true,
+        "value": {
+          "klt": "0.9.0",
+          "ngspice": "46",
+          "python": "3.12"
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "attest/item9.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:f585ada9bc9f42555c02f48adae8c681aaff22b523c0397edb23cd1265adc64d"
+    }
+  }
+}

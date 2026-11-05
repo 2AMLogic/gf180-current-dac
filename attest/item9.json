@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 9,
+  "description": "Testbenches behind claimed numbers. SPICE benches back SIMULATED numbers (ngspice, gf180mcuD models); spec/sizing/size.py is a stdlib model and backs MODELLED numbers only. Nothing here is a measurement. Static-linearity, SFDR and decoder benches are added as they land (#30 / #31).",
+  "testbenches": [
+    "sim/smoke/cs_tb.spice",
+    "sim/smoke/cs_tb_mc.spice",
+    "sim/smoke/request-corners.json",
+    "sim/smoke/request-mc.json",
+    "spec/sizing/probe/instance_m.sp",
+    "spec/sizing/probe/instance_inst.sp",
+    "spec/sizing/size.py"
+  ],
+  "cold_start": {
+    "argv": ["python3", "-m", "sim.harness", "run", "smoke"],
+    "local_only": true
+  },
+  "pins": {
+    "pdk": {"name": "gf180mcuD", "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"},
+    "tools": {"ngspice": "46", "python": "3.12", "klt": "0.9.0"}
+  }
+}

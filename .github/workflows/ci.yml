@@ -36,8 +36,11 @@ jobs:
         run: pip install uv
       # the item 10 attestation re-runs scripts/check_ci.py, which needs klayout
       - run: pip install klayout==0.30.12
-      # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.8.0).
+      # Pin lives in scripts/check_signoff.sh (KLT_PIN, default 0.9.0).
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh
       - name: Re-attest item 10 (repo hygiene) and compare against the committed envelope
-        run: uvx --from klayout-tools==0.8.0 klt signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
+        run: uvx --from klayout-tools==0.9.0 klt signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
+      # cold_start is local_only (needs ngspice >= 46 and the batch fleet), so --check skips it
+      - name: Re-attest item 9 (testbench inventory) and compare against the committed envelope
+        run: uvx --from klayout-tools==0.9.0 klt signoff --attest 9 --inventory attest/item9.json --check evidence/item9.json
