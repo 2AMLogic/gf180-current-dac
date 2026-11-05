@@ -87,12 +87,12 @@ measurements/  silicon characterization (empty until tape-out)
 
 Every committed record, with the command that regenerates or re-checks it.
 Run from the repo root. `klt` is used through a throwaway environment at the
-pinned version (`KLT_PIN`, currently 0.8.0, set in
+pinned version (`KLT_PIN`, currently 0.9.0, set in
 [`scripts/check_signoff.sh`](scripts/check_signoff.sh)); do not rely on a
 host-installed `klt`.
 
 ```
-KLT="uvx --from klayout-tools==0.8.0 klt"
+KLT="uvx --from klayout-tools==0.9.0 klt"
 ```
 
 | Record | Command |
@@ -106,6 +106,7 @@ KLT="uvx --from klayout-tools==0.8.0 klt"
 | Analog schematics, symbols and netlists under `design/analog/` | `python3 design/gen_analog.py` (`--check` verifies); netlists via `$KLT netlist <sch> -o <spice> --rcfile design/analog/xschemrc` |
 | Item 1 attestation [`evidence/item1-analog.json`](evidence/item1-analog.json) | `$KLT signoff --attest 1 --inventory design/inventory-item1-analog.json -o evidence/item1-analog.json` |
 | Analog layout stream [`layout/gf180-current-dac-analog.gds`](layout/gf180-current-dac-analog.gds) and item 2 envelope `evidence/item2-analog.json` (placed, routed and pinned; not extracted or simulated) | `python3 layout/gen_array.py` (`--check` verifies stream, envelope and switching table; needs pip `klayout==0.30.12`). Device primitives: `layout/gen_prims.sh` (local, needs the PDK) |
+| Item 9 attestation `evidence/item9.json` (testbench inventory; its `cold_start` re-runs the smoke through the batch fleet, so the client klt must match the fleet runner's) | `$KLT signoff --attest 9 --inventory attest/item9.json -o evidence/item9.json`; verify with `--check evidence/item9.json` (skips the `local_only` cold start) |
 | Item 10 attestation `evidence/item10.json` | `$KLT signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json`; verify with `--check evidence/item10.json` |
 | Signoff verdict [`manifests/gf180-current-dac.signoff.json`](manifests/gf180-current-dac.signoff.json) | `scripts/check_signoff.sh` regrades the manifest and fails if the record is stale |
 

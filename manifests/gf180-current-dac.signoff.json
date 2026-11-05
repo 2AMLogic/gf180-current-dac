@@ -9,17 +9,17 @@
   "tier": null,
   "t1_item_count": 22,
   "build_t1_item_count": 22,
-  "t1_met_count": 12,
+  "t1_met_count": 14,
   "source_doc": "manifests/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:3fadfde021edf03225e769da0390a8f3463c05f07aa5f39aa0043f962a9eca22",
   "build": {
-    "version": "0.8.0",
-    "package_version": "0.8.0",
-    "git_commit": "c572046be644e0407f693f2410f3abb799d68a3a",
-    "git_tag": "v0.8.0",
+    "version": "0.9.0",
+    "package_version": "0.9.0",
+    "git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "git_tag": "v0.9.0",
     "dirty": false,
     "is_release": true,
-    "grading_ruleset_id": "sha256:46c446d84423b7399ee1cf957b3d49801ae4f42a0bda53da92f435776cf977c4"
+    "grading_ruleset_id": "sha256:22c42b66c4d1f99b5c00f6bf53d80b20fa8365860d857a921508ca5ab5f3771b"
   },
   "items": [
     {
@@ -528,10 +528,35 @@
       "partition_boundary": "current-cell array (unary MSB and binary LSB cells, dummies), cell switches and switch drivers, array bias, differential output: the matched current array and everything that steers or carries its current",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item9.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:f585ada9bc9f42555c02f48adae8c681aaff22b523c0397edb23cd1265adc64d",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "attest/item9.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:f585ada9bc9f42555c02f48adae8c681aaff22b523c0397edb23cd1265adc64d",
+          "input_verified": true,
+          "summary": "T1 item 9 (Testbenches shipped): 10/10 attestation checks passed (klt signoff --attest)",
+          "source": "attest/item9.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 10,
+            "passed_count": 10
+          }
+        }
+      }
     },
     {
       "tier": "T1",
@@ -541,10 +566,35 @@
       "partition_boundary": "thermometer decoder and retiming latches: the synthesized logic that turns the input code into per-cell switch controls, ending at the switch-driver inputs",
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "unmet",
-      "reason": "no_evidence",
+      "status": "met",
+      "reason": null,
       "graded_by_build": true,
-      "citation": null
+      "citation": {
+        "file": "evidence/item9.json",
+        "command": null,
+        "kind": "generic",
+        "check_status": "pass",
+        "content_hash": "sha256:f585ada9bc9f42555c02f48adae8c681aaff22b523c0397edb23cd1265adc64d",
+        "input_verified": true,
+        "exit_status": 0,
+        "artifact_binding": {
+          "t1_item": 9,
+          "path": {
+            "path": "attest/item9.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:f585ada9bc9f42555c02f48adae8c681aaff22b523c0397edb23cd1265adc64d",
+          "input_verified": true,
+          "summary": "T1 item 9 (Testbenches shipped): 10/10 attestation checks passed (klt signoff --attest)",
+          "source": "attest/item9.json",
+          "attestation": {
+            "producer": "klt signoff --attest",
+            "inventory_schema_version": 1,
+            "check_count": 10,
+            "passed_count": 10
+          }
+        }
+      }
     },
     {
       "tier": "T1",
