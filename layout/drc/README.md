@@ -3,9 +3,11 @@
 `klt drc --deck gf180mcu --pdk gf180mcuD` on each partition stream, one
 single-unit run per stream, unmodified tool output (no waivers, no rule
 selection). Regenerate with `layout/drc/run.sh`; `layout/drc/run.sh --check`
-re-hashes the committed GDS and deck against the envelopes. klt is the pin in
-`layout/toolchain.json` (`0.8.1.dev86+gf9039fd7244e`); CI grades the manifest
-with `klayout-tools==0.8.0`, which accepts these envelopes.
+re-hashes the committed GDS and deck against the envelopes. the committed
+reports were produced by klt `0.8.1.dev86+gf9039fd7244e` (the pin in
+`layout/toolchain.json`, recorded in each envelope); they were not re-run for
+the newer pin. `scripts/check_signoff.sh` now grades the manifest with
+`klayout-tools==0.9.0` (`KLT_PIN`), which accepts these envelopes.
 
 Deck: `gf180mcu`, content hash
 `sha256:0eb6df1bafc5106ec50bd58479dbd7cda36bb685f1ef18cd3a2244a6e7e48666`.

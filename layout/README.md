@@ -7,7 +7,7 @@ connectivity of [`design/analog/dac_analog.spice`](../design/analog/dac_analog.s
 the 72 reference pins are labelled on the top cell, and the substrate and well
 taps are tied. It is generated, not drawn (see "Wiring"). What is still not
 done is listed under "Still not wired". DRC is `clean` on this stream
-([`drc/README.md`](drc/README.md)); the LVS verdict is not `match` yet
+([`drc/README.md`](drc/README.md)); LVS is `match` on both partitions
 ([`../verification/lvs/README.md`](../verification/lvs/README.md)); power
 delivery, post-layout extraction and any INL / DNL number are not claimed.
 
