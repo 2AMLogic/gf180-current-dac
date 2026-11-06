@@ -7,7 +7,7 @@ thermometer-decoded control word — designed by AI agents driving
 [klayout-tools](https://github.com/2AMLogic/klayout-tools), xschem + ngspice
 on the analog side and cocotb + Icarus, Yosys/OpenROAD for the decoder.
 
-**Status: just opened, specification phase.** Nothing is designed yet.
+**Status: design and layout evidenced, spec not yet ratified.** Design sources, layout, DRC, LVS, testbenches, hygiene and supply ERC are evidenced for both partitions; the verdict of record is [`manifests/gf180-current-dac.signoff.json`](manifests/gf180-current-dac.signoff.json). Corner, Monte Carlo, post-layout and characterization results (items 5–8) wait on spec ratification (#2).
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
@@ -47,7 +47,7 @@ timing skew of the decoder all show up in the spectrum.
   biased from and `gf180-opamp` an amplifier a bias loop may need. Adopt them
   or record why not.
 
-## Target specification (PROPOSED — awaiting operator ratification, see issue #1)
+## Target specification (PROPOSED — awaiting operator ratification, see issue #2)
 
 Full table with min/typ/max, grading conditions and corners:
 [`spec/target-spec.md`](spec/target-spec.md). It becomes ratified when the
@@ -69,7 +69,7 @@ until then each row is a proposal.
 Maturity ladder: spec ratified → array sizing and switching sequence
 recorded → schematic simulated across PVT and mismatch → array layout
 DRC/LVS-clean → post-layout re-verification → shuttle seat → measured
-silicon. **Current position: spec drafted, proposed, not ratified.**
+silicon. **Current position: spec proposed, not ratified; layout, DRC and LVS evidenced for both partitions (see the signoff record); corner, mismatch and post-layout results not yet produced.**
 
 ## Repo layout
 
