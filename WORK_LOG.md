@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-10-25
+
+- **PR #23**: ratification: install ee-key and market-key reviewer trees; align spec review wording
+- **Issue #21** (closed): Install the EE-key and market-key ratification reviewer trees (2am#5346 stage 2)
+
 ### 2026-10-24
 
 - **PR #26**: ci: run harness and spec tests in check_ci.py, drop inert hooks
