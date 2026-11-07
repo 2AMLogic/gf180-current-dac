@@ -11,6 +11,7 @@ Status of the whole set: **PROPOSED** until the operator ratifies
 | [`sensitivity-plan.md`](sensitivity-plan.md) | review of DR-0003's gradient assumption and a proposed (unrun) sensitivity matrix over gradient, random mismatch, omitted contributions, placement and sequence |
 | [`interface-evidence.md`](interface-evidence.md) | what the pinned `gf180-bandgap` and `gf180-opamp` commits expose (reference, loading, common-mode, output drive, noise, PSRR) against what the array needs; open items and one conflict (proposal; review outcome pending) |
 | [`validation-plan.md`](validation-plan.md) | bounded validation plan: per question the evidence, resource estimate, sample/request/retry caps and stop condition; every item unrun and needing separate authorization |
+| [`ratification-packet.md`](ratification-packet.md) | pointer index for the key reviews and the operator: records, spec rows, evidence, and what ratification edits; ratifies nothing |
 | [`reviews/0001-engineering-and-market.md`](reviews/0001-engineering-and-market.md) | engineering and market review record; template, outcome `pending`, to be filled by the EE key and the market key (non-author agent reviewers) before the operator ratifies |
 | [`sizing/size.py`](sizing/size.py) | sizing model; `python3 spec/sizing/size.py` regenerates [`sizing/sizing-output.md`](sizing/sizing-output.md), `--check` diffs against it |
 | [`sizing/instance-independence-probe.md`](sizing/instance-independence-probe.md) | one-corner probe: PDK mismatch is drawn per instance, `m=N` does not average |
