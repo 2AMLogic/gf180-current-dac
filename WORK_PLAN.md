@@ -13,14 +13,13 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
 - **#2**: Draft and ratify the target spec
-- **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
 
 ## Ready
 
@@ -32,13 +31,13 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#29**: docs(spec): add ratification packet for the key reviews
 
 ## Approved (Awaiting Merge)
 
@@ -52,6 +51,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -66,13 +66,13 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
-| Important | 2 |
+| Very important | 1 |
+| Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
-| PRs awaiting review | 0 |
+| In Progress (`loom:building`) | 1 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 2 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
