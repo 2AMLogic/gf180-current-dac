@@ -29,3 +29,4 @@ A ratified record is never deleted or rewritten; supersede it with a new one.
 | [0005](decision-records/0005-bias-loop-amplifier-gf180-opamp.md) | Bias-loop amplifier: adopt gf180-opamp | proposed |
 | [0006](decision-records/0006-analog-schematic-sizing-assumptions.md) | Analog schematic sizing assumptions | proposed |
 | [0007](decision-records/0007-analog-layout-assumptions.md) | Analog layout assumptions | proposed |
+| [0008](decision-records/0008-digital-io-timing-budget.md) | Digital I/O timing budget | proposed |
