@@ -11,7 +11,7 @@ makes no linearity claim and the placeholder device is not a design choice
 |---|---|
 | `pdk.json` | gf180mcu variant `gf180mcuD` (same as `gf180-bandgap`) and the exact PDK revision (ciel/volare hash), with the fetch command |
 | `toolchain.json` | ngspice floor, Python floor, PDK revision |
-| `../layout/toolchain.json` | `klt` at a full klayout-tools commit SHA; `klt_required_commands: ["drc"]` |
+| `../layout/toolchain.json` | `klt` at a full klayout-tools commit SHA, and the `klt_required_commands` capability list every `layout/` runner must find in `klt --help` (read the current list from that file) |
 
 `python -m sim.harness check` compares the installed ngspice, Python and PDK
 revision with these files and exits non-zero, naming each drifted item.
