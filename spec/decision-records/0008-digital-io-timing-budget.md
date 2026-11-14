@@ -91,8 +91,15 @@ re-checked.
 instances), from
 `<PDK_ROOT>/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__<corner>.lib`.
 Library units are `time_unit : 1ns` and `capacitive_load_unit(1, pf)`. Values
-are the **first entry of each 10x10 NLDM table** — sharpest input transition
-(`index_1` = 0.02 ns) and minimum output load (`index_2` = 0.001 pF) — in ns:
+are the **first entry of each 10x10 NLDM table**, in ns. Two table shapes are in
+play and their second axes are not the same quantity. The two delay columns come
+from a `tmg_ntin_oload_10x10` table, whose axes are `input_net_transition`
+(`index_1` = 0.02 ns, the sharpest input transition) and
+`total_output_net_capacitance` (`index_2` = 0.001 pF, the minimum output load).
+The four constraint columns come from a `cnst_ctin_rtin_10x10` table, which has
+no load axis at all: its axes are `constrained_pin_transition` (`index_1` =
+0.02 ns, the sharpest `D` transition) and `related_pin_transition` (`index_2` =
+0.02 ns, the sharpest transition on the related pin, `CLK`). The figures are:
 
 | corner | `clk`->`Q` rise | `clk`->`Q` fall | `D` setup rise | `D` setup fall | `D` hold rise | `D` hold fall |
 |---|---|---|---|---|---|---|
@@ -117,11 +124,12 @@ the 15 `.lib` files in that directory.
 
 ### These figures do not confirm the budget, and cannot
 
-The minimum-load column is the optimistic end of each table, not a worst case,
-so the figures above are indicative of order of magnitude only. The other end
-of the table is no better as a bound: at `ss_125C_3v00` the three chain cells'
-table **maxima** sum to 37.5 ns, and `clk`->`Q` reaches 11.5 ns, because
-`index_1` there runs out to a 15.6 ns input transition and `index_2` to
+The first entry is the optimistic end of either table shape — minimum load for
+the delay tables, sharpest transitions for the constraint tables — not a worst
+case, so the figures above are indicative of order of magnitude only. The other
+end of the delay tables is no better as a bound: at `ss_125C_3v00` the three
+chain cells' table **maxima** sum to 37.5 ns, and `clk`->`Q` reaches 11.5 ns,
+because `index_1` there runs out to a 15.6 ns input transition and `index_2` to
 0.3545 pF — neither of which a routed 3-level decoder driving a single `D` pin
 of 0.002342 pF presents.
 
