@@ -38,6 +38,8 @@ JSON_FILES = [
     "layout/pnr/dac_digital.report.json",
     "layout/switching_sequence.json",
     "attest/item10.json",
+    "verification/functional/dac_digital.rtl.report.json",
+    "verification/functional/dac_digital.netlist.report.json",
 ]
 TESTS = [
     [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],

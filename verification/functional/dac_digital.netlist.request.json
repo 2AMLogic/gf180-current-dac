@@ -1,0 +1,28 @@
+{
+  "_comment": [
+    "Commit-safe form, same convention as synth/out/dac_digital/synth_dac_digital.ys:",
+    "the two PDK cell-model paths below are written relative to $PDK_ROOT, which klt",
+    "does NOT expand inside `sources` (verified: `RTL source not found:",
+    "$PDK_ROOT/...`). This file is the artifact to commit, not the one to run --",
+    "substitute your PDK install root into a machine-local sibling first:",
+    "  sed \"s|\\$PDK_ROOT|$PDK_ROOT|g\" verification/functional/dac_digital.netlist.request.json \\",
+    "    > verification/functional/dac_digital.netlist.run.request.json",
+    "The sibling is gitignored (*.run.request.json) and must stay in this directory,",
+    "because request-relative source paths resolve against the request's own dir.",
+    "",
+    "primitives.v must precede gf180mcu_fd_sc_mcu7t5v0.v: the cell file references the",
+    "4 UDPs defined in primitives.v and does not include it itself. gf180mcuD is the",
+    "variant whose liberty synth_dac_digital.ys used."
+  ],
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "$PDK_ROOT/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/primitives.v",
+    "$PDK_ROOT/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/gf180mcu_fd_sc_mcu7t5v0.v",
+    "../../synth/out/dac_digital/dac_digital_synth.v"
+  ],
+  "hdl_toplevel": "dac_digital",
+  "testbench": {
+    "module": "test_dac_digital"
+  }
+}
