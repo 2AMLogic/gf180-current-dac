@@ -1,0 +1,12 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../../rtl/thermo_decoder.v",
+    "../../rtl/dac_digital.v"
+  ],
+  "hdl_toplevel": "dac_digital",
+  "testbench": {
+    "module": "test_dac_digital"
+  }
+}
