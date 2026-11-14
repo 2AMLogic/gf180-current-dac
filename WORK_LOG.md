@@ -2,6 +2,12 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-14
+
+- **Issue #68** (closed): Propose a decision record for the digital partition's I/O timing budget
+- **PR #65**: docs: roadmap as of 2026-11-13
+- **PR #74**: docs: add DR-0008 proposing the digital partition's I/O timing budget
+
 ### 2026-11-12
 
 - **PR #62**: Bump Repo Skills 0.25.10 -> 0.26.1
