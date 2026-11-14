@@ -74,11 +74,11 @@ silicon. **Current position: spec proposed, not ratified; layout, DRC and LVS ev
 ## Repo layout
 
 ```
-spec/          ratified spec + decision records
+spec/          proposed spec + decision records
 design/        current cell, switch, and bias schematics (xschem)
 rtl/           thermometer decoder and retiming
 sim/           testbenches + PVT and mismatch results (ngspice)
-verification/  cocotb testbenches for the decoder
+verification/  ERC and LVS evidence + the Icarus decoder bench
 layout/        GDS + DRC/LVS reports, including the array generator output
 measurements/  silicon characterization (empty until tape-out)
 ```
