@@ -42,8 +42,6 @@ def main(path):
     for k in sorted(subs, key=lambda s: (len(s), s)):
         if k.startswith("elem_"):
             print(f"{k}: {acc[k]} elements x {k.split('_')[1]} units = {acc[k] * int(k.split('_')[1])}")
-    live = sum(acc[f"elem_{n}"] * n for n in (16, 1, 2, 4, 8))
-    print(f"live unit cells (explicit instances): {live}")
 
 
 if __name__ == "__main__":

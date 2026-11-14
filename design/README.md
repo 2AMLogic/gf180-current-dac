@@ -49,7 +49,6 @@ elem_2: 1 elements x 2 units = 2
 elem_4: 1 elements x 4 units = 4
 elem_8: 1 elements x 8 units = 8
 elem_16: 63 elements x 16 units = 1008
-live unit cells (explicit instances): 1023
 ```
 
 ## What this does not claim
