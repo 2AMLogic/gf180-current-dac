@@ -32,19 +32,23 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
-- **#80**: Remove the restated segmentation constants in gen_analog.py: the layout generator already derives all of them, and they drifted once already
+- **#96**: Finish the segmentation ownership sweep: three 1023 literals in spec/sizing/size.py and the hardcoded 8/63/62 in the switching-table self-description
+- **#99**: check_ci.py treats ANY child exit 2 as SKIP, so an argparse-level break on a non-skippable check silently drops that gate
+- **#100**: Root README.md:109 is the last restatement of the klayout pip pin, now that ci.yml reads klayout_package_pin
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
 - **#29**: docs(spec): add ratification packet for the key reviews
+- **#103**: ci: honor exit 2 as SKIP only for the allowlisted TESTS entry
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#86**: refactor(spec): one owner for the array segmentation constants
+- **#102**: fix: derive the last restated segmentation literals (size.py cross-check, table self-description)
+- **#104**: docs: name klayout_package_pin in README instead of restating the pip klayout version
 
 ## Proposed
 
@@ -53,6 +57,8 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
+- **#99**: check_ci.py treats ANY child exit 2 as SKIP, so an argparse-level break on a non-skippable check silently drops that gate *(curated)*
+- **#100**: Root README.md:109 is the last restatement of the klayout pip pin, now that ci.yml reads klayout_package_pin *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -71,10 +77,10 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 2 |
-| PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 1 |
-| Curated | 3 |
+| In Progress (`loom:building`) | 4 |
+| PRs awaiting review | 2 |
+| Approved PRs awaiting merge | 2 |
+| Curated | 5 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
