@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "engine": "icarus",
+  "hdl_toplevel": "dac_digital",
+  "testbench": "test_dac_digital",
+  "status": "pass",
+  "test_count": 4,
+  "passed_count": 4,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_thermometer_and_binary_all_codes",
+      "status": "passed",
+      "sim_time_ns": 10255.0,
+      "real_time_s": 0.047
+    },
+    {
+      "name": "test_major_carry_flips_one_line",
+      "status": "passed",
+      "sim_time_ns": 10255.0,
+      "real_time_s": 0.04
+    },
+    {
+      "name": "test_one_cycle_latency",
+      "status": "passed",
+      "sim_time_ns": 95.0,
+      "real_time_s": 0.001
+    },
+    {
+      "name": "test_boundary_codes",
+      "status": "passed",
+      "sim_time_ns": 35.0,
+      "real_time_s": 0.0
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "tools": [],
+    "cocotb_version": "2.1.0",
+    "results_xml": {
+      "path": null,
+      "scope": "external"
+    },
+    "test_log": {
+      "path": null,
+      "scope": "external"
+    },
+    "build_log": {
+      "path": null,
+      "scope": "external"
+    },
+    "random_seed": 1794637432,
+    "source_defines": {},
+    "env": {},
+    "initial_state": null,
+    "sdf": null
+  }
+}
