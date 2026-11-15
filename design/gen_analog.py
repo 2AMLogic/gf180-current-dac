@@ -16,6 +16,7 @@ current-source gate area comes from the sizing table (spec/sizing/sizing-output.
 section 4). Nothing here is a performance result.
 """
 import argparse
+import importlib.util
 import json
 import pathlib
 import sys
@@ -25,10 +26,17 @@ OUT = ROOT / "design" / "analog"
 INVENTORY = ROOT / "design" / "inventory-item1-analog.json"
 
 # ---- segmentation (spec/target-spec.md section 3) --------------------------
-N_UNARY = 63            # 6 unary bits -> 2^6 - 1 elements
-UNITS_PER_UNARY = 16    # 2^4 unit cells each
-BINARY_UNITS = [1, 2, 4, 8]
-N_RING_DUMMY = 132      # one-cell ring of the real layout (layout/gen_array.py); was a 32 placeholder, DR-0006
+# One owner: spec/segmentation.py. The layout generator derives the same
+# numbers from it, so a resize is one edit; the last restated copy here
+# drifted from the layout (ring 32 vs 132, repaired in 4eec471).
+_seg = importlib.util.spec_from_file_location(
+    "segmentation", ROOT / "spec" / "segmentation.py")
+SEG = importlib.util.module_from_spec(_seg)
+_seg.loader.exec_module(SEG)
+N_UNARY = SEG.N_UNARY           # 6 unary bits -> 2^6 - 1 elements
+UNITS_PER_UNARY = SEG.UNITS_PER_UNARY
+BINARY_UNITS = SEG.BINARY_UNITS
+N_RING_DUMMY = SEG.N_RING_DUMMY
 IREF_MIRROR_UNITS = 10  # reference leg: 10 unit sources (see DR-0006)
 
 # ---- device sizes (ASSUMED, DR-0006) ---------------------------------------
@@ -287,7 +295,8 @@ def inventory():
             "generator": "klt netlist",
             "check": {"argv": argv + ["--check"], "local_only": True},
         })
-    sources = ["design/gen_analog.py", f"{rel}/xschemrc"] + \
+    sources = ["design/gen_analog.py", "spec/segmentation.py",
+               f"{rel}/xschemrc"] + \
         [f"{rel}/{n}.sch" for n in schematics()] + \
         [f"{rel}/{n}.sym" for n in SYMS]
     return json.dumps({
@@ -296,7 +305,8 @@ def inventory():
         "t1_item": 1,
         "description": "Analog partition design sources: generated xschem "
                        "schematics and symbols, the generator "
-                       "(python3 design/gen_analog.py), and netlists derived "
+                       "(python3 design/gen_analog.py) with its segmentation "
+                       "module (spec/segmentation.py), and netlists derived "
                        "with klt netlist. Existence and freshness only; no "
                        "performance claim.",
         "sources": sources,

@@ -52,14 +52,23 @@ EVIDENCE = ROOT / "evidence" / "item2-analog.json"
 TOP = "dac_analog_layout"
 GENERATOR_CMD = "python3 layout/gen_array.py"
 
-SIDE = 8            # elements per array side
-EL = 4              # units per element side
-RING = 1            # dummy ring depth in unit cells (spec section 4)
+# One owner: spec/segmentation.py (issue #80). SIDE, EL, RING and every
+# derived count load from there, the way the switching sequence loads
+# spec/sizing/size.py — a resize is one edit, not restated constants.
+_seg = importlib.util.spec_from_file_location(
+    "segmentation", ROOT / "spec" / "segmentation.py")
+SEG = importlib.util.module_from_spec(_seg)
+_seg.loader.exec_module(SEG)
+SIDE = SEG.SIDE
+EL = SEG.EL
+RING = SEG.RING
+N_UNARY = SEG.N_UNARY
+BINARY_UNITS = SEG.BINARY_UNITS
+N_LIVE_UNITS = SEG.N_LIVE_UNITS
+N_DUMMY_CELLS = SEG.N_DUMMY_CELLS
 GAP_UM = 0.6        # device-to-device bbox gap and tile margin
 BAND_UM = 5.0       # gap between the array's top ring row and the bias block
 DBU = 0.0005
-N_UNARY = SIDE * SIDE - 1
-BINARY_UNITS = [1, 2, 4, 8]
 
 
 # ------------------------------------------------- klayout pin / --check mode
@@ -617,7 +626,7 @@ def build(table: dict) -> db.Layout:
             unit_at(c, unit, i, j)
         join_group(ink, c, g, GROUPS[name], GROUP_PIN[name])
         binary.insert(db.CellInstArray(c.cell_index(), db.Trans()))
-    unit_at(binary, dummy, 3, 3)   # the filler site: 1023 units + 1 filler
+    unit_at(binary, dummy, 3, 3)   # the filler site: N_LIVE_UNITS units + 1 filler
     for t in (TRK_VBN, TRK_OUTP, TRK_OUTN, TRK_IREF):    # the column's tracks pass the filler
         ink.v(binary, 3, 3 * px + t, 3 * py - EXT, 3 * py + g.uh + EXT)
     elem_cells["elem_bin"] = binary
@@ -802,10 +811,11 @@ def read_back(path: Path, table: dict) -> list[str]:
             else:
                 walk(inst.cell, mult)
     walk(top)
-    if counts["unit_cell"] != 1023:
-        errs.append(f"{counts['unit_cell']} unit cells, expected 1023")
-    if counts["dummy_cell"] != 4 * (n - RING * 2) * RING + 4 * RING * RING + 1:
-        errs.append(f"{counts['dummy_cell']} dummy cells, expected ring + 1 filler")
+    if counts["unit_cell"] != N_LIVE_UNITS:
+        errs.append(f"{counts['unit_cell']} unit cells, expected {N_LIVE_UNITS}")
+    if counts["dummy_cell"] != N_DUMMY_CELLS:
+        errs.append(f"{counts['dummy_cell']} dummy cells, expected "
+                    f"{N_DUMMY_CELLS} (ring + 1 filler)")
     errs += read_back_routing(ly, top, table, g)
     return errs
 
@@ -857,8 +867,9 @@ def read_back_routing(ly: db.Layout, top: db.Cell, table: dict, g: Geom) -> list
                             f"{'sp' if y0 == g.y_sp else 'sn'} net")
             elif y0 == g.y_sp:
                 routed += len(units)
-    if routed != 1023:
-        errs.append(f"{routed} units joined into their element's gate nets, expected 1023")
+    if routed != N_LIVE_UNITS:
+        errs.append(f"{routed} units joined into their element's gate nets, "
+                    f"expected {N_LIVE_UNITS}")
     m5 = ly.find_layer(*M[5])
     n_m5 = sum(1 for s in top.shapes(m5).each() if s.is_box() and s.box.height() > PAD)
     if n_m5 != 2 * (N_UNARY + len(BINARY_UNITS)):
