@@ -5,7 +5,9 @@ Stdlib only. Run from anywhere; paths resolve against the repo root.
 
 1. Every committed JSON config / evidence file parses; a missing file is an
    error.
-2. The harness and spec unit tests and the spec structural check pass.
+2. The harness, spec and gen_array unit tests and the spec structural check
+   pass. A check that cannot run reports SKIP (child exit 2, e.g. gen_array
+   without klayout importable) and counts as neither a pass nor an error.
 3. Relative links in README.md resolve.
 """
 import json
@@ -40,7 +42,8 @@ JSON_FILES = [
     "attest/item10.json",
 ]
 TESTS = [
-    [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],
+    [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec",
+     "layout.tests.test_gen_array_check"],
     [sys.executable, "spec/check_spec.py"],
     [sys.executable, "design/gen_analog.py", "--check"],
     [sys.executable, "layout/gen_array.py", "--check"],
@@ -63,7 +66,10 @@ def check_json(errors):
 def check_tests(errors):
     for cmd in TESTS:
         label = " ".join(cmd[1:])
-        if subprocess.run(cmd, cwd=ROOT).returncode != 0:
+        rc = subprocess.run(cmd, cwd=ROOT).returncode
+        if rc == 2:
+            print(f"SKIP   {label}")
+        elif rc != 0:
             errors.append(f"{label} failed")
         else:
             print(f"ok     {label}")

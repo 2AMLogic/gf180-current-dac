@@ -15,7 +15,7 @@ delivery, post-layout extraction and any INL / DNL number are not claimed.
 
 ```
 python3 layout/gen_array.py                # writes the stream and evidence/item2-analog.json
-python3 layout/gen_array.py --check        # CI: regenerate twice, compare everything committed
+python3 layout/gen_array.py --check        # CI: regenerate twice, compare everything committed; exit 2 without klayout
 python3 layout/gen_array.py --write-table  # rewrite switching_sequence.json from spec/sizing/size.py
 layout/gen_prims.sh [--check]              # device primitives via klt gen; needs the PDK
 ```
@@ -26,6 +26,21 @@ the primitives in `prims/` are committed, so CI needs no PDK. The stream has
 no timestamps and a fixed cell order; `--check` fails if two runs differ or the
 committed stream, envelope or table differ from a fresh run. Current hash:
 see `evidence/item2-analog.json` (`provenance.input.content_hash`).
+
+`--check` behaves three ways depending on the installed `klayout` versus
+`klayout_package_pin` (issue #87):
+
+| installed `klayout` | `--check` behaviour |
+|---|---|
+| absent | one named SKIP line, exit 2 — a provisioning gap, not drift; `scripts/check_ci.py` reports `SKIP`, not `ok` |
+| a different version | full check, strict everywhere except `provenance.klayout_version` (excluded from the envelope comparison, with a named NOTE), exit 0 on match |
+| `klayout_package_pin` | unchanged byte-exact check on the whole envelope |
+
+The byte hash is claimed only at `klayout_package_pin`; CI installs the pin and
+asserts it landed on the strict path (`klayout_mode=strict`), so a pin/CI
+divergence fails CI instead of silently relaxing the gate. Writing the stream
+still requires an importable `klayout` (any version, with a NOTE when it is not
+the pin) and hard-fails without one.
 
 ## What is in the stream
 
