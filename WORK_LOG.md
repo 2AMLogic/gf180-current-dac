@@ -4,6 +4,19 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #98**: docs: scope DR-0008 first-entry optimism claim to the delay tables
+- **PR #94**: docs: pin pex verify block to the record's klt version, not the live pin
+- **PR #93**: chore: drop unreferenced design/count_netlist.py; cite enforced count checks in README
+- **PR #91**: fix: gen_array --check degrades to SKIP/relaxed off the klayout pin
+- **PR #75**: test: add cocotb functional suite for dac_digital with zero-delay RTL and netlist reports
+- **PR #71**: docs: separate the klt release that wrote the ERC reports from the one grading now
+- **Issue #97** (closed): Root README 'Repo layout' block omits verification/pex/
+- **Issue #90** (closed): Remove design/count_netlist.py: unreferenced script whose counts LVS and gen_array already assert
+- **Issue #87** (closed): check_ci.py cannot pass on the dispatch workers: no klayout matching klayout_package_pin is importable by system python3
+- **Issue #84** (closed): DR-0008: "first entry is the optimistic end" holds only for the delay tables, not for any of the four constraint columns
+- **Issue #83** (closed): verification/pex/README.md: the Verify block reads the live KLT_PIN, so a pin bump reports 'drifted' on an unchanged record
+- **Issue #69** (closed): Correct stale klt pin and testbench wording in the ERC README, layout toolchain notes and root README
+- **Issue #66** (closed): Decoder functional suite as a cocotb regression run through klt functional-verification (RTL and synthesized netlist)
 - **PR #92**: build: single-source the klt release pin via check_signoff.sh --print-pin
 - **PR #88**: ci: enumerate committed JSON in check_ci instead of a hand-maintained allowlist
 - **Issue #73** (closed): Remove the six restated copies of the klt release pin: KLT_PIN is the declared home but CI hardcodes 0.9.0
