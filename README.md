@@ -87,12 +87,13 @@ measurements/  silicon characterization (empty until tape-out)
 
 Every committed record, with the command that regenerates or re-checks it.
 Run from the repo root. `klt` is used through a throwaway environment at the
-pinned version (`KLT_PIN`, currently 0.9.0, set in
-[`scripts/check_signoff.sh`](scripts/check_signoff.sh)); do not rely on a
-host-installed `klt`.
+pinned version (`KLT_PIN`, defined in
+[`scripts/check_signoff.sh`](scripts/check_signoff.sh) and resolved with
+`scripts/check_signoff.sh --print-pin`); do not rely on a host-installed
+`klt`.
 
 ```
-KLT="uvx --from klayout-tools==0.9.0 klt"
+KLT="uvx --from klayout-tools==$(scripts/check_signoff.sh --print-pin) klt"
 ```
 
 | Record | Command |
