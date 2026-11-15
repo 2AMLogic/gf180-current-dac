@@ -38,13 +38,13 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:a0aaa80197d84c3c4da2eff9df3e7cff4a49b34c945f5594c190995f7cb38acb",
+        "content_hash": "sha256:cad9df8b303094f101937b32ab323e9271001d4e37609c25924b5545e9304422",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
           "path": null,
-          "content_hash": "sha256:a0aaa80197d84c3c4da2eff9df3e7cff4a49b34c945f5594c190995f7cb38acb",
+          "content_hash": "sha256:cad9df8b303094f101937b32ab323e9271001d4e37609c25924b5545e9304422",
           "input_verified": true,
           "members": [
             {
@@ -308,7 +308,7 @@
                 "path": "spec/segmentation.py",
                 "scope": "repo"
               },
-              "content_hash": "sha256:fd8d1a766dd70129157ac75311c78b24e82239c059323fcd69fc1e7495736fe8",
+              "content_hash": "sha256:a98a83f2d7e0dbc78adcaa14d1753afdf03b62babc3c5c8a880fbdfc60251c98",
               "status": "verified"
             }
           ],

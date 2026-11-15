@@ -21,8 +21,10 @@ BINARY_UNITS = [1, 2, 4, 8]
 
 # Derived counts. The ring has two independent derivations — an area
 # difference and a per-edge sum — and they must agree, or the schematic and
-# the layout describe different arrays; the assert below is the guard a
-# future resize trips instead of a silent LVS failure.
+# the layout describe different arrays. The two formulas are algebraically
+# identical (both reduce to 4*R*SIDE*EL + 4*R^2), so the check below cannot
+# fire on any SIDE/EL/RING resize; what it catches is a hand-hardcoded
+# replacement of either formula, which no resize exercises.
 _N = SIDE * EL + 2 * RING                        # array side in unit cells, ring included
 N_UNARY = SIDE * SIDE - 1                        # 63 unary elements
 UNITS_PER_UNARY = EL * EL                        # 16 units per element
@@ -30,9 +32,10 @@ N_RING_DUMMY = _N ** 2 - (SIDE * EL) ** 2        # 132 ring cells (area differen
 N_DUMMY_CELLS = 4 * (_N - 2 * RING) * RING + 4 * RING * RING + 1  # ring + 1 filler: 133
 N_LIVE_UNITS = N_UNARY * UNITS_PER_UNARY + sum(BINARY_UNITS)      # 1023
 
-assert N_DUMMY_CELLS == N_RING_DUMMY + 1, (
-    f"dummy-ring derivations disagree: area {N_RING_DUMMY} vs per-edge "
-    f"{N_DUMMY_CELLS - 1}; the schematic and the layout would diverge (issue #80)")
+if N_DUMMY_CELLS != N_RING_DUMMY + 1:
+    raise ValueError(
+        f"dummy-ring derivations disagree: area {N_RING_DUMMY} vs per-edge "
+        f"{N_DUMMY_CELLS - 1}; the schematic and the layout would diverge (issue #80)")
 
 if __name__ == "__main__":
     for k in ("N_UNARY", "UNITS_PER_UNARY", "N_RING_DUMMY", "N_DUMMY_CELLS",
