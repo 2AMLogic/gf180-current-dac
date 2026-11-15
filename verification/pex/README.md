@@ -255,6 +255,8 @@ drift.
 
 Unlike the Verify block above, the pin here is read live from
 `check_signoff.sh`: a regeneration should run at the repo's *current* pin.
-Regenerating at a bumped pin must update the `uvx` pin in "Verify the
-committed record" and the klt/KLayout row of the provenance table in the same
-commit — those two describe the record and would otherwise lag the new run.
+Regenerating at a bumped pin must update every place that states the version
+this record was produced at — the intro above, the klt/KLayout row of the
+provenance table, and both the `uvx` pin and the `klayout-tools==0.9.0` prose
+in "Verify the committed record" — in the same commit; each of those describes
+the record and would otherwise lag the new run.
