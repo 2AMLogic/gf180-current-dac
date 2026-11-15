@@ -6,8 +6,9 @@ selection). Regenerate with `layout/drc/run.sh`; `layout/drc/run.sh --check`
 re-hashes the committed GDS and deck against the envelopes. the committed
 reports were produced by klt `0.8.1.dev86+gf9039fd7244e` (the pin in
 `layout/toolchain.json`, recorded in each envelope); they were not re-run for
-the newer pin. `scripts/check_signoff.sh` now grades the manifest with
-`klayout-tools==0.9.0` (`KLT_PIN`), which accepts these envelopes.
+the newer pin. `scripts/check_signoff.sh` grades the manifest at the release
+pinned by `KLT_PIN` in `scripts/check_signoff.sh` (resolve it with
+`scripts/check_signoff.sh --print-pin`), which accepts these envelopes.
 
 Deck: `gf180mcu`, content hash
 `sha256:0eb6df1bafc5106ec50bd58479dbd7cda36bb685f1ef18cd3a2244a6e7e48666`.
