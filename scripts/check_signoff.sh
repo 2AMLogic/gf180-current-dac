@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 # Regenerate the klt signoff verdict and fail if it differs from the committed
-# record. Pin matches .github/workflows/ci.yml. Exit 3 from klt (some item
+# record. KLT_PIN below is the release pin's single home; resolve it elsewhere
+# with `scripts/check_signoff.sh --print-pin`. Exit 3 from klt (some item
 # unmet) is a valid grading run; any other non-zero is a hard error.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 KLT_PIN="${KLT_PIN:-0.9.0}"
+if [ "$#" -eq 1 ] && [ "$1" = "--print-pin" ]; then
+  printf '%s\n' "$KLT_PIN"
+  exit 0
+fi
+if [ "$#" -gt 0 ]; then
+  echo "usage: scripts/check_signoff.sh [--print-pin]" >&2
+  exit 2
+fi
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0
