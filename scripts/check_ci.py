@@ -6,8 +6,10 @@ Stdlib only. Run from anywhere; paths resolve against the repo root.
 1. Every committed JSON config / evidence file parses; a missing file is an
    error.
 2. The harness, spec and gen_array unit tests and the spec structural check
-   pass. A check that cannot run reports SKIP (child exit 2, e.g. gen_array
-   without klayout importable) and counts as neither a pass nor an error.
+   pass. Only an entry explicitly marked skippable may report SKIP (child
+   exit 2 — today only gen_array --check, whose klayout import may be
+   absent as a provisioning gap); any other entry exiting 2 is an error,
+   not a skip.
 3. Relative links in README.md resolve.
 """
 import json
@@ -32,12 +34,17 @@ REQUIRED_JSON = [
     "synth/dac_digital.report.json",
     "layout/pnr/request.json",
 ]
+# Entries carry the right to skip explicitly: exit 2 means SKIP only where
+# may_skip is True, so a broken invocation (an argparse usage error after a
+# flag rename, say) fails the gate instead of passing as a skip. New entries
+# default to False.
 TESTS = [
-    [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec",
-     "layout.tests.test_gen_array_check"],
-    [sys.executable, "spec/check_spec.py"],
-    [sys.executable, "design/gen_analog.py", "--check"],
-    [sys.executable, "layout/gen_array.py", "--check"],
+    ([sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec",
+     "layout.tests.test_gen_array_check", "scripts.tests.test_check_ci"], False),
+    ([sys.executable, "spec/check_spec.py"], False),
+    ([sys.executable, "design/gen_analog.py", "--check"], False),
+    # klayout absent at import time is a provisioning gap, not a failure (#87).
+    ([sys.executable, "layout/gen_array.py", "--check"], True),
 ]
 LINK_DOCS = ["README.md"]
 LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
@@ -74,10 +81,10 @@ def check_json(errors):
 
 
 def check_tests(errors):
-    for cmd in TESTS:
+    for cmd, may_skip in TESTS:
         label = " ".join(cmd[1:])
         rc = subprocess.run(cmd, cwd=ROOT).returncode
-        if rc == 2:
+        if rc == 2 and may_skip:
             print(f"SKIP   {label}")
         elif rc != 0:
             errors.append(f"{label} failed")
