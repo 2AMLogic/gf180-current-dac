@@ -134,17 +134,17 @@ def table_from_order(order: list[int]) -> dict:
     return {
         "schema_version": 1,
         "description": "Switching sequence and site map of the analog array. "
-                       "`order[k]` is the element-grid site (row * 8 + col, row 0 at the "
+                       f"`order[k]` is the element-grid site (row * {SIDE} + col, row 0 at the "
                        "bottom, col 0 at the left) of the k-th unary element to turn on; "
                        "the last entry is the binary block, never switched as a unary. "
                        "Written by `python3 layout/gen_array.py --write-table` from "
-                       "spec/sizing/size.py sequence(8, 'inout-pairs'), the sequence the "
+                       f"spec/sizing/size.py sequence({SIDE}, 'inout-pairs'), the sequence the "
                        "spec's 99.92 % yield was computed for; --check fails if they differ.",
         "sequence": "inout-pairs",
         "grid": {"elements_per_side": SIDE, "units_per_element_side": EL,
                  "dummy_ring_cells": RING},
-        "point_symmetry": "site s pairs with site 63 - s; positions 2j and 2j+1 are a pair "
-                          "except that the last pair is (unary 62, binary block)",
+        "point_symmetry": f"site s pairs with site {N_UNARY} - s; positions 2j and 2j+1 are a pair "
+                          f"except that the last pair is (unary {N_UNARY - 1}, binary block)",
         "order": order,
         "sites": sites,
     }
@@ -934,8 +934,8 @@ def main() -> int:
 
     errs = []
     if table != want_table:
-        errs.append("switching_sequence.json differs from spec/sizing/size.py "
-                    "sequence(8, 'inout-pairs'); run --write-table")
+        errs.append(f"switching_sequence.json differs from spec/sizing/size.py "
+                    f"sequence({SIDE}, 'inout-pairs'); run --write-table")
     with tempfile.TemporaryDirectory() as td:
         outs = []
         for k in range(2):

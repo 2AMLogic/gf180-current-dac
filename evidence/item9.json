@@ -59,7 +59,7 @@
         "role": "testbench",
         "path": "spec/sizing/size.py",
         "passed": true,
-        "content_hash": "sha256:ac1e5fdbf790d016100375dbeb00f7c73c0ce4f51473edcf77a1500a2fcc5c42"
+        "content_hash": "sha256:e018690fdf8f0404456c9b0699966f71c9a80397e3bc782006a62398ae43ee8f"
       },
       {
         "check": "command",

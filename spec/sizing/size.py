@@ -25,6 +25,7 @@ The PDK carries no spatial-gradient data; the gradient below is an ASSUMPTION
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import math
 import random
 import sys
@@ -32,6 +33,18 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "sizing-output.md"
+
+# Segmentation owner: the physical unit count comes from spec/segmentation.py
+# (loaded here; SEGM, since SEG below is this module's unary/binary bits
+# table). It is a second, independent derivation of the live-unit count —
+# code 2^N - 1 from the ratified bit depth vs N_UNARY*UNITS_PER_UNARY +
+# sum(BINARY_UNITS) from SIDE/EL/BINARY_UNITS — cross-checked against this
+# module's code count right after TIERS.
+_segm = importlib.util.spec_from_file_location(
+    "segmentation", HERE.parent / "segmentation.py")
+SEGM = importlib.util.module_from_spec(_segm)
+_segm.loader.exec_module(SEGM)
+N_LIVE_UNITS = SEGM.N_LIVE_UNITS
 
 # --- PDK mismatch coefficients, gf180mcuD sm141064.spice (bin 1 of each flavor)
 # (par_vth [V], par_k [-], par_l [m], par_w [m]); sigma uses 1e-6 m scaling.
@@ -48,6 +61,20 @@ TIERS = {
     "fallback": dict(nbits=8, fs=50e6, inl=1.0, sfdr=50.0),
     "stretch": dict(nbits=12, fs=200e6, inl=0.25, sfdr=70.0),  # analytic only
 }
+
+# Cross-check the two independent derivations of the live-unit count: the
+# code count the ratified target bit depth implies vs spec/segmentation.py's
+# physical count (N_UNARY*UNITS_PER_UNARY + sum(BINARY_UNITS)). If these
+# disagree the sizing table would describe a different array than the layout
+# builds — raise (not assert: survives PYTHONOPTIMIZE), never publish a
+# gate-area number for an array that does not exist (issue #96).
+if 2**TIERS["target"]["nbits"] - 1 != N_LIVE_UNITS:
+    raise ValueError(
+        f"segmentation mismatch: spec/segmentation.py derives N_LIVE_UNITS="
+        f"{N_LIVE_UNITS} but the ratified {TIERS['target']['nbits']}-bit code "
+        f"implies {2**TIERS['target']['nbits'] - 1} unit currents; the sizing "
+        "table and the array describe different DACs (issue #96)")
+
 YIELD = 0.997  # INL yield criterion (3-sigma equivalent)
 SEG = {"target": (6, 4), "fallback": (4, 4)}  # (unary bits, binary bits)
 MC_SAMPLES = 10000
@@ -307,11 +334,11 @@ def main() -> int:
             areas[(fl, vov)] = a
             w(f"| {fl} | {vov} | {a:.2f} | {s:.2f} |")
     w("")
-    iu = IFS / (2**TIERS["target"]["nbits"] - 1)
-    w(f"Unit current Iu = Ifs / (2^N - 1) = {IFS*1e3:.1f} mA / 1023 = {iu*1e6:.3f} uA.")
+    iu = IFS / N_LIVE_UNITS
+    w(f"Unit current Iu = Ifs / (2^N - 1) = {IFS*1e3:.1f} mA / {N_LIVE_UNITS} = {iu*1e6:.3f} uA.")
     a_pick = areas[("nfet_03v3", 0.4)]
-    w(f"Array gate area at nfet_03v3, Vov = 0.4 V: 1023 x {a_pick:.2f} um^2 = "
-      f"{1023*a_pick:.0f} um^2 = {1023*a_pick*1e-6:.4f} mm^2 of effective gate")
+    w(f"Array gate area at nfet_03v3, Vov = 0.4 V: {N_LIVE_UNITS} x {a_pick:.2f} um^2 = "
+      f"{N_LIVE_UNITS*a_pick:.0f} um^2 = {N_LIVE_UNITS*a_pick*1e-6:.4f} mm^2 of effective gate")
     w("area (layout area is several times this; not estimated here).")
     w("")
     w("Each unit must be a separate subcircuit instance in Monte Carlo: the")
