@@ -19,9 +19,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      # layout/gen_array.py needs the pip klayout pinned in layout/toolchain.json
-      - run: pip install klayout==0.30.12
-      - run: python3 scripts/check_ci.py
+      # layout/gen_array.py needs the pip klayout read from klayout_package_pin
+      # in layout/toolchain.json — never restate the version here, so a pin bump
+      # cannot leave CI installing something else (issue #87)
+      - run: pip install "klayout==$(python3 -I -c 'import json;print(json.load(open("layout/toolchain.json"))["klayout_package_pin"])')"
+      - run: |
+          set -o pipefail
+          python3 scripts/check_ci.py 2>&1 | tee "$RUNNER_TEMP/check_ci.log"
+          # CI installs the pin, so gen_array --check must land on the strict
+          # path; a divergence must fail here, not silently relax the gate
+          grep -q klayout_mode=strict "$RUNNER_TEMP/check_ci.log"
 
   signoff:
     name: klt signoff record is fresh
@@ -35,7 +42,7 @@ jobs:
       - name: Install uv
         run: pip install uv
       # the item 10 attestation re-runs scripts/check_ci.py, which needs klayout
-      - run: pip install klayout==0.30.12
+      - run: pip install "klayout==$(python3 -I -c 'import json;print(json.load(open("layout/toolchain.json"))["klayout_package_pin"])')"
       # Pin lives in scripts/check_signoff.sh (KLT_PIN), resolved via scripts/check_signoff.sh --print-pin.
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh

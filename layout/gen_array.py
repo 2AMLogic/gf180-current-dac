@@ -3,13 +3,16 @@
 
     python3 layout/gen_array.py                 # write the stream and the item-2 envelope
     python3 layout/gen_array.py --write-table   # rewrite switching_sequence.json
-    python3 layout/gen_array.py --check         # exit 1 on any drift (CI)
+    python3 layout/gen_array.py --check         # exit 1 on any drift (CI); exit 2 without klayout;
+                                                # a mismatched klayout relaxes only
+                                                # provenance.klayout_version (see layout/README.md)
 
 Inputs, all committed: layout/switching_sequence.json (the table this reads),
 layout/prims/*.gds (device primitives from `klt gen mos_array`, see
 gen_prims.sh). Output is a function of those only: no timestamps, fixed
 cell order, so the byte hash is meaningful. Needs the pip `klayout` package
-(version pinned in layout/toolchain.json); no PDK and no klt.
+(version pinned in layout/toolchain.json); no PDK and no klt. Writing the
+stream hard-fails without klayout; only --check degrades.
 
 Scope: placement, routing and pins. Every device is placed and wired to the
 connectivity of design/analog/dac_analog.spice (M1 local, M2 horizontal, M3
@@ -21,6 +24,7 @@ simulated; see layout/README.md for what is and is not claimed.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import importlib.util
 import json
@@ -28,8 +32,16 @@ import sys
 import tempfile
 from pathlib import Path
 
-import klayout
-import klayout.db as db
+try:
+    import klayout
+    import klayout.db as db
+except ModuleNotFoundError as exc:
+    # Only --check degrades without klayout (SKIP); every other path hard-fails.
+    klayout = None
+    db = None
+    KLAYOUT_IMPORT_ERROR = exc.name or "klayout"
+else:
+    KLAYOUT_IMPORT_ERROR = None
 
 ROOT = Path(__file__).resolve().parent.parent
 LAYOUT = ROOT / "layout"
@@ -48,6 +60,44 @@ BAND_UM = 5.0       # gap between the array's top ring row and the bias block
 DBU = 0.0005
 N_UNARY = SIDE * SIDE - 1
 BINARY_UNITS = [1, 2, 4, 8]
+
+
+# ------------------------------------------------- klayout pin / --check mode
+
+def check_mode(installed: str | None, pin: str) -> str:
+    """Three-way --check decision: installed klayout (or None) vs the pin.
+
+    strict  klayout == pin: byte-exact on the whole envelope (today's behaviour).
+    relaxed klayout != pin: everything strict except provenance.klayout_version,
+            which is host-dependent by construction.
+    skip    klayout absent: a provisioning gap, not drift.
+    """
+    if installed is None:
+        return "skip"
+    return "strict" if installed == pin else "relaxed"
+
+
+def mask_klayout_version(ev: dict) -> dict:
+    """Deep copy of an evidence envelope without provenance.klayout_version."""
+    out = copy.deepcopy(ev)
+    prov = out.get("provenance")
+    if isinstance(prov, dict):
+        prov.pop("klayout_version", None)
+    return out
+
+
+def read_pin(path: Path | None = None) -> str:
+    """klayout_package_pin from layout/toolchain.json; fails loudly if unusable."""
+    path = path or (LAYOUT / "toolchain.json")
+    try:
+        data = json.loads(path.read_text())
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"FAIL   {path}: unreadable or invalid JSON: {exc}")
+    pin = data.get("klayout_package_pin") if isinstance(data, dict) else None
+    if not isinstance(pin, str) or not pin:
+        raise SystemExit(
+            f"FAIL   {path}: klayout_package_pin missing or not a version string")
+    return pin
 
 
 def dbu(um: float) -> int:
@@ -850,6 +900,25 @@ def main() -> int:
         TABLE.write_text(json.dumps(want_table, indent=2) + "\n")
         print(f"wrote {TABLE.relative_to(ROOT)}")
         return 0
+
+    pin = read_pin()
+    installed = None if klayout is None else klayout.__version__
+    mode = check_mode(installed, pin)
+    if a.check and mode == "skip":
+        print(f"SKIP   {KLAYOUT_IMPORT_ERROR} not importable: --check needs the pip klayout "
+              f"pinned as klayout_package_pin={pin} in layout/toolchain.json "
+              "(provisioning gap, not drift)", file=sys.stderr)
+        return 2
+    if klayout is None:
+        print(f"FAIL   {KLAYOUT_IMPORT_ERROR} not importable: writing the stream needs the pip "
+              f"klayout pinned as klayout_package_pin={pin} in layout/toolchain.json",
+              file=sys.stderr)
+        return 1
+    if mode == "relaxed":
+        print(f"NOTE   installed klayout {installed} != klayout_package_pin {pin}: comparing the "
+              "envelope with provenance.klayout_version excluded; the byte hash is claimed "
+              "only at the pin", file=sys.stderr)
+
     table = json.loads(TABLE.read_text())
 
     errs = []
@@ -869,8 +938,16 @@ def main() -> int:
         if a.check:
             if not GDS.exists() or sha(GDS) != h:
                 errs.append(f"{GDS.relative_to(ROOT)} differs from a fresh run ({h})")
-            if not EVIDENCE.exists() or json.loads(EVIDENCE.read_text()) != evidence(h):
+            fresh = evidence(h)
+            if not EVIDENCE.exists():
                 errs.append(f"{EVIDENCE.relative_to(ROOT)} differs from a fresh run")
+            else:
+                committed = json.loads(EVIDENCE.read_text())
+                if mode == "relaxed":
+                    committed = mask_klayout_version(committed)
+                    fresh = mask_klayout_version(fresh)
+                if committed != fresh:
+                    errs.append(f"{EVIDENCE.relative_to(ROOT)} differs from a fresh run")
         elif not errs:
             GDS.write_bytes(outs[0].read_bytes())
             EVIDENCE.write_text(json.dumps(evidence(h), indent=2) + "\n")
@@ -878,7 +955,8 @@ def main() -> int:
     for e in errs:
         print(f"FAIL   {e}", file=sys.stderr)
     if a.check and not errs:
-        print(f"layout stream fresh: {h}")
+        print(f"layout stream fresh: klayout_mode={mode} (klayout {installed} vs "
+              f"klayout_package_pin {pin}): {h}")
     return 1 if errs else 0
 
 
