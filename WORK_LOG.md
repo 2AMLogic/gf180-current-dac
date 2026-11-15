@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #86**: refactor(spec): one owner for the array segmentation constants
+- **Issue #80** (closed): Remove the restated segmentation constants in gen_analog.py: the layout generator already derives all of them, and they drifted once already
 - **PR #98**: docs: scope DR-0008 first-entry optimism claim to the delay tables
 - **PR #94**: docs: pin pex verify block to the record's klt version, not the live pin
 - **PR #93**: chore: drop unreferenced design/count_netlist.py; cite enforced count checks in README
