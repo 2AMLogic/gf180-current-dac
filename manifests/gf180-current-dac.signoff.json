@@ -38,24 +38,287 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e",
+        "content_hash": "sha256:a0aaa80197d84c3c4da2eff9df3e7cff4a49b34c945f5594c190995f7cb38acb",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
-          "path": {
-            "path": "design/inventory-item1-analog.json",
-            "scope": "repo"
-          },
-          "content_hash": "sha256:a8b463b1192622a40874d9e381cddb2f89807a74afcf1935f92f86428f9ef94e",
+          "path": null,
+          "content_hash": "sha256:a0aaa80197d84c3c4da2eff9df3e7cff4a49b34c945f5594c190995f7cb38acb",
           "input_verified": true,
-          "summary": "T1 item 1 (Design sources): 41/41 attestation checks passed (klt signoff --attest)",
+          "members": [
+            {
+              "path": {
+                "path": "design/analog/bias.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:b59568c5b37af4363063b041e01ef9ba92948a44a3def608a9551bbbb751c0ba",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/bias.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:2cc32d339a5b362ff3e9fb0cf9f7b9b0cfc651499f9a9b25416d65086aaacc63",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/bias.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:517234816b10a4722416b88923d846d1e44d8a437ffc049e1def8c686fa88d50",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/dac_analog.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:56026b178ee172d1e74e3841ee05e791cf016d5b5cc2eff376251303eda37318",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/dac_analog.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:460f689326bf308b820955a0d6ca45af48ae568cfe7e5c1e79ac64d0fb185826",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/driver.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:14b7d595d517c07f6e1dd4262a858a1264ac31b13f8da0c02d4cfd6bb342efaf",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/driver.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d8847efe09f4147950411eaf3eea09cb231d07abc9ccf8fe1befe927fc709db9",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/driver.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:3c03125394c8f1873d530dbed033db0c2c74f53f85e718eb9b91e09b61b3081f",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/dummy_cell.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:da140e455317a5c32cf5f01a8e043441a2d7d30b17f7218ead19049e69793507",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/dummy_cell.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:e5e0c70c0b9df186f8432e3fe97e2c3641a0a2857283eb0df0fbfe216dc06ff4",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/dummy_cell.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:db6dd5fdf1781971277feaac36d9d71e8c3dd55ca8227977605769821412eeef",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_1.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:1a644b4ff6cffde71d846aa57807b4386743a282e8dd96ae4223f4351a4cc1d5",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_1.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:73c3f55edfb8321609cf1764a704ce90239a88715f3ae8df6f59d543913b2c2e",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_1.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_16.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:e2a827f6f368fa94a6fa5076986890cdcdca4daa06a1dd547ed77ec34c4d0c23",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_16.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:674e5ff92b96315a05719d0f1a484083dca7439f097a75aa5e9379fda5005505",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_16.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_2.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:707bfbe70db19feb897820647bc8ed6e1d560db1d36ec463c9919a11cb6da5f1",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_2.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:f35eb21e91db6f2ce4970bc9cf3199a72b9baed7edbee1e8290bcb8b41fb74ee",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_2.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_4.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:c3aecdc9c9e0da1cd1fd57f20561922646c39621e0a3dba7be5723f6e6ba0d38",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_4.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:67ea8961cba33fb7534aa332e1492655fe785c0ea2e474d290a1dc0445f21758",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_4.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_8.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d190a954e2457b3fa89d8edf89bac6e046e39f2e7b4b7474f1fbc8f51958f39f",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_8.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:2325e5a8671b2a293f9ef3fea7130332e19b8d3beea066439d6566206e13d646",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/elem_8.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/unit_cell.sch",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:8ab4e96f3f6d8741e0b35167d0bd9161847a60ed28a9397e7e96074445b8a651",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/unit_cell.spice",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:814faa7d378c288201dfe3fbb741753d32a7ccf5dc9583acba8fb9601a820ab6",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/unit_cell.sym",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d30af6c6b1280aabba0bfe974ffa51067c83bebb1f55e006441452ee9cb37c85",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/analog/xschemrc",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:372da21ae6ccc38be7bc16f5ff95e3205edaa64b6a0de5b6b7b81b838113b639",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/gen_analog.py",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:13a00847dd2eb9fcdddd9a3b7a91c09a14138bf9c4bffd7ac557ca20fd1025cd",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "design/inventory-item1-analog.json",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:c6fd99b922740ccd52b43a8bc3132a56c7804bf616788b055458727e480f3a28",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "spec/segmentation.py",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:fd8d1a766dd70129157ac75311c78b24e82239c059323fcd69fc1e7495736fe8",
+              "status": "verified"
+            }
+          ],
+          "summary": "T1 item 1 (Design sources): 42/42 attestation checks passed (klt signoff --attest)",
           "source": "design/inventory-item1-analog.json",
           "attestation": {
             "producer": "klt signoff --attest",
             "inventory_schema_version": 1,
-            "check_count": 41,
-            "passed_count": 41
+            "check_count": 42,
+            "passed_count": 42
           }
         }
       }

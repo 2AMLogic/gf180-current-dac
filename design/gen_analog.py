@@ -295,7 +295,8 @@ def inventory():
             "generator": "klt netlist",
             "check": {"argv": argv + ["--check"], "local_only": True},
         })
-    sources = ["design/gen_analog.py", f"{rel}/xschemrc"] + \
+    sources = ["design/gen_analog.py", "spec/segmentation.py",
+               f"{rel}/xschemrc"] + \
         [f"{rel}/{n}.sch" for n in schematics()] + \
         [f"{rel}/{n}.sym" for n in SYMS]
     return json.dumps({
@@ -304,7 +305,8 @@ def inventory():
         "t1_item": 1,
         "description": "Analog partition design sources: generated xschem "
                        "schematics and symbols, the generator "
-                       "(python3 design/gen_analog.py), and netlists derived "
+                       "(python3 design/gen_analog.py) with its segmentation "
+                       "module (spec/segmentation.py), and netlists derived "
                        "with klt netlist. Existence and freshness only; no "
                        "performance claim.",
         "sources": sources,
