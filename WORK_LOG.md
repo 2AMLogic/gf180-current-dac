@@ -2,8 +2,19 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-15
+
+- **PR #92**: build: single-source the klt release pin via check_signoff.sh --print-pin
+- **PR #88**: ci: enumerate committed JSON in check_ci instead of a hand-maintained allowlist
+- **Issue #73** (closed): Remove the six restated copies of the klt release pin: KLT_PIN is the declared home but CI hardcodes 0.9.0
+- **Issue #70** (closed): Remove the hand-maintained JSON_FILES allowlist in check_ci.py: enumerate committed JSON from git
+
 ### 2026-11-14
 
+- **PR #82**: docs: name the klt_required_commands record in sim/README.md instead of snapshotting it
+- **PR #79**: docs: record a klt extract --parasitics probe of the analog array
+- **Issue #72** (closed): Correct the stale klt_required_commands description in sim/README.md
+- **Issue #67** (closed): Parasitic extraction probe of the analog array: one klt extract --parasitics run with a committed record
 - **PR #81**: docs: split DR-0008's index_2 gloss by liberty table shape
 - **Issue #76** (closed): DR-0008: index_2 gloss is wrong for the four setup/hold columns (constraint tables have no load axis)
 - **Issue #68** (closed): Propose a decision record for the digital partition's I/O timing budget
