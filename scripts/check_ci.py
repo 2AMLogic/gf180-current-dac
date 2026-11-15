@@ -16,28 +16,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-JSON_FILES = [
-    "sim/pdk.json",
-    "sim/toolchain.json",
+# Committed JSON files whose *absence* is caught by no other job — not cited
+# by the manifests (which byte-compare in check_signoff.sh), not passed to
+# `klt signoff --attest` in ci.yml, and not loaded by any TESTS entry.
+# `git ls-files` reads the index, so a committed deletion drops a path from
+# the enumeration silently; these must fail loudly instead.
+REQUIRED_JSON = [
     "layout/toolchain.json",
-    "manifests/gf180-current-dac.json",
-    "manifests/gf180-current-dac.signoff.json",
-    "design/inventory-item1-analog.json",
-    "evidence/item1-analog.json",
     "design/inventory-item1-digital.json",
-    "evidence/item1-digital.json",
     "synth/decoder.request.json",
     "synth/decoder.report.json",
     "synth/dac_digital.request.json",
     "synth/dac_digital.report.json",
-    "evidence/item2-analog.json",
-    "evidence/item2-digital.json",
-    "evidence/item3-analog.json",
-    "evidence/item3-digital.json",
     "layout/pnr/request.json",
-    "layout/pnr/dac_digital.report.json",
-    "layout/switching_sequence.json",
-    "attest/item10.json",
 ]
 TESTS = [
     [sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec"],
@@ -50,14 +41,33 @@ LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
 
 
 def check_json(errors):
-    for rel in JSON_FILES:
-        path = ROOT / rel
+    out = subprocess.run(
+        ["git", "ls-files", "*.json"], cwd=ROOT, capture_output=True, text=True
+    )
+    if out.returncode != 0:
+        errors.append(f"git ls-files failed: {out.stderr.strip()}")
+        return
+    # Installed tooling trees, not hand-written here; nothing in them is a
+    # parse target of this repo's gate.
+    skip = (".loom/", ".claude/", ".agents/", ".github/")
+    files = sorted(p for p in out.stdout.split() if not p.startswith(skip))
+    if not files:
+        errors.append("git ls-files discovered no JSON files; nothing to parse")
+        return
+    before = len(errors)
+    for rel in REQUIRED_JSON:
+        if rel not in files:
+            errors.append(f"{rel}: required JSON file is not in the git index")
+    parsed = 0
+    for rel in files:
         try:
-            json.loads(path.read_text())
+            json.loads((ROOT / rel).read_text())
         except (OSError, ValueError) as exc:
             errors.append(f"{rel}: unreadable or invalid JSON: {exc}")
             continue
-        print(f"ok     {rel}")
+        parsed += 1
+    if len(errors) == before:
+        print(f"ok     {parsed} JSON files parse")
 
 
 def check_tests(errors):
