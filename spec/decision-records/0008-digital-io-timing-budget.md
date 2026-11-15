@@ -124,9 +124,13 @@ the 15 `.lib` files in that directory.
 
 ### These figures do not confirm the budget, and cannot
 
-The first entry is the optimistic end of either table shape — minimum load for
-the delay tables, sharpest transitions for the constraint tables — not a worst
-case, so the figures above are indicative of order of magnitude only. The other
+The first entry is the optimistic end of the delay tables — minimum output
+load, where it is the table minimum outright. For the constraint tables it is
+simply one corner of a table that is non-monotonic in both axes, not an extreme
+in either direction: at `ss_125C_3v00` their maxima reach 1.083 / 5.482 ns
+(setup rise/fall) and 1.461 / 0.642 ns (hold rise/fall), each above its first
+entry. In neither table shape is the first entry a worst case, so the figures
+above are indicative of order of magnitude only. The other
 end of the delay tables is no better as a bound: at `ss_125C_3v00` the three
 chain cells' table **maxima** sum to 37.5 ns, and `clk`->`Q` reaches 11.5 ns,
 because `index_1` there runs out to a 15.6 ns input transition and `index_2` to
