@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #109**: test: silence check_tests' synthetic SKIP/ok prints in test_check_ci
+- **Issue #106** (closed): check_ci.py gate output now carries two synthetic SKIP/ok lines from its own test module
 - **PR #104**: docs: name klayout_package_pin in README instead of restating the pip klayout version
 - **PR #103**: ci: honor exit 2 as SKIP only for the allowlisted TESTS entry
 - **PR #102**: fix: derive the last restated segmentation literals (size.py cross-check, table self-description)
