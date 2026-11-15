@@ -20,37 +20,31 @@ _None._
 `loom:important`; taken before unlabelled work.
 
 - **#2**: Draft and ratify the target spec
-- **#67**: Parasitic extraction probe of the analog array: one klt extract --parasitics run with a committed record
-- **#72**: Correct the stale klt_required_commands description in sim/README.md
-- **#76**: DR-0008: index_2 gloss is wrong for the four setup/hold columns (constraint tables have no load axis)
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#67**: Parasitic extraction probe of the analog array: one klt extract --parasitics run with a committed record
+_None._
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
-- **#66**: Decoder functional suite as a cocotb regression run through klt functional-verification (RTL and synthesized netlist)
-- **#69**: Correct stale klt pin and testbench wording in the ERC README, layout toolchain notes and root README
+- **#80**: Remove the restated segmentation constants in gen_analog.py: the layout generator already derives all of them, and they drifted once already
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
 - **#29**: docs(spec): add ratification packet for the key reviews
-- **#71**: docs: separate the klt release that wrote the ERC reports from the one grading now
-- **#75**: test: add cocotb functional suite for dac_digital with zero-delay RTL and netlist reports
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#86**: refactor(spec): one owner for the array segmentation constants
 
 ## Proposed
 
@@ -59,15 +53,11 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
-- **#66**: Decoder functional suite as a cocotb regression run through klt functional-verification (RTL and synthesized netlist) *(curated)*
-- **#67**: Parasitic extraction probe of the analog array: one klt extract --parasitics run with a committed record *(curated)*
-- **#69**: Correct stale klt pin and testbench wording in the ERC README, layout toolchain notes and root README *(curated)*
-- **#72**: Correct the stale klt_required_commands description in sim/README.md *(curated)*
 
 ## Proposed (Architect / Hermit)
 
-- **#70**: Remove the hand-maintained JSON_FILES allowlist in check_ci.py: enumerate committed JSON from git *(hermit)*
-- **#73**: Remove the six restated copies of the klt release pin: KLT_PIN is the declared home but CI hardcodes 0.9.0 *(hermit)*
+- **#78**: Remove the stale vendored design-evidence-tiers.md: klt signoff already ships the ladder and the verdict is identical without it *(hermit)*
+- **#85**: Remove duplicated toolchain pins: pdk_revision (sim) and klt_last_verified_commit (layout) *(hermit)*
 
 ## Epics
 
@@ -79,12 +69,12 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
-| Important | 4 |
-| Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 3 |
-| Approved PRs awaiting merge | 0 |
-| Curated | 7 |
+| Important | 1 |
+| Ready (`loom:issue`) | 0 |
+| In Progress (`loom:building`) | 2 |
+| PRs awaiting review | 1 |
+| Approved PRs awaiting merge | 1 |
+| Curated | 3 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
