@@ -4,6 +4,12 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-15
 
+- **PR #104**: docs: name klayout_package_pin in README instead of restating the pip klayout version
+- **PR #103**: ci: honor exit 2 as SKIP only for the allowlisted TESTS entry
+- **PR #102**: fix: derive the last restated segmentation literals (size.py cross-check, table self-description)
+- **Issue #100** (closed): Root README.md:109 is the last restatement of the klayout pip pin, now that ci.yml reads klayout_package_pin
+- **Issue #99** (closed): check_ci.py treats ANY child exit 2 as SKIP, so an argparse-level break on a non-skippable check silently drops that gate
+- **Issue #96** (closed): Finish the segmentation ownership sweep: three 1023 literals in spec/sizing/size.py and the hardcoded 8/63/62 in the switching-table self-description
 - **PR #86**: refactor(spec): one owner for the array segmentation constants
 - **Issue #80** (closed): Remove the restated segmentation constants in gen_analog.py: the layout generator already derives all of them, and they drifted once already
 - **PR #98**: docs: scope DR-0008 first-entry optimism claim to the delay tables
