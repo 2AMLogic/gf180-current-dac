@@ -29,7 +29,6 @@ re-runs it. Netlist from `klt netlist` only, never raw `xschem`.
 | `analog/*.spice` | netlists derived by `klt netlist` |
 | `analog/xschemrc` | symbol path (this directory, gf180mcuD PDK symbols) |
 | `inventory-item1-analog.json` | T1 item 1 inventory for `klt signoff --attest` |
-| `count_netlist.py` | flattened instance count of a netlist |
 
 Hierarchy: `unit_cell` (nfet current source M1, cascode M2, switch pair
 Msp/Msn above the cascode) -> `elem_16` (unary element, 16 explicit unit
@@ -38,18 +37,12 @@ cells) and `elem_1/2/4/8` (binary) -> `dac_analog` (63 + 4 elements, a
 is no `m=` multiplier on the array, so layout and LVS can match instance for
 instance.
 
-```
-$ python3 design/count_netlist.py design/analog/dac_analog.spice
-unit_cell: 1023
-dummy_cell: 133
-driver: 67
-bias: 1
-elem_1: 1 elements x 1 units = 1
-elem_2: 1 elements x 2 units = 2
-elem_4: 1 elements x 4 units = 4
-elem_8: 1 elements x 8 units = 8
-elem_16: 63 elements x 16 units = 1008
-```
+Instance counts are asserted where they matter, not listed by hand:
+`python3 layout/gen_array.py --check` fails unless the layout carries
+exactly 1023 unit cells (ring dummies plus the one binary-site filler) and
+1023 units joined into their element gate nets, and the committed LVS
+compare (`verification/lvs/analog.report.json`, status `match`, 0 errors)
+matches 5046 devices instance for instance between layout and netlist.
 
 ## What this does not claim
 

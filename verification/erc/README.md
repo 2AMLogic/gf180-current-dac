@@ -1,10 +1,18 @@
 # verification/erc
 
 T1 item 11 (power delivery, structural): one `klt erc` supply run per
-partition, because the two streams are not merged. Run with
-`klayout-tools==0.8.0` (the pin `scripts/check_signoff.sh` and CI grade the
-manifest with), deck `gf180mcu`, `--findings-only --omit-antenna-tables`
-(connectivity half only). Both runs are single checks, no grid, about 3 s each.
+partition, because the two streams are not merged. The committed reports were
+written with `klayout-tools==0.8.0`, deck `gf180mcu`, `--findings-only
+--omit-antenna-tables` (connectivity half only). Both runs are single checks,
+no grid, about 3 s each.
+
+Two different releases are in play here, and this file names only the first.
+The `0.8.0` above and in **Regenerate** below is history: the release that
+produced the reports now committed. The release that grades the manifest
+*today* is the pin `KLT_PIN` in
+[`scripts/check_signoff.sh`](../../scripts/check_signoff.sh), which CI reads
+too; look it up there rather than from this file, so a later bump cannot
+make this page stale again.
 
 | Partition | Layout | Spec | Verdict |
 |---|---|---|---|
