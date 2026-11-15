@@ -12,6 +12,8 @@ Verify with `python3 -m unittest scripts.tests.test_check_ci` from the
 repo root (or let `python3 scripts/check_ci.py` run it as part of TESTS).
 """
 
+import contextlib
+import io
 import sys
 import unittest
 from pathlib import Path
@@ -29,6 +31,13 @@ def stub(entry):
 class TestPerEntrySkipContract(unittest.TestCase):
     def setUp(self):
         self._saved = check_ci.TESTS
+        # check_tests() prints its own SKIP/ok lines, and this module runs
+        # inside the gate's own TESTS entry — let nothing reach the gate's
+        # stdout. unittest reports results on stderr, so this hides only the
+        # synthetic lines.
+        self._stdout = contextlib.redirect_stdout(io.StringIO())
+        self._stdout.__enter__()
+        self.addCleanup(self._stdout.__exit__, None, None, None)
 
     def tearDown(self):
         check_ci.TESTS = self._saved
