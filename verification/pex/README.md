@@ -7,10 +7,12 @@ nothing here is cited by the signoff manifest, and nothing here supports an
 INL, DNL or SFDR number. See "What this evidence does and does not say" below
 before using any figure in it.
 
-Run at the klt pin of [`scripts/check_signoff.sh`](../../scripts/check_signoff.sh)
-(read the pin from that file; it is deliberately not restated here so this
-record cannot go stale against it), deck `gf180mcu`, `--backend local`, as a
-single local process. No grid, no batch submission.
+Run at klt `0.9.0`, the version this record was produced at — restated in the
+provenance table below because it describes the record, not the repo; the
+repo's *current* pin lives in
+[`scripts/check_signoff.sh`](../../scripts/check_signoff.sh) and may have moved
+on since — deck `gf180mcu`, `--backend local`, as a single local process. No
+grid, no batch submission.
 
 | | |
 |---|---|
@@ -200,15 +202,24 @@ this directory:
 
 ```
 gunzip -c analog.pex.report.json.gz > /tmp/analog.pex.report.json
-uvx --from "klayout-tools==$(sed -n 's/^KLT_PIN=.*:-\([0-9.]*\)}.*/\1/p' ../../scripts/check_signoff.sh)" \
+uvx --from "klayout-tools==0.9.0" \
     klt extract --check /tmp/analog.pex.report.json ../../layout/gf180-current-dac-analog.gds
 ```
 
-Exits 0 and prints `status: match` with `[OK]` on
-`provenance.input.content_hash` and `provenance.deck.content_hash`; exits 3 if
-either drifted. The decompression step is needed only until
-klayout-tools#5717 is fixed. The positional layout path is passed explicitly so
-the check resolves the input regardless of the directory it is run from.
+The pin is this record's own, not the repo's current one: `klayout-tools==0.9.0`
+is the literal value of `provenance.klt_reinstall_spec` in the committed report
+(the version the record was produced at, as the table row above records). It is
+pinned literally because `--check` re-derives the deck hash from the *running*
+klt's deck — a provenance value derived from the running tool, like the
+`gen_array.py --check` case — so verifying at any other klt version can report
+the unchanged record as drifted. Exits 0 and prints `status: match` with `[OK]`
+on `provenance.input.content_hash` and `provenance.deck.content_hash`; exit 3
+means the committed layout or report no longer matches this record as re-derived
+at that recorded version — the artifacts changed, not the pin. Re-establishing
+the deck hash against a newer klt is a `## Regenerate` below, not a `--check`.
+The decompression step is needed only until klayout-tools#5717 is fixed. The
+positional layout path is passed explicitly so the check resolves the input
+regardless of the directory it is run from.
 
 Confirm the artifacts themselves are intact:
 
@@ -241,3 +252,11 @@ the single-process claim true in the recorded command regardless of the
 environment it is re-run in. Rerun after any change to
 `layout/gf180-current-dac-analog.gds`; the `--check` above is what detects that
 drift.
+
+Unlike the Verify block above, the pin here is read live from
+`check_signoff.sh`: a regeneration should run at the repo's *current* pin.
+Regenerating at a bumped pin must update every place that states the version
+this record was produced at — the intro above, the klt/KLayout row of the
+provenance table, and both the `uvx` pin and the `klayout-tools==0.9.0` prose
+in "Verify the committed record" — in the same commit; each of those describes
+the record and would otherwise lag the new run.
