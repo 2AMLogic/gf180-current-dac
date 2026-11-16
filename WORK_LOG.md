@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-16
+
+- **PR #114**: check: validate WORK_LOG.md citations resolve to real items
+- **Issue #113** (closed): Nothing validates WORK_LOG.md citations: PR #112 added 59 entries from another project, all CI green
+
 ### 2026-11-15
 
 - **PR #109**: test: silence check_tests' synthetic SKIP/ok prints in test_check_ci
