@@ -52,7 +52,6 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
-- **#106**: check_ci.py gate output now carries two synthetic SKIP/ok lines from its own test module *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -74,7 +73,7 @@ _None._
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 3 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
