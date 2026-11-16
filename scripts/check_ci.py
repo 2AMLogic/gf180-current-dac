@@ -138,11 +138,13 @@ def _repo_slug():
     return m.group(1) if m else None
 
 
-def _fetch_item(number):
-    """Resolve one item: (kind, title), or None when it does not exist.
+def _fetch_all_items():
+    """Fetch every issue and PR of this repository, paginated (issue #116).
 
-    A clean 404 answers None; anything else (no slug, rate limit, network
-    down) raises, so a token-carrying run can never silently pass.
+    `GET /repos/{slug}/issues?state=all&per_page=100` lists both kinds,
+    so one listing covers every citation a run can make; a page shorter
+    than the page size ends the walk. Any non-2xx or network error
+    raises — strictness is unchanged from the per-number resolver.
     """
     repo = _repo_slug()
     if not repo:
@@ -151,18 +153,40 @@ def _fetch_item(number):
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    req = urllib.request.Request(
-        f"https://api.github.com/repos/{repo}/issues/{number}", headers=headers
-    )
-    try:
+    items = {}
+    page = 1
+    while True:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{repo}/issues"
+            f"?state=all&per_page=100&page={page}",
+            headers=headers,
+        )
         with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.load(resp)
-    except urllib.error.HTTPError as exc:
-        if exc.code == 404:
-            return None
-        raise
-    kind = "PR" if data.get("pull_request") is not None else "Issue"
-    return kind, data["title"]
+            batch = json.load(resp)
+        for data in batch:
+            kind = "PR" if data.get("pull_request") is not None else "Issue"
+            items[data["number"]] = (kind, data["title"])
+        if len(batch) < 100:
+            return items
+        page += 1
+
+
+_ITEMS = None
+
+
+def _fetch_item(number):
+    """Resolve one item: (kind, title), or None when it does not exist.
+
+    The item map is fetched once per process and memoized in `_ITEMS`
+    (issue #116): O(pages) requests per run, not one per distinct
+    citation. A number absent from the map answers None; anything else
+    (no slug, rate limit, network down) raises, so a token-carrying run
+    can never silently pass.
+    """
+    global _ITEMS
+    if _ITEMS is None:
+        _ITEMS = _fetch_all_items()
+    return _ITEMS.get(number)
 
 
 def check_work_log(errors, resolve=None, path=None):
