@@ -98,7 +98,7 @@ KLT="uvx --from klayout-tools==$(scripts/check_signoff.sh --print-pin) klt"
 
 | Record | Command |
 |---|---|
-| Repo checks: JSON validity, harness and spec tests, spec structure, schematic generator and layout stream freshness, README links | `python3 scripts/check_ci.py` (or `npm run check:ci`, which also runs the signoff freshness check) |
+| Repo checks: JSON validity, harness and spec tests, spec structure, schematic generator and layout stream freshness, README links, WORK_LOG citations | `python3 scripts/check_ci.py` (or `npm run check:ci`, which also runs the signoff freshness check); citation resolution needs `GITHUB_TOKEN`, else it reports SKIP |
 | Toolchain pins (ngspice, Python, PDK revision) | `python3 -m sim.harness check` |
 | Smoke record [`sim/smoke/records/20261017-215406.md`](sim/smoke/records/20261017-215406.md) with its [corners](sim/smoke/records/20261017-215406-corners.json) and [Monte Carlo](sim/smoke/records/20261017-215406-mc.json.gz) reports | `$KLT sim sim/smoke/request-corners.json --format json --report-out <corners.json>` and `$KLT sim sim/smoke/request-mc.json --format json --report-out <mc.json>`. Multi-corner and Monte Carlo requests go to the batch fleet; the commands as run are in the record. Needs the PDK from [`sim/README.md`](sim/README.md) |
 | Sizing model [`spec/sizing/sizing-output.md`](spec/sizing/sizing-output.md) (model results, not SPICE) | `python3 spec/sizing/size.py` (`--check` verifies the committed file) |

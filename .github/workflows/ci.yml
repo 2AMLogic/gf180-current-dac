@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   checks:
-    name: JSON, harness self-test, README links
+    name: JSON, harness self-test, README links, WORK_LOG citations
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -29,6 +29,10 @@ jobs:
           # CI installs the pin, so gen_array --check must land on the strict
           # path; a divergence must fail here, not silently relax the gate
           grep -q klayout_mode=strict "$RUNNER_TEMP/check_ci.log"
+        # check_ci.py resolves WORK_LOG.md citations against the forge REST
+        # API (issue #113); without the token the gate would only SKIP
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
   signoff:
     name: klt signoff record is fresh

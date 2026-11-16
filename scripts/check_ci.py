@@ -11,11 +11,19 @@ Stdlib only. Run from anywhere; paths resolve against the repo root.
    absent as a provisioning gap); any other entry exiting 2 is an error,
    not a skip.
 3. Relative links in README.md resolve.
+4. Every `**Issue #N**` / `**PR #N**` citation in WORK_LOG.md resolves to a
+   real item of the same kind with the same title. Resolution needs
+   GITHUB_TOKEN; without it the gate prints an explicit SKIP line and
+   never silently passes (issue #113 — a docs-only PR once added 59
+   entries from another project, all gates green).
 """
 import json
+import os
 import re
 import subprocess
 import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -48,6 +56,16 @@ TESTS = [
 ]
 LINK_DOCS = ["README.md"]
 LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
+
+# Work Log citation gate (issue #113). A citation is `**Issue #N**` or
+# `**PR #N**`; the entry usually continues with an optional `(closed)`/
+# `(open)` annotation and the item title after `: `. The annotation is
+# deliberately NOT checked against the real state: an entry may be written
+# by the very PR that closes its issue, so the item can still be open at
+# CI time even though the log truthfully records the outcome.
+WORK_LOG = "WORK_LOG.md"
+CITE_RE = re.compile(r"\*\*(Issue|PR) #(\d+)\*\*")
+CITE_TITLE_RE = re.compile(r"(?: \((?:closed|open)\))?: (\S.*)")
 
 
 def check_json(errors):
@@ -103,11 +121,115 @@ def check_links(errors):
         print(f"ok     links in {rel}")
 
 
+def _norm_title(title):
+    return re.sub(r"\s+", " ", title.lower().strip())
+
+
+def _repo_slug():
+    repo = os.environ.get("GITHUB_REPOSITORY")
+    if repo:
+        return repo
+    out = subprocess.run(
+        ["git", "remote", "get-url", "origin"], cwd=ROOT, capture_output=True, text=True
+    )
+    if out.returncode != 0:
+        return None
+    m = re.search(r"[:/]([^/:]+/[^/:\s]+?)(?:\.git)?/?$", out.stdout.strip())
+    return m.group(1) if m else None
+
+
+def _fetch_item(number):
+    """Resolve one item: (kind, title), or None when it does not exist.
+
+    A clean 404 answers None; anything else (no slug, rate limit, network
+    down) raises, so a token-carrying run can never silently pass.
+    """
+    repo = _repo_slug()
+    if not repo:
+        raise RuntimeError("cannot determine the repository slug for forge lookups")
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "check_ci.py"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(
+        f"https://api.github.com/repos/{repo}/issues/{number}", headers=headers
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.load(resp)
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise
+    kind = "PR" if data.get("pull_request") is not None else "Issue"
+    return kind, data["title"]
+
+
+def check_work_log(errors, resolve=None, path=None):
+    """Every WORK_LOG.md citation resolves to a real item of the same kind
+    and title (issue #113). `resolve` is injectable so tests stub the forge."""
+    doc = Path(path) if path is not None else ROOT / WORK_LOG
+    try:
+        text = doc.read_text()
+    except OSError as exc:
+        errors.append(f"{doc}: unreadable: {exc}")
+        return
+    if not os.environ.get("GITHUB_TOKEN"):
+        print(f"SKIP   {WORK_LOG} citations (GITHUB_TOKEN not set)")
+        return
+    resolve = resolve or _fetch_item
+    cites = []
+    for line_no, line in enumerate(text.splitlines(), 1):
+        for m in CITE_RE.finditer(line):
+            title = CITE_TITLE_RE.match(line, m.end())
+            cites.append(
+                (line_no, m.group(1), int(m.group(2)),
+                 title.group(1) if title else None)
+            )
+    if not cites:
+        errors.append(
+            f"{WORK_LOG}: no **Issue #N**/**PR #N** citations found; "
+            "the citation extractor sees nothing to check"
+        )
+        return
+    cache = {}
+    before = len(errors)
+    for line_no, kind, number, title in cites:
+        if number not in cache:
+            try:
+                cache[number] = resolve(number)
+            except Exception as exc:
+                cache[number] = ("lookup-error", str(exc))
+        item = cache[number]
+        if item is None:
+            errors.append(
+                f"{WORK_LOG}:{line_no}: cites {kind} #{number}, "
+                "which does not exist in this repository"
+            )
+        elif item[0] == "lookup-error":
+            errors.append(
+                f"{WORK_LOG}:{line_no}: {kind} #{number}: forge lookup failed: {item[1]}"
+            )
+        elif item[0] != kind:
+            errors.append(
+                f"{WORK_LOG}:{line_no}: cites {kind} #{number} "
+                f"but #{number} is a {item[0]} ({item[1]})"
+            )
+        elif title is not None and _norm_title(title) != _norm_title(item[1]):
+            errors.append(
+                f"{WORK_LOG}:{line_no}: {kind} #{number} title does not match: "
+                f"log says {title!r}, forge says {item[1]!r}"
+            )
+    if len(errors) == before:
+        print(f"ok     {len(cites)} {WORK_LOG} citations resolve")
+
+
 def main():
     errors = []
     check_json(errors)
     check_tests(errors)
     check_links(errors)
+    check_work_log(errors)
     for err in errors:
         print(f"FAIL   {err}", file=sys.stderr)
     return 1 if errors else 0
