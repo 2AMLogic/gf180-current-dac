@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   checks:
-    name: JSON, harness self-test, README links, WORK_LOG citations
+    name: JSON, harness self-test, README links
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
