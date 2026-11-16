@@ -67,6 +67,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 - **PR #55**: Bump Repo Skills 0.24.7 -> 0.25.1
 
 ### 2026-10-28
+
 - **Issue #35** (closed): T1 item 4 (LVS clean): klt lvs match of the analog array against its schematic netlist and of the decoder against its gate-level netlist
 - **Issue #38** (closed): T1 item 11 (power delivery): klt erc supply spec for the array and decoder supplies, PDN and LVS power verdicts
 - **Issue #51** (closed): T1 item 2/4 prerequisite: route and pin the analog array (wiring, 72 pins, substrate/well taps) so analog LVS can match
@@ -75,6 +76,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 - **PR #54**: feat(erc): supply ERC evidence for both partitions, item 11 met
 
 ### 2026-10-27
+
 - **Issue #30** (closed): T1 item 1 (design sources, analog partition): xschem schematic and derived netlist for the 6+4 segmented current-cell array, switches, drivers and bias
 - **Issue #31** (closed): T1 item 1 (design sources, digital partition): thermometer decoder and retiming latch RTL with its synthesized gf180mcu netlist
 - **Issue #32** (closed): T1 item 2 (layout, analog partition): common-centroid unary array with dummies, switches and bias, generated GDS
