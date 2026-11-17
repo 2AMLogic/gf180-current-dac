@@ -19,7 +19,7 @@ _None._
 
 `loom:important`; taken before unlabelled work.
 
-- **#2**: Draft and ratify the target spec
+- **#2**: Draft and ratify the target spec *(held)*
 
 ## Ready
 
@@ -32,7 +32,6 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
-- **#116**: check_ci: resolve WORK_LOG citations via one paginated issues list instead of per-number REST calls
 
 ## PRs Awaiting Review
 
@@ -50,15 +49,14 @@ _None._
 
 Issues carrying `loom:curated`.
 
-- **#2**: Draft and ratify the target spec *(curated)*
+- **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
-- **#116**: check_ci: resolve WORK_LOG citations via one paginated issues list instead of per-number REST calls *(curated)*
 
 ## Proposed (Architect / Hermit)
 
-- **#78**: Remove the stale vendored design-evidence-tiers.md: klt signoff already ships the ladder and the verdict is identical without it *(hermit)*
-- **#85**: Remove duplicated toolchain pins: pdk_revision (sim) and klt_last_verified_commit (layout) *(hermit)*
+- **#78**: Remove the stale vendored design-evidence-tiers.md: klt signoff already ships the ladder and the verdict is identical without it *(hermit)* *(held)*
+- **#85**: Remove duplicated toolchain pins: pdk_revision (sim) and klt_last_verified_commit (layout) *(hermit)* *(held)*
 
 ## Epics
 
@@ -72,10 +70,10 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 2 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 3 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
