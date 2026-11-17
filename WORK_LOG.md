@@ -4,6 +4,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-16
 
+- **PR #115**: chore(loom): resync installed Loom to v0.19.1302
 - **PR #114**: check: validate WORK_LOG.md citations resolve to real items
 - **Issue #113** (closed): Nothing validates WORK_LOG.md citations: PR #112 added 59 entries from another project, all CI green
 
