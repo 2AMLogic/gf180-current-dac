@@ -32,6 +32,7 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
+- **#116**: check_ci: resolve WORK_LOG citations via one paginated issues list instead of per-number REST calls
 
 ## PRs Awaiting Review
 
@@ -52,6 +53,7 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
+- **#116**: check_ci: resolve WORK_LOG citations via one paginated issues list instead of per-number REST calls *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -70,10 +72,10 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 2 |
 | PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Curated | 4 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
