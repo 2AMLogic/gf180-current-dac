@@ -4,6 +4,8 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-17
 
+- **PR #117**: perf: one memoized paginated listing in the WORK_LOG citation gate
+- **Issue #116** (closed): check_ci: resolve WORK_LOG citations via one paginated issues list instead of per-number REST calls
 - **PR #122**: chore(loom): resync installed Loom to v0.19.1306
 
 ### 2026-11-16
