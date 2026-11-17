@@ -9,8 +9,9 @@ argparse usage error after a flag rename) is a break and must fail the
 gate, never pass silently. The stubs are real child processes (`sys.exit`)
 so the actual return-code path is exercised, not a mocked subprocess.
 
-The Work Log tests stub the forge resolver: no test here touches the
-network, with or without GITHUB_TOKEN.
+The Work Log tests stub the forge resolver; the default-resolver tests
+(issue #116) mock `urllib.request.urlopen` instead. No test here touches
+the network, with or without GITHUB_TOKEN.
 
 Verify with `python3 -m unittest scripts.tests.test_check_ci` from the
 repo root (or let `python3 scripts/check_ci.py` run it as part of TESTS).
@@ -18,7 +19,9 @@ repo root (or let `python3 scripts/check_ci.py` run it as part of TESTS).
 
 import contextlib
 import io
+import json
 import os
+import re
 import sys
 import unittest
 import unittest.mock
@@ -211,6 +214,122 @@ class TestWorkLogGate(unittest.TestCase):
         self.run_gate(errors, "# Work Log\n\nno entries yet\n")
         self.assertEqual(len(errors), 1)
         self.assertIn("no **Issue", errors[0])
+
+
+def _fake_item(number, title, pr=False):
+    data = {"number": number, "title": title}
+    if pr:
+        data["pull_request"] = {"url": f"https://api.github.com/repos/o/r/pulls/{number}"}
+    return data
+
+
+def _response(payload):
+    resp = unittest.mock.MagicMock()
+    resp.__enter__.return_value.read.return_value = json.dumps(payload).encode()
+    return resp
+
+
+class TestDefaultResolver(unittest.TestCase):
+    """The default resolver `_fetch_item`: paginated, memoized (issue #116).
+
+    The resolver fetches one paginated `issues?state=all` listing per
+    process and answers later numbers from the map, so a run costs
+    O(pages) requests no matter how many distinct numbers WORK_LOG.md
+    cites. urlopen is mocked; no test here touches the network.
+    """
+
+    def setUp(self):
+        import tempfile
+
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.path = Path(self._tmp.name) / "WORK_LOG.md"
+        patcher = unittest.mock.patch.dict(
+            os.environ, {"GITHUB_TOKEN": "test-token",
+                         "GITHUB_REPOSITORY": "owner/repo"})
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        # Hide the gate's own ok/SKIP prints; unittest reports on stderr.
+        self._stdout = contextlib.redirect_stdout(io.StringIO())
+        self._stdout.__enter__()
+        self.addCleanup(self._stdout.__exit__, None, None, None)
+        # Each test starts with a cold per-process memo.
+        self._saved_items = check_ci._ITEMS
+        check_ci._ITEMS = None
+        self.addCleanup(setattr, check_ci, "_ITEMS", self._saved_items)
+        self._saved_error = check_ci._ITEMS_ERROR
+        check_ci._ITEMS_ERROR = None
+        self.addCleanup(setattr, check_ci, "_ITEMS_ERROR", self._saved_error)
+        self.urlopen_calls = []
+        patcher = unittest.mock.patch.object(
+            check_ci.urllib.request, "urlopen", side_effect=self._fake_urlopen)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def _fake_urlopen(self, req, timeout=None):
+        url = req.get_full_url()
+        self.urlopen_calls.append(url)
+        # Anchor so `per_page=100` can't match as the page number.
+        page = int(re.search(r"[?&]page=(\d+)", url).group(1))
+        if page == 1:
+            # A full first page (100 items) forces the second request.
+            return _response(
+                [_fake_item(n, f"item {n}", pr=n % 2 == 1)
+                 for n in range(1, 101)])
+        return _response([_fake_item(101, "second page item")])
+
+    def run_gate(self, errors, text):
+        self.path.write_text(text)
+        check_ci.check_work_log(errors, path=self.path)
+
+    def test_two_pages_cover_all_citations(self):
+        errors = []
+        self.run_gate(errors, "- **Issue #2** (closed): item 2\n"
+                              "- **PR #99** (closed): item 99\n"
+                              "- **Issue #101** (closed): second page item\n"
+                              "- **Issue #2** (closed): item 2\n")
+        self.assertEqual(errors, [])
+        # One request per page, not per distinct citation.
+        self.assertEqual(len(self.urlopen_calls), 2)
+        self.assertIn("page=1", self.urlopen_calls[0])
+        self.assertIn("page=2", self.urlopen_calls[1])
+
+    def test_absent_number_is_does_not_exist_error(self):
+        errors = []
+        self.run_gate(errors, "- **Issue #500** (closed): fabricated entry\n")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("#500", errors[0])
+        self.assertIn("does not exist", errors[0])
+
+    def test_kind_comes_from_pull_request_key(self):
+        # Odd numbers carry pull_request in the fake listing, so #3 is a PR.
+        errors = []
+        self.run_gate(errors, "- **Issue #3** (closed): item 3\n")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("is a PR", errors[0])
+
+    def test_page_failure_is_an_error_not_a_skip(self):
+        def failing(req, timeout=None):
+            url = req.get_full_url()
+            if "page=2" in url:
+                self.urlopen_calls.append(url)
+                raise check_ci.urllib.error.HTTPError(
+                    url, 403, "rate limited", None, None)
+            return self._fake_urlopen(req, timeout)
+
+        check_ci.urllib.request.urlopen.side_effect = failing
+        # Two distinct citations: the failed walk is memoized, so the
+        # second citation re-raises without walking again — 2 requests,
+        # not 4.
+        errors = []
+        self.run_gate(errors, "- **Issue #2** (closed): item 2\n"
+                              "- **Issue #99** (closed): item 99\n")
+        self.assertEqual(len(errors), 2)
+        for err in errors:
+            self.assertIn("forge lookup failed", err)
+        self.assertEqual(len(self.urlopen_calls), 2)
+        self.assertIn("page=1", self.urlopen_calls[0])
+        self.assertIn("page=2", self.urlopen_calls[1])
 
 
 if __name__ == "__main__":
