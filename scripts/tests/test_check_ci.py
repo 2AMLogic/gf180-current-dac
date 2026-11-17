@@ -257,6 +257,9 @@ class TestDefaultResolver(unittest.TestCase):
         self._saved_items = check_ci._ITEMS
         check_ci._ITEMS = None
         self.addCleanup(setattr, check_ci, "_ITEMS", self._saved_items)
+        self._saved_error = check_ci._ITEMS_ERROR
+        check_ci._ITEMS_ERROR = None
+        self.addCleanup(setattr, check_ci, "_ITEMS_ERROR", self._saved_error)
         self.urlopen_calls = []
         patcher = unittest.mock.patch.object(
             check_ci.urllib.request, "urlopen", side_effect=self._fake_urlopen)
@@ -307,16 +310,26 @@ class TestDefaultResolver(unittest.TestCase):
 
     def test_page_failure_is_an_error_not_a_skip(self):
         def failing(req, timeout=None):
-            if "page=2" in req.get_full_url():
+            url = req.get_full_url()
+            if "page=2" in url:
+                self.urlopen_calls.append(url)
                 raise check_ci.urllib.error.HTTPError(
-                    req.get_full_url(), 403, "rate limited", None, None)
+                    url, 403, "rate limited", None, None)
             return self._fake_urlopen(req, timeout)
 
         check_ci.urllib.request.urlopen.side_effect = failing
+        # Two distinct citations: the failed walk is memoized, so the
+        # second citation re-raises without walking again — 2 requests,
+        # not 4.
         errors = []
-        self.run_gate(errors, "- **Issue #2** (closed): item 2\n")
-        self.assertEqual(len(errors), 1)
-        self.assertIn("forge lookup failed", errors[0])
+        self.run_gate(errors, "- **Issue #2** (closed): item 2\n"
+                              "- **Issue #99** (closed): item 99\n")
+        self.assertEqual(len(errors), 2)
+        for err in errors:
+            self.assertIn("forge lookup failed", err)
+        self.assertEqual(len(self.urlopen_calls), 2)
+        self.assertIn("page=1", self.urlopen_calls[0])
+        self.assertIn("page=2", self.urlopen_calls[1])
 
 
 if __name__ == "__main__":

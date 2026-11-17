@@ -172,6 +172,7 @@ def _fetch_all_items():
 
 
 _ITEMS = None
+_ITEMS_ERROR = None
 
 
 def _fetch_item(number):
@@ -179,13 +180,22 @@ def _fetch_item(number):
 
     The item map is fetched once per process and memoized in `_ITEMS`
     (issue #116): O(pages) requests per run, not one per distinct
-    citation. A number absent from the map answers None; anything else
-    (no slug, rate limit, network down) raises, so a token-carrying run
-    can never silently pass.
+    citation. A failed walk is memoized too, in `_ITEMS_ERROR`, so the
+    listing is attempted at most once per process — during a rate-limit
+    outage each further citation must not hammer the forge again. A
+    number absent from the map answers None; anything else (no slug,
+    rate limit, network down) raises, so a token-carrying run can never
+    silently pass.
     """
-    global _ITEMS
+    global _ITEMS, _ITEMS_ERROR
+    if _ITEMS_ERROR is not None:
+        raise _ITEMS_ERROR
     if _ITEMS is None:
-        _ITEMS = _fetch_all_items()
+        try:
+            _ITEMS = _fetch_all_items()
+        except Exception as exc:
+            _ITEMS_ERROR = exc
+            raise
     return _ITEMS.get(number)
 
 
