@@ -32,7 +32,9 @@ if ! cmp -s "$fresh" manifests/gf180-current-dac.signoff.json; then
   # the regression as the new baseline). Name the drifted item(s) and print
   # the per-item re-attest command before the regenerate message; print
   # nothing extra when no stale_evidence is present, so a genuinely stale
-  # record's output is unchanged.
+  # record's output is unchanged. Only envelope items -- those whose stale
+  # detail actually carries artifact_binding.members -- are named; other
+  # stale_evidence shapes keep the regenerate message.
   FRESH="$fresh" KLT_PIN="$KLT_PIN" python3 <<'PYEOF' >&2 || true
 import json, os, sys
 
@@ -50,6 +52,12 @@ for it in fresh.get("items", []):
                 p = p.get("path")
             if p:
                 paths.add(str(p))
+    # Only an attestation envelope carries stale artifact_binding.members;
+    # the other stale_evidence shapes (a drifted provenance.input artifact,
+    # a stale content-hash pin) have no envelope to re-attest, so printing
+    # a --attest command for them would point at the wrong fix.
+    if not paths:
+        continue
     drift.setdefault(it["id"], set()).update(paths)
 
 if not drift:
@@ -62,7 +70,7 @@ print("which is why the record differs. Re-attest first -- regenerating the reco
 print("alone would commit the regression as the new baseline.")
 for n in sorted(drift):
     where = sorted(drift[n])
-    print("  T1 item %d%s" % (n, " (drifted member: %s)" % ", ".join(where) if where else ""))
+    print("  T1 item %d (drifted member: %s)" % (n, ", ".join(where)))
     files = []
     for key, val in evidence.items():
         if key == str(n) or key.startswith("%d." % n):

@@ -6,8 +6,10 @@ The script's only external dependency, `uvx ... klt signoff`, is stubbed:
 a fake `uvx` first on PATH cats a fixture "fresh" grading JSON, so the three
 remediation paths run offline --
 
-- a stale_evidence drift prints the per-item re-attest command, before the
-  record-regeneration message;
+- a stale_evidence item with attestation binding members prints the
+  per-item re-attest command, before the record-regeneration message,
+  while a stale_evidence item with no members (a stale pin, a drifted
+  provenance input) gets no --attest hint at all;
 - a genuinely stale record with no stale_evidence keeps the old
   regenerate-only message;
 - a matching record exits 0 with the `signoff record fresh` line.
@@ -46,6 +48,25 @@ def stale_item(item_id, members):
                     for p in members
                 ]
             }
+        },
+    }
+
+
+def non_attest_stale_item(item_id):
+    """A stale_evidence item whose detail has no attestation binding (the
+    stale-pin shape): there is no envelope to re-attest, so the hint block
+    must leave it to the regenerate message."""
+    return {
+        "tier": "T1",
+        "id": item_id,
+        "title": "Layout artifacts exist",
+        "status": "unmet",
+        "reason": "stale_evidence",
+        "graded_by_build": True,
+        "citation": None,
+        "detail": {
+            "content_hash_pin": "stale",
+            "hash_check": {"path": "layout/gf180-current-dac-analog.gds"},
         },
     }
 
@@ -135,6 +156,16 @@ class TestCheckSignoffHints(unittest.TestCase):
         self.assertLess(
             r.stderr.index("--attest 9"), r.stderr.index("--attest 10")
         )
+
+    def test_non_attest_stale_item_gets_no_attest_hint(self):
+        self.write_fixtures(
+            grading(1, [non_attest_stale_item(2)]), grading(2, [])
+        )
+        r = self.run_script()
+        self.assertEqual(r.returncode, 1)
+        self.assertNotIn("--attest", r.stderr)
+        self.assertNotIn("Attestation envelope drifted", r.stderr)
+        self.assertIn("Committed signoff record is stale. Regenerate:", r.stderr)
 
     def test_genuinely_stale_record_output_unchanged(self):
         self.write_fixtures(grading(2, []), grading(1, []))
