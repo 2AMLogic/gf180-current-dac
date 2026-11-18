@@ -13,6 +13,9 @@ The Work Log tests stub the forge resolver; the default-resolver tests
 (issue #116) mock `urllib.request.urlopen` instead. No test here touches
 the network, with or without GITHUB_TOKEN.
 
+The merge-queue trigger gate (issue #127) tests are file-injected except
+the regression guard, which reads the committed ci.yml.
+
 Verify with `python3 -m unittest scripts.tests.test_check_ci` from the
 repo root (or let `python3 scripts/check_ci.py` run it as part of TESTS).
 """
@@ -330,6 +333,78 @@ class TestDefaultResolver(unittest.TestCase):
         self.assertEqual(len(self.urlopen_calls), 2)
         self.assertIn("page=1", self.urlopen_calls[0])
         self.assertIn("page=2", self.urlopen_calls[1])
+
+
+class TestMergeQueueTrigger(unittest.TestCase):
+    """check_merge_queue_trigger: ci.yml declares merge_group (issue #127).
+
+    The chip merge queue cannot run the required checks without the
+    trigger, so the gate must fail closed on a missing or filtered one.
+    """
+
+    def setUp(self):
+        import tempfile
+
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.path = Path(self._tmp.name) / "ci.yml"
+        # Hide the gate's own ok prints; unittest reports on stderr.
+        self._stdout = contextlib.redirect_stdout(io.StringIO())
+        self._stdout.__enter__()
+        self.addCleanup(self._stdout.__exit__, None, None, None)
+
+    def run_gate(self, errors, text):
+        self.path.write_text(text)
+        check_ci.check_merge_queue_trigger(errors, path=self.path)
+
+    def test_committed_workflow_declares_merge_group(self):
+        # The regression guard against the real file: dropping or
+        # filtering the trigger re-breaks the merge queue (issue #127).
+        errors = []
+        check_ci.check_merge_queue_trigger(errors)
+        self.assertEqual(errors, [])
+
+    def test_declared_bare_trigger_passes(self):
+        errors = []
+        self.run_gate(errors,
+                      "name: ci\n"
+                      "on:\n"
+                      "  push:\n"
+                      "    branches: [main]\n"
+                      "  pull_request:\n"
+                      "  merge_group:\n"
+                      "  workflow_dispatch:\n"
+                      "jobs:\n"
+                      "  checks: {}\n")
+        self.assertEqual(errors, [])
+
+    def test_missing_trigger_fails(self):
+        errors = []
+        self.run_gate(errors,
+                      "name: ci\n"
+                      "on:\n"
+                      "  push:\n"
+                      "    branches: [main]\n"
+                      "  pull_request:\n")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("merge_group", errors[0])
+
+    def test_path_filter_fails(self):
+        errors = []
+        self.run_gate(errors,
+                      "on:\n"
+                      "  pull_request:\n"
+                      "  merge_group:\n"
+                      "    paths:\n"
+                      '      - "layout/**"\n')
+        self.assertEqual(len(errors), 1)
+        self.assertIn("filters", errors[0])
+
+    def test_missing_on_block_fails(self):
+        errors = []
+        self.run_gate(errors, "name: ci\njobs:\n  checks: {}\n")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("`on:`", errors[0])
 
 
 if __name__ == "__main__":
