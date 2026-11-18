@@ -400,6 +400,47 @@ class TestMergeQueueTrigger(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIn("filters", errors[0])
 
+    def test_three_space_filter_fails(self):
+        # The filter scan is indent-relative: any code line indented more
+        # than the trigger line is a filter, not just 4-space lines
+        # (issue #131).
+        errors = []
+        self.run_gate(errors,
+                      "on:\n"
+                      "  merge_group:\n"
+                      "   branches: [main]\n")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("filters", errors[0])
+
+    def test_four_space_indent_bare_trigger_passes(self):
+        # Four-space `on:` members are valid YAML: the trigger itself may
+        # sit at four spaces, and must be found there (issue #131).
+        errors = []
+        self.run_gate(errors,
+                      "name: ci\n"
+                      "on:\n"
+                      "    push:\n"
+                      "        branches: [main]\n"
+                      "    pull_request:\n"
+                      "    merge_group:\n"
+                      "    workflow_dispatch:\n"
+                      "jobs:\n"
+                      "  checks: {}\n")
+        self.assertEqual(errors, [])
+
+    def test_four_space_indent_filter_fails(self):
+        # Same indent-relative rule at the deeper indent: a filter two
+        # levels under a four-space trigger is still a filter (issue #131).
+        errors = []
+        self.run_gate(errors,
+                      "on:\n"
+                      "    pull_request:\n"
+                      "    merge_group:\n"
+                      "      paths:\n"
+                      '        - "layout/**"\n')
+        self.assertEqual(len(errors), 1)
+        self.assertIn("filters", errors[0])
+
     def test_missing_on_block_fails(self):
         errors = []
         self.run_gate(errors, "name: ci\njobs:\n  checks: {}\n")

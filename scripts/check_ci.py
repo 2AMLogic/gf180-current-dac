@@ -268,7 +268,9 @@ def check_work_log(errors, resolve=None, path=None):
 # it needs are line-shaped, so a yaml dependency is not warranted.
 CI_WORKFLOW = ".github/workflows/ci.yml"
 ON_BLOCK_RE = re.compile(r'^(?:on|"on"):\s*$')
-MERGE_GROUP_RE = re.compile(r"^  merge_group:\s*(?:#.*)?$")
+# Any leading indent: the trigger is matched relative to the file's own
+# `on:` layout, not a pinned two-space convention (issue #131).
+MERGE_GROUP_RE = re.compile(r"^\s+merge_group:\s*(?:#.*)?$")
 
 
 def _on_block(text):
@@ -324,9 +326,12 @@ def check_merge_queue_trigger(errors, path=None):
         )
         return
     i = next(i for i, line in enumerate(code) if MERGE_GROUP_RE.match(line))
+    # Indent-relative: a filter is any code line indented deeper than the
+    # trigger line itself, whatever the file's `on:` layout (issue #131).
+    indent = len(code[i]) - len(code[i].lstrip())
     filters = []
     for line in code[i + 1:]:
-        if line.startswith("    ") and line.strip():
+        if line.strip() and len(line) - len(line.lstrip()) > indent:
             filters.append(line.strip())
         else:
             break
