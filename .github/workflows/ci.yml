@@ -50,6 +50,10 @@ jobs:
       # Pin lives in scripts/check_signoff.sh (KLT_PIN), resolved via scripts/check_signoff.sh --print-pin.
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh
+      # Editing ci.yml, README.md or LICENSE (this file included) drifts the
+      # item 10 envelope: re-attest item 10 (command in the README reproduce
+      # table) before regenerating the signoff record, or the regression
+      # ships as the new baseline.
       - name: Re-attest item 10 (repo hygiene) and compare against the committed envelope
         run: uvx --from "klayout-tools==$(scripts/check_signoff.sh --print-pin)" klt signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
       # cold_start is local_only (needs ngspice >= 46 and the batch fleet), so --check skips it
