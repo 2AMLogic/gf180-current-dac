@@ -4,6 +4,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-18
 
+- **Issue #137** (closed): Guide docs-PR bodies can emit a stray `closed #N` that auto-closes an unrelated issue on merge
 - **PR #133**: fix: make merge_group trigger check indent-relative
 - **PR #132**: check: check_signoff.sh re-attests a drifted envelope before pointing at record regeneration
 - **Issue #131** (closed): check_merge_queue_trigger misses a merge_group filter indented with 3 spaces
