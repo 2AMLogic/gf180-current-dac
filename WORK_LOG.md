@@ -4,6 +4,10 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-18
 
+- **PR #133**: fix: make merge_group trigger check indent-relative
+- **PR #132**: check: check_signoff.sh re-attests a drifted envelope before pointing at record regeneration
+- **Issue #131** (closed): check_merge_queue_trigger misses a merge_group filter indented with 3 spaces
+- **Issue #129** (closed): check_signoff.sh's staleness hint points at the wrong fix when an attestation envelope drifts
 - **PR #128**: ci: add the merge_group trigger and gate it in check_ci
 
 ### 2026-11-17
