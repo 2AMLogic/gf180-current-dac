@@ -2,6 +2,10 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-18
+
+- **PR #128**: ci: add the merge_group trigger and gate it in check_ci
+
 ### 2026-11-17
 
 - **PR #117**: perf: one memoized paginated listing in the WORK_LOG citation gate
