@@ -23,7 +23,7 @@ _None._
 
 ## Ready
 
-Human-approved issues ready for implementation (`loom:issue`).
+Human-approved issues (`loom:issue`) ready for implementation — excluding held (`loom:blocked`/`loom:operator`/`loom:frozen`), `loom:building`, and issues closed by an open `loom:pr` PR (listed under Approved).
 
 _None._
 
@@ -32,12 +32,15 @@ _None._
 Issues currently being built (`loom:building`).
 
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews
+- **#127**: Merge queue: add the merge_group trigger to the required-check workflow(s)
+- **#129**: check_signoff.sh's staleness hint points at the wrong fix when an attestation envelope drifts
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
 - **#29**: docs(spec): add ratification packet for the key reviews
+- **#128**: ci: add the merge_group trigger and gate it in check_ci
 
 ## Approved (Awaiting Merge)
 
@@ -52,6 +55,8 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#6**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#22**: Open the spec ratification PR for DR-0001..DR-0005 and get both key reviews *(curated)*
+- **#127**: Merge queue: add the merge_group trigger to the required-check workflow(s) *(curated)*
+- **#129**: check_signoff.sh's staleness hint points at the wrong fix when an attestation envelope drifts *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -69,11 +74,11 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
 | Important | 1 |
-| Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 1 |
-| PRs awaiting review | 1 |
+| Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
+| In Progress (`loom:building`) | 3 |
+| PRs awaiting review | 2 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Curated | 5 |
 | Architect / Hermit proposals | 2 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
