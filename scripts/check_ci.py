@@ -16,6 +16,9 @@ Stdlib only. Run from anywhere; paths resolve against the repo root.
    GITHUB_TOKEN; without it the gate prints an explicit SKIP line and
    never silently passes (issue #113 — a docs-only PR once added 59
    entries from another project, all gates green).
+5. The CI workflow declares a bare `merge_group:` trigger (issue #127 —
+   the chip merge queue cannot run the required checks without it, and
+   repo-ruleset-policy.py refuses the queue until the trigger exists).
 """
 import json
 import os
@@ -258,11 +261,90 @@ def check_work_log(errors, resolve=None, path=None):
         print(f"ok     {len(cites)} {WORK_LOG} citations resolve")
 
 
+# Merge-queue readiness gate (issue #127; rollout 2AMLogic/2am#7605). The
+# queue runs this workflow per group entry, and a missing or filtered
+# trigger either skips the checks or silently narrows what the queue gates
+# on. Text-parsed on purpose: the module is stdlib-only and the assertions
+# it needs are line-shaped, so a yaml dependency is not warranted.
+CI_WORKFLOW = ".github/workflows/ci.yml"
+ON_BLOCK_RE = re.compile(r'^(?:on|"on"):\s*$')
+MERGE_GROUP_RE = re.compile(r"^  merge_group:\s*(?:#.*)?$")
+
+
+def _on_block(text):
+    """The indented body of the workflow's top-level `on:` block, or None.
+
+    The block runs from the line after a bare `on:` to the first
+    non-indented, non-blank, non-comment line. A flow-style `on: [push]`
+    does not match and returns None — fail closed; the caller reports it.
+    """
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        if ON_BLOCK_RE.match(line):
+            block = []
+            for body in lines[i + 1:]:
+                if body.strip() == "" or body.lstrip().startswith("#"):
+                    block.append(body)
+                elif body[:1].isspace():
+                    block.append(body)
+                else:
+                    break
+            return block
+    return None
+
+
+def check_merge_queue_trigger(errors, path=None):
+    """`ci.yml` declares a bare `merge_group:` trigger (issue #127).
+
+    Bare means no `paths`/`branches-ignore` filter and no inline value:
+    the queue must run the required checks on every group entry for the
+    default branch, so any filter would silently narrow what the queue
+    gates on. `path` is injectable so tests run against synthetic files;
+    the default reads the committed workflow as the regression guard.
+    """
+    doc = Path(path) if path is not None else ROOT / CI_WORKFLOW
+    try:
+        text = doc.read_text()
+    except OSError as exc:
+        errors.append(f"{doc}: unreadable: {exc}")
+        return
+    block = _on_block(text)
+    if block is None:
+        errors.append(f"{CI_WORKFLOW}: no block-style top-level `on:` block found")
+        return
+    code = [
+        line for line in block
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    if not [line for line in code if MERGE_GROUP_RE.match(line)]:
+        errors.append(
+            f"{CI_WORKFLOW}: `on:` does not declare a bare `merge_group:` "
+            "trigger; the merge queue cannot run the required checks and "
+            "repo-ruleset-policy.py refuses the queue (issue #127)"
+        )
+        return
+    i = next(i for i, line in enumerate(code) if MERGE_GROUP_RE.match(line))
+    filters = []
+    for line in code[i + 1:]:
+        if line.startswith("    ") and line.strip():
+            filters.append(line.strip())
+        else:
+            break
+    if filters:
+        errors.append(
+            f"{CI_WORKFLOW}: `merge_group:` declares filters {filters}; "
+            "the queue trigger must stay unfiltered (issue #127)"
+        )
+        return
+    print(f"ok     {CI_WORKFLOW} declares a bare merge_group trigger")
+
+
 def main():
     errors = []
     check_json(errors)
     check_tests(errors)
     check_links(errors)
+    check_merge_queue_trigger(errors)
     check_work_log(errors)
     for err in errors:
         print(f"FAIL   {err}", file=sys.stderr)
