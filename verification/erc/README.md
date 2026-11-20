@@ -1,18 +1,13 @@
 # verification/erc
 
 T1 item 11 (power delivery, structural): one `klt erc` supply run per
-partition, because the two streams are not merged. The committed reports were
-written with `klayout-tools==0.8.0`, deck `gf180mcu`, `--findings-only
---omit-antenna-tables` (connectivity half only). Both runs are single checks,
-no grid, about 3 s each.
-
-Two different releases are in play here, and this file names only the first.
-The `0.8.0` above and in **Regenerate** below is history: the release that
-produced the reports now committed. The release that grades the manifest
-*today* is the pin `KLT_PIN` in
-[`scripts/check_signoff.sh`](../../scripts/check_signoff.sh), which CI reads
-too; look it up there rather than from this file, so a later bump cannot
-make this page stale again.
+partition, because the two streams are not merged. Both runs used KLayout
+0.30.12 and the `gf180mcu` deck with `--findings-only --omit-antenna-tables`
+to check connectivity. The analog report records klt `0.8.0`. The digital
+report records klt `0.8.1.dev86+gf9039fd7244e`, the commit pinned in
+[`layout/toolchain.json`](../../layout/toolchain.json). CI grades the
+manifest with the separate `KLT_PIN` in
+[`scripts/check_signoff.sh`](../../scripts/check_signoff.sh).
 
 | Partition | Layout | Spec | Verdict |
 |---|---|---|---|
@@ -26,15 +21,20 @@ waived or shrunk to move a verdict.
 
 ## Regenerate
 
-```
-python3 verification/erc/gen_analog_spec.py [--check]   # needs pip klayout; rewrites analog.spec.json
+Run from the repository root. The analog spec generator takes `--check` to
+verify the existing spec or no arguments to rewrite it.
+
+```sh
+python3 verification/erc/gen_analog_spec.py --check   # needs pip klayout
 cd verification/erc
-uvx --from klayout-tools==0.8.0 klt erc ../../layout/gf180-current-dac-analog.gds analog.spec.json \
+digital_klt=$(jq -r .klt_install ../../layout/toolchain.json)
+klayout_pin=$(jq -r .klayout_package_pin ../../layout/toolchain.json)
+uvx --from klayout-tools==0.8.0 --with "klayout==$klayout_pin" klt erc ../../layout/gf180-current-dac-analog.gds analog.spec.json \
     --top dac_analog_layout --deck gf180mcu --findings-only --omit-antenna-tables --format json > analog.report.json
-uvx --from klayout-tools==0.8.0 klt erc ../../layout/pnr/dac_digital.gds digital.spec.json \
+uvx --from "$digital_klt" --with "klayout==$klayout_pin" klt erc ../../layout/pnr/dac_digital.gds digital.spec.json \
     --top dac_digital --deck gf180mcu --findings-only --omit-antenna-tables --format json > digital.report.json
-uvx --from klayout-tools==0.8.0 klt erc --check analog.report.json     # run from this directory
-uvx --from klayout-tools==0.8.0 klt erc --check digital.report.json
+uvx --from klayout-tools==0.8.0 --with "klayout==$klayout_pin" klt erc --check analog.report.json
+uvx --from "$digital_klt" --with "klayout==$klayout_pin" klt erc --check digital.report.json
 ```
 
 `klt erc` exits 4 on these runs (`--findings-only` leaves the antenna verdict

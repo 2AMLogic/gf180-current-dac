@@ -23,8 +23,9 @@ gitignored; the routed DEF is copied out to `dac_digital.def` before the next
 invocation clears it (the flow emits no post-route SPEF, so none is kept) —
 that DEF is the fixed geometry `klt sta`
 ([`../../verification/sta/`](../../verification/sta/README.md)) analyses and
-`klt extract` (`../lvs/`, digital) reads. The stream was byte-identical on
-two consecutive runs (OpenROAD `26Q3-1510-g6cb3f2b704`, seed 1).
+`klt extract` reads for [digital LVS](../../verification/lvs/README.md#digital).
+The stream was byte-identical on two consecutive runs (OpenROAD
+`26Q3-1510-g6cb3f2b704`, seed 1).
 
 **The routed stream changed with the I/O constraints.** Adding the DR-0008
 delays below changed placement (the router now times the I/O paths), so the
@@ -59,8 +60,8 @@ the driver band is a placeholder; final abutment belongs to integration.
 
 Reported by the tool (`dac_digital.report.json`): route reached, 0 route DRC
 violations, 0 antenna violations, 0 max-transition/capacitance violations, PDN
-audit `complete` (99 tap cells, 62 endcaps, 484 fillers), die 21329 um^2,
-utilization 48.5 %.
+audit `complete` (99 tap cells, 62 endcaps, 505 fillers), die 21329 um^2,
+utilization 47.9695 %.
 
 - **Timing is constrained, against a proposed budget.** With the DR-0008
   I/O delays in the request, every corner in `dac_digital.report.json`

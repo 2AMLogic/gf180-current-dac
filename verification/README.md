@@ -46,9 +46,9 @@ passed, `failed_count` and `skipped_count` zero.
 
 ### What this does **not** claim
 
-- **No timing.** `environment.sdf` is `null` in both reports: these are
-  zero-delay functional runs. No SDF is back-annotated and no STA has been run,
-  so nothing here says the partition meets 100 MS/s.
+- **Functional timing model.** Both functional reports have `environment.sdf`
+  set to `null` and use zero delay. The separate [routed STA](sta/README.md)
+  checks the proposed 100 MS/s budget.
 - **No signoff-manifest item.** Neither report is cited in
   [`../manifests/gf180-current-dac.json`](../manifests/gf180-current-dac.json).
   T1 item 5 wants bit-exact functional evidence against a ratified spec and

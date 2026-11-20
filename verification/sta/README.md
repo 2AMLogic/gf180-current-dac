@@ -2,7 +2,7 @@
 
 Multi-corner `klt sta` on the routed digital partition (`dac_digital`), the
 timing half of T1 item 5 (digital). The functional half is
-[`verification/functional/`](../functional/README.md); the two reports there
+[`verification/functional/`](../functional/); the two reports there
 and this one are item 5's evidence set when the spec is ratified.
 
 **This report is not cited in the signoff manifest.** The budget it checks is
@@ -69,17 +69,20 @@ are other supplies and are out of the set):
 Every corner reports `timing_status: "constrained"` with non-negative setup
 and hold slack, zero setup and hold violations, and `constraint_completeness:
 "complete"` (0 unconstrained endpoints, 0 unclocked registers) — no `1e+39`
-sentinel anywhere. Worst setup paths run `din[*]` to flop `D` pins (the
-input-delay side of the budget), worst hold paths flop-to-flop through the
-retiming stage; the report carries per-corner `worst_setup_path` /
-`worst_hold_path` endpoints.
+sentinel anywhere. In all five corners, the worst setup path starts at
+`din[8]` or `din[9]` and ends at a register `D` pin. The worst hold path is
+`din[9]` to `_31_/D` in every corner.
 
-The setup margins are against 10 ns minus 6 ns of I/O budget: what meets is
-the split DR-0008 proposes, not a ratified row. The tool-printed `fmax_mhz`
-(210.1 at `tt_025C_3v30`) is a slack-derived figure inside the same
-provisional budget. `estimated_power_mw` (2.47 at tt) is engine-default
-activity, `estimate_only` parasitics — an order-of-magnitude number, not a
-spec result.
+DR-0008 allows 7 ns (10 − 3 ns) on each side of the register. On the input
+side, the 3 ns input delay sets both the earliest and latest arrival. For a
+fixed route, increasing it reduces input setup slack and increases input hold
+slack. On the output side, the separate 3 ns reservation leaves 7 ns from
+the launching clock edge for a registered output to become valid.
+
+The reported `fmax_mhz` (210.1 at `tt_025C_3v30`) is derived from setup
+slack under that provisional budget. `estimated_power_mw` (2.47 at tt) uses
+engine-default activity and `estimate_only` parasitics for an order-of-magnitude
+power estimate.
 
 ## What is and is not claimed
 
