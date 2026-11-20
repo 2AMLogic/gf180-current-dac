@@ -2,6 +2,13 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-20
+
+- **PR #145**: fix: gitignore .loom/account-ranking.* daemon state to stop false dirty-main reports
+- **PR #142**: refactor: route binary drive nets from GROUP_PIN instead of a local duplicate
+- **Issue #143** (closed): gitignore: cover .loom/account-ranking.* so check-main-clean stops flagging daemon state
+- **Issue #141** (closed): Remove the duplicate binary pin map from analog array routing
+
 ### 2026-11-18
 
 - **Issue #137** (closed): Guide docs-PR bodies can emit a stray `closed #N` that auto-closes an unrelated issue on merge
