@@ -551,14 +551,13 @@ def assign_tracks(spans: list[tuple[int, int, object]]) -> dict[object, int]:
 
 def drive_nets(table: dict, g: Geom, drv: dict, dx: int, per_row: int) -> list[dict]:
     """One record per sp / sn net: driver lane, element pin, M5 slot."""
-    units = {f"elem_b{b}": u for b, u in ((0, (2, 3)), (1, (1, 3)), (2, (0, 2)), (3, (0, 0)))}
     nets = []
     for k in range(N_UNARY + len(BINARY_UNITS)):
         pos = table["sites"][min(k, N_UNARY)]
         if k < N_UNARY:
             unit = (0, 0)
         else:
-            unit = units[f"elem_b{k - N_UNARY}"]
+            unit = GROUP_PIN[f"elem_b{k - N_UNARY}"]
         origin = ((RING + EL * pos["col"]) * g.px, (RING + EL * pos["row"]) * g.py)
         xo = (k % per_row) * dx
         for kind in ("sp", "sn"):
