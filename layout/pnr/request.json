@@ -56,7 +56,9 @@
   },
   "constraints": {
     "clock_port": "clk",
-    "clock_period_ns": 10.0
+    "clock_period_ns": 10.0,
+    "input_delay_ns": 3.0,
+    "output_delay_ns": 3.0
   },
   "seed": 1,
   "target_stage": "route",

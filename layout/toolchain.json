@@ -41,10 +41,15 @@
     "separate facts and move independently: klt_install is still the",
     "f9039fd7244e commit from issue #33, which is what layout/'s own runners",
     "use. Read the current grading pin from scripts/check_signoff.sh rather",
-    "than from this comment."
+    "than from this comment.",
+    "",
+    "Issue #139: `sta` added to klt_required_commands. The routed-DEF",
+    "timing run (verification/sta/) uses `klt sta` at this same klt_install",
+    "pin; layout/pnr/run.sh checks for it beside place-and-route and signoff",
+    "because the DEF it retains is the geometry that command analyses."
   ],
   "klt_install": "git+https://github.com/2AMLogic/klayout-tools@f9039fd7244e977325c351a5780acbf1cee383fb",
-  "klt_required_commands": ["drc", "gen", "diff", "cells", "stats", "place-and-route", "signoff", "erc"],
+  "klt_required_commands": ["drc", "gen", "diff", "cells", "stats", "place-and-route", "signoff", "erc", "sta"],
   "klt_last_verified_commit": "f9039fd7244e977325c351a5780acbf1cee383fb",
   "klayout_package_min": "0.30",
   "klayout_package_pin": "0.30.12"

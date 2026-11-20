@@ -52,11 +52,12 @@
         "GF180MCU_FD_SC_MCU7T5V0__BUF_4",
         "GF180MCU_FD_SC_MCU7T5V0__BUF_8",
         "GF180MCU_FD_SC_MCU7T5V0__CLKINV_1",
-        "GF180MCU_FD_SC_MCU7T5V0__CLKINV_4",
-        "GF180MCU_FD_SC_MCU7T5V0__CLKINV_8",
+        "GF180MCU_FD_SC_MCU7T5V0__CLKINV_2",
         "GF180MCU_FD_SC_MCU7T5V0__DFFQ_1",
         "GF180MCU_FD_SC_MCU7T5V0__INV_1",
         "GF180MCU_FD_SC_MCU7T5V0__INV_2",
+        "GF180MCU_FD_SC_MCU7T5V0__INV_3",
+        "GF180MCU_FD_SC_MCU7T5V0__INV_4",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_1",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_2",
         "GF180MCU_FD_SC_MCU7T5V0__NAND2_4",
@@ -75,11 +76,11 @@
         "GF180MCU_FD_SC_MCU7T5V0__OAI31_2",
         "GF180MCU_FD_SC_MCU7T5V0__OAI31_4"
       ],
-      "master_count": 29,
+      "master_count": 30,
       "corroborated": true,
       "reason": null
     },
-    "instance_count": 821,
+    "instance_count": 842,
     "expected_nets": null,
     "unchecked_expected_pins": [],
     "findings": [],
@@ -104,8 +105,8 @@
   "counts": {
     "nets": {
       "layout": 189,
-      "reference": 182,
-      "matched": 344
+      "reference": 181,
+      "matched": 347
     },
     "devices": {
       "layout": 0,
@@ -115,7 +116,7 @@
     "pins": {
       "layout": 80,
       "reference": 78,
-      "matched": 240
+      "matched": 244
     }
   },
   "device_classes": null,
@@ -123,8 +124,8 @@
     "engine": "klayout",
     "engine_version": "0.30.12",
     "netgen_binary": null,
-    "layout_sha256": "c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
-    "reference_sha256": "ac962822bb1363ff50acacc3fbcc9c5226a493d866f422f4280c7dd4e23b1e23",
+    "layout_sha256": "32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57",
+    "reference_sha256": "bb51f8880448be28aebd37eece82494295dcaf61ea231ba3012f6db8bb1ffa4b",
     "extracted_netlist": null
   },
   "provenance": {
@@ -140,7 +141,7 @@
     },
     "deck": null,
     "input": {
-      "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
+      "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57",
       "role": "netlist"
     },
     "klayout_version_mismatch": false,
@@ -387,7 +388,7 @@
       "heuristic": true
     },
     {
-      "layout": "VSS",
+      "layout": "VDD",
       "reference": null,
       "pin": true,
       "heuristic": true
@@ -565,6 +566,24 @@
       "reference": null,
       "pin": true,
       "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "VSS",
+      "reference": null,
+      "pin": true,
+      "heuristic": true
+    },
+    {
+      "layout": "ZN",
+      "reference": null,
+      "pin": true,
+      "heuristic": false
     },
     {
       "layout": "ZN",
@@ -1115,6 +1134,12 @@
     {
       "layout": "DIN[9]",
       "reference": "DIN[9]",
+      "pin": true,
+      "heuristic": false
+    },
+    {
+      "layout": "I",
+      "reference": "I",
       "pin": true,
       "heuristic": false
     },
@@ -2259,14 +2284,8 @@
       "heuristic": false
     },
     {
-      "layout": "\\$78",
-      "reference": "__NC_CLKLOAD0_Z__",
-      "pin": false,
-      "heuristic": false
-    },
-    {
-      "layout": "\\$438",
-      "reference": "__NC_CLKLOAD2_Z__",
+      "layout": "\\$256",
+      "reference": "__NC_CLKLOAD1_ZN__",
       "pin": false,
       "heuristic": false
     }
