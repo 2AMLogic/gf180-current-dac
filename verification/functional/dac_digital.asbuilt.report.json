@@ -1,0 +1,80 @@
+{
+  "schema_version": 2,
+  "engine": "icarus",
+  "hdl_toplevel": "dac_digital",
+  "testbench": "test_dac_digital",
+  "status": "pass",
+  "test_count": 4,
+  "passed_count": 4,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "test_thermometer_and_binary_all_codes",
+      "status": "passed",
+      "sim_time_ns": 10267.0,
+      "real_time_s": 0.08
+    },
+    {
+      "name": "test_major_carry_flips_one_line",
+      "status": "passed",
+      "sim_time_ns": 10267.0,
+      "real_time_s": 0.047
+    },
+    {
+      "name": "test_one_cycle_latency",
+      "status": "passed",
+      "sim_time_ns": 130.0,
+      "real_time_s": 0.002
+    },
+    {
+      "name": "test_boundary_codes",
+      "status": "passed",
+      "sim_time_ns": 57.0,
+      "real_time_s": 0.001
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "tools": [],
+    "cocotb_version": "2.1.0",
+    "results_xml": {
+      "path": "verification/functional/.klt/functional-verification/results_icarus.xml",
+      "scope": "repo"
+    },
+    "test_log": {
+      "path": "verification/functional/.klt/functional-verification/test_icarus.log",
+      "scope": "repo"
+    },
+    "build_log": {
+      "path": "verification/functional/.klt/functional-verification/build_icarus.log",
+      "scope": "repo"
+    },
+    "random_seed": 1795236754,
+    "source_defines": {},
+    "env": {
+      "DAC_TB_TIMING": "dr0008"
+    },
+    "initial_state": null,
+    "sdf": {
+      "file": "/home/ubuntu/GitHub/gf180-current-dac/.loom/worktrees/issue-140/verification/functional/dac_digital.tt_025C_3v30.sdf",
+      "corner": "typ",
+      "entries": "all",
+      "annotated": true,
+      "partial": true,
+      "dropped": {
+        "timingcheck": {
+          "count": 66,
+          "reason": "Icarus Verilog implements SDF delay annotation (IOPATH/INTERCONNECT) but not SDF TIMINGCHECK -- every TIMINGCHECK section in the SDF is dropped, so $setup/$hold/$width checks run against the cell library's own placeholder timing, not the characterised limits in the SDF"
+        },
+        "zero_delay_bus_port_source_interconnect": {
+          "count": 47,
+          "reason": "Icarus Verilog can fail to insert an intermodpath for an INTERCONNECT entry whose source is a bit-selected top-level input port -- such an entry fails with 'Could not find intermodpath!'. Entries whose every min:typ:max delay value is zero model no delay at any corner, so they are removed before annotation and counted here instead of failing the run -- a non-zero-delay entry on the same source is left in place and still fails loudly"
+        }
+      }
+    }
+  }
+}

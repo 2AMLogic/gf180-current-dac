@@ -1,0 +1,203 @@
+{
+  "schema_version": 2,
+  "engine": "openroad",
+  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "hdl_toplevel": "dac_digital",
+  "status": "ok",
+  "def_path": {
+    "path": "layout/pnr/dac_digital.def",
+    "scope": "repo"
+  },
+  "verilog_path": null,
+  "geometry_source": "routed",
+  "wire_load_model": null,
+  "wire_load_mode": null,
+  "macros": [],
+  "clock_mode": "ideal",
+  "clock_targets": {
+    "clocks": [
+      {
+        "port": "clk",
+        "period_ns": 10.0
+      }
+    ],
+    "clock_groups": []
+  },
+  "clock_uncertainty": {
+    "applied": false
+  },
+  "spef_path": {
+    "path": "verification/sta/dac_digital.spef",
+    "scope": "repo"
+  },
+  "provenance": {
+    "klt_version": "0.9.0",
+    "klt_git_commit": "5dbbad05ff42265c92a6f3d2f20d1bbcd2957d49",
+    "klt_reinstall_spec": "klayout-tools==0.9.0",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "gf180mcuD",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+    },
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:36ea425f3fd0464001f37d400d8e3e62107ef2a2eab3e88fcc00afc381dcae25",
+      "role": "layout"
+    }
+  },
+  "corners": [
+    {
+      "corner": "tt_025C_3v30",
+      "engine_log": {
+        "invocation_id": "a5beafcb0da44790a6d79e2e9f832313",
+        "script_name": "sta_dac_digital__tt_025C_3v30.tcl",
+        "script_path": {
+          "path": "verification/sta/.klt/sta/sta_dac_digital__tt_025C_3v30.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "bbaf283e367feb47fe31384648c830d8ac536c5fbee98b43a85c398c7359a9f9",
+        "metrics_path": {
+          "path": "verification/sta/.klt/sta/dac_digital__tt_025C_3v30_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "verification/sta/.klt/sta/openroad-logs/a5beafcb0da44790a6d79e2e9f832313",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "verification/sta/.klt/sta/openroad-logs/a5beafcb0da44790a6d79e2e9f832313/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "verification/sta/.klt/sta/openroad-logs/a5beafcb0da44790a6d79e2e9f832313/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "verification/sta/.klt/sta/openroad-logs/a5beafcb0da44790a6d79e2e9f832313/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 4.85631,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 2.93303,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 194.413,
+      "timing_status": "constrained",
+      "constraint_completeness": {
+        "status": "complete",
+        "unconstrained_endpoints": {
+          "status": "ok",
+          "count": 0,
+          "sample": [],
+          "truncated": false,
+          "reason": null
+        },
+        "unclocked_registers": {
+          "status": "ok",
+          "count": 0,
+          "sample": [],
+          "truncated": false,
+          "reason": null
+        },
+        "sample_limit": 20
+      },
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "worst_setup_path": {
+        "status": "ok",
+        "check_type": "setup",
+        "engine_check_role": "setup",
+        "startpoint": "din[8]",
+        "endpoint": "_17_/D",
+        "slack_ns": 4.85631,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "worst_hold_path": {
+        "status": "ok",
+        "check_type": "hold",
+        "engine_check_role": "hold",
+        "startpoint": "din[9]",
+        "endpoint": "_31_/D",
+        "slack_ns": 2.93303,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "clock_skew_ns": 0,
+      "estimated_power_mw": 2.6239,
+      "power_basis": {
+        "activity_source": "engine_default",
+        "activity": null,
+        "duty": null,
+        "parasitics": "spef_annotated"
+      },
+      "spef_annotation": {
+        "nets_annotated": 182,
+        "nets_total": 182,
+        "design_nets_annotated": 182,
+        "design_nets_total": 182,
+        "design_nets_missing_sample": [],
+        "reader_warning_count": 0,
+        "reader_warning_sample": [],
+        "unannotated_driver_count": 7,
+        "partially_unannotated_driver_count": 0,
+        "floating_driver_count": 7,
+        "floating_driver_sample": [
+          "clkload0/ZN",
+          "clkload1/ZN",
+          "clkload2/ZN",
+          "clkload3/ZN",
+          "clkload4/ZN",
+          "clkload5/ZN",
+          "clkload6/ZN"
+        ],
+        "unannotated_driver_sample": [],
+        "unannotated_driver_detail": [],
+        "partially_unannotated_driver_sample": [],
+        "delay_changed": true,
+        "annotation_complete": true,
+        "annotation_warning": null
+      },
+      "electrical_checks": {
+        "parasitics_source": "spef",
+        "max_transition": {
+          "coverage": "checked",
+          "limit_source": "liberty",
+          "unit": "ns",
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
+        },
+        "max_capacitance": {
+          "coverage": "checked",
+          "limit_source": "liberty",
+          "unit": "pF",
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
+        }
+      },
+      "clock_propagation": null,
+      "sdf": {
+        "path": "verification/sta/.klt/sta/dac_digital.tt_025C_3v30.sdf",
+        "scope": "repo",
+        "content_hash": "sha256:e08b63f84684aabe2f8c5458354887e94eb0c053290b0690e618955ff1aae340"
+      },
+      "deck": {
+        "name": "gf180mcu_fd_sc_mcu7t5v0__tt_025C_3v30",
+        "content_hash": "sha256:f9dee07cf158324934b0c59144d970a2e8313f43533ede6283ec3c136f82fe53",
+        "released": false,
+        "path": {
+          "path": null,
+          "scope": "external"
+        }
+      }
+    }
+  ]
+}

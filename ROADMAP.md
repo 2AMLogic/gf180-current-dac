@@ -4,13 +4,13 @@ A 10-bit segmented current-steering DAC on the gf180mcu open PDK, built to
 test array generation, matched layout and extraction in
 [klayout-tools](https://github.com/2AMLogic/klayout-tools) (`klt`).
 
-Status as of 2026-11-13, `main` @ `2755ab2`. The verdict of record is
+Status as of 2026-11-21, `main` @ `ff16f23`. The verdict of record is
 [`manifests/gf180-current-dac.signoff.json`](manifests/gf180-current-dac.signoff.json);
 where this file and that record disagree, the record wins.
 
 ## Where it stands
 
-`klt signoff` (0.9.0) grades **14 of 22** T1 items met, tier `None`, against
+`klt signoff` (0.9.0) grades **15 of 22** T1 items met, tier `None`, against
 [`manifests/design-evidence-tiers.md`](manifests/design-evidence-tiers.md).
 Tracker #6 still shows the 2026-10-17 state; the signoff record supersedes it.
 
@@ -22,7 +22,7 @@ Tracker #6 still shows the 2026-10-17 state; the signoff record supersedes it.
 | 4 LVS | met: match, 133 dummies both sides (PR #53) | met: match (PR #49) |
 | 5 Corners vs ratified spec | unmet, no evidence | unmet, no evidence |
 | 6 Monte Carlo | unmet, no evidence | unmet, no evidence |
-| 7 Post-layout | unmet, no evidence | unmet, no evidence |
+| 7 Post-layout | unmet, no evidence | met: SDF-annotated run cited (`verification/functional/`, #140) |
 | 8 Characterization report | unmet, no evidence | unmet, no evidence |
 | 9 Testbenches shipped | met: `evidence/item9.json` (PR #56) | met (same record) |
 | 10 Repo hygiene | met: `evidence/item10.json` (PR #40) | met (same record) |
@@ -44,7 +44,10 @@ What the met items do not say, in the repo's own words:
   against a ratified row and item 5 stays uncited.
 - **The decoder bench is plain Verilog under Icarus** (`verification/rtl/`,
   1024 codes pass), not the cocotb suite the README names.
-- **No parasitics are extracted**, and the two partitions are separate
+- **No analog parasitics are extracted**: the digital partition now has a
+  SPEF (extracted for the item-7 annotated run,
+  [`verification/sta/`](verification/sta/)), but analog `klt pex` is still
+  only a probe (`verification/pex/`), and the two partitions are separate
   streams with no pad ring and no bias loop (DR-0006: `iref` is an ideal source).
 
 ## Now
@@ -84,9 +87,6 @@ Can start today; each is one PR.
   budget). Citing it needs #2: the checklist requires a ratified spec, and
   `klt signoff` would grade the unratified case `met` today (the probe is
   recorded in `verification/sta/README.md`).
-- **Post-route functional run with SDF back-annotation** on
-  `layout/pnr/dac_digital.asbuilt.v`. Done when: a report with
-  `environment.sdf.annotated: true` is cited as `7.digital`. Needs Now 2.
 - **Item 6 (digital) "not applicable" statement.** Done when: a committed
   statement accounts for every digital spec row and `klt signoff` reports
   `not_applicable`. The checklist allows this only on a ratified spec: needs #2.
