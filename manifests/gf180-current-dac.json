@@ -35,11 +35,11 @@
     "11.digital": [
       {
         "file": "verification/erc/digital.report.json",
-        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
+        "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8"
       },
       {
         "file": "verification/lvs/digital.report.json",
-        "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87"
+        "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57"
       },
       {
         "file": "layout/pnr/dac_digital.report.json",
@@ -52,7 +52,7 @@
     },
     "2.digital": {
       "file": "evidence/item2-digital.json",
-      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
+      "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8"
     },
     "3.analog": {
       "file": "evidence/item3-analog.json",
@@ -60,7 +60,7 @@
     },
     "3.digital": {
       "file": "evidence/item3-digital.json",
-      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f"
+      "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8"
     },
     "4.analog": {
       "file": "verification/lvs/analog.report.json",
@@ -68,7 +68,7 @@
     },
     "4.digital": {
       "file": "verification/lvs/digital.report.json",
-      "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87"
+      "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57"
     }
   }
 }

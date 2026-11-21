@@ -56,17 +56,25 @@ history; the numbers above replace it for the current stream.
 Reference is the P&R as-built netlist, not `dac_digital_synth.v`: the tool's
 gate-level flow compares the layout against the netlist from the same
 place-and-route run, and the as-built one carries the clock-tree cells the
-layout has. Layout side: `klt extract --deck gf180mcu --abstract-cells
-'gf180mcu_fd_sc_mcu7t5v0__*' --def-net-names --def-pins <DEF> --rename-declared-pins
---pdk gf180mcuD` on the committed stream, with the DEF from `layout/pnr/run.sh
---check` (scratch, not committed).
+layout has. To reproduce the layout netlist from the repository root, use
+the GDS and routed DEF retained from that same run.
 
-Signal compare: `status: match`, 0 errors, 344 nets matched (189 layout and 182
-reference nets as counted by the tool). Two warnings: `topology.power_only_pruned` (fill, endcap and
-tap cells, which the gate-level Verilog never carries) and
+```sh
+uvx --from "$(jq -r .klt_install layout/toolchain.json)" \
+    --with "klayout==$(jq -r .klayout_package_pin layout/toolchain.json)" \
+    klt extract layout/pnr/dac_digital.gds --deck gf180mcu --abstract-cells 'gf180mcu_fd_sc_mcu7t5v0__*' \
+    --def-net-names --def-pins layout/pnr/dac_digital.def --rename-declared-pins --pdk gf180mcuD \
+    -o verification/lvs/dac_digital.gate.spice
+```
+
+The signal comparison reports `match` with 0 errors. The tool counts 189
+layout nets, 181 reference nets and 347 matches. Its two warnings are
+`topology.power_only_pruned` (fill, endcap and tap cells, which the gate-level
+Verilog never carries) and
 `topology.top_level_pins_anchored` (78 top-level pins anchored by name).
-Power connectivity: `match`, 725 instances, no findings, but `expected_nets`
-was not declared, so it checks only what the library pins imply. The compare
+The power connectivity check reports `match` across 842 instances with zero
+findings. It checks the nets implied by the library pins because the request
+omits `expected_nets`. The compare
 is of abstracted standard cells (no devices extracted), so it establishes
 connectivity of the placed-and-routed netlist, not device-level LVS.
 
@@ -90,14 +98,14 @@ Classification (issue #45), measured:
   gives nine clock nets, so it is not an artifact of the cell abstraction or
   of `--def-net-names` (the same split appears with and without it). It is a
   real open in the routed clock tree of that stream.
-- The same extraction and the same independent pass on the current stream give
+- The same extraction and the same independent pass on the `8b7a4e0` stream gave
   eight clock nets with exactly the netlist's flop counts, with and without
   `--def-net-names`.
 
 The open went away with the regenerated stream; this issue's investigation did
 not isolate which of the request changes closed it (PDN straps, tap pitch, or
 the changed placement and routing that followed) and does not claim one. The
-`VDD`/`VSS` `net.split` findings are absent from the current report; they
+`VDD`/`VSS` `net.split` findings were absent from the `8b7a4e0` comparison. They
 belonged to the same superseded stream and were not separately attributed.
 No tool gap was found (the extraction and compare behaved correctly on both
 streams), so no `klayout-tools` issue is filed. Process gap: nothing ties an

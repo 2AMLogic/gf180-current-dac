@@ -36,8 +36,12 @@ What the met items do not say, in the repo's own words:
   assumed-model yield (`spec/sizing/size.py`, gradient assumed in DR-0003).
 - **The schematic is not sized against the spec.** DR-0006 lists the cascode
   and switch sizes as assumed, not sized for the 12.8 Mohm and 283 fF rows.
-- **Digital timing is unconstrained** (`layout/pnr/dac_digital.report.json`,
-  `timing_status: unconstrained`); the spec has no I/O timing rows.
+- **Digital timing is constrained but provisional.** Against DR-0008's
+  proposed I/O budget (3.0 ns in / 3.0 ns out), `layout/pnr/dac_digital.report.json`
+  reports `timing_status: constrained` at every corner, and the standalone
+  five-corner run is committed (`verification/sta/`, all corners positive) —
+  but DR-0008 is `proposed` with assumed figures, so no slack is claimed
+  against a ratified row and item 5 stays uncited.
 - **The decoder bench is plain Verilog under Icarus** (`verification/rtl/`,
   1024 codes pass), not the cocotb suite the README names.
 - **No parasitics are extracted**, and the two partitions are separate
@@ -74,9 +78,12 @@ Can start today; each is one PR.
 
 ## Next
 
-- **Multi-corner `klt sta` on the routed decoder**, with the constraints of
-  the Now-4 record. Done when: a `klt sta` report over the PDK corner set is
-  committed with constrained paths. Needs Now 4; citing it for item 5 needs #2.
+- **Cite the digital timing evidence for item 5.** Multi-corner `klt sta` on
+  the routed decoder is done (`verification/sta/`: five 3.3 V corners, all
+  `constrained`, positive setup/hold slack against DR-0008's proposed
+  budget). Citing it needs #2: the checklist requires a ratified spec, and
+  `klt signoff` would grade the unratified case `met` today (the probe is
+  recorded in `verification/sta/README.md`).
 - **Post-route functional run with SDF back-annotation** on
   `layout/pnr/dac_digital.asbuilt.v`. Done when: a report with
   `environment.sdf.annotated: true` is cited as `7.digital`. Needs Now 2.

@@ -8,7 +8,7 @@
   "pdk": null,
   "findings_only": true,
   "gate_role": "Poly2",
-  "gate_count": 529,
+  "gate_count": 527,
   "antenna_tables_omitted": true,
   "gates": [],
   "nets": [
@@ -542,8 +542,6 @@
       "erc.floating_gate:[\"gate524\"]",
       "erc.floating_gate:[\"gate525\"]",
       "erc.floating_gate:[\"gate526\"]",
-      "erc.floating_gate:[\"gate527\"]",
-      "erc.floating_gate:[\"gate528\"]",
       "erc.floating_gate:[\"gate53\"]",
       "erc.floating_gate:[\"gate54\"]",
       "erc.floating_gate:[\"gate55\"]",
@@ -612,7 +610,7 @@
   },
   "ties_disclosure": null,
   "provenance": {
-    "klt_version": "0.8.0",
+    "klt_version": "0.8.1.dev86+gf9039fd7244e",
     "klayout_version": "0.30.12",
     "pdk": null,
     "deck": {
@@ -621,7 +619,7 @@
       "released": true
     },
     "input": {
-      "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+      "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
       "role": "layout"
     },
     "spec": {
@@ -633,7 +631,7 @@
       {
         "name": "Metal1",
         "label_layer": "34/10",
-        "label_text_count": 2205
+        "label_text_count": 2247
       },
       {
         "name": "Metal2",

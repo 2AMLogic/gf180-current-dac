@@ -414,7 +414,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+        "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -423,7 +423,7 @@
             "path": "layout/pnr/dac_digital.gds",
             "scope": "repo"
           },
-          "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+          "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
           "input_verified": true,
           "summary": "T1 item 2 (Layout): 3/3 attestation checks passed (klt signoff --attest)",
           "source": "layout/pnr/dac_digital.gds",
@@ -435,7 +435,7 @@
           },
           "regeneration": {
             "generator": "layout/pnr/run.sh",
-            "regenerated_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+            "regenerated_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
             "executed_by_klt": false
           }
         }
@@ -551,7 +551,7 @@
         "command": null,
         "kind": "drc",
         "check_status": "clean",
-        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+        "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
         "input_verified": true,
         "exit_status": 0,
         "coverage": {
@@ -666,7 +666,7 @@
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
+        "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57",
         "input_verified": true,
         "exit_status": 0
       }
@@ -1014,7 +1014,7 @@
         "command": null,
         "kind": "erc",
         "check_status": "not_checked",
-        "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+        "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
@@ -1023,7 +1023,7 @@
             "command": null,
             "kind": "erc",
             "check_status": "not_checked",
-            "content_hash": "sha256:67068b3c704428ec6d716b33ae716fdbbba3d8c16832f131cc1802951946028f",
+            "content_hash": "sha256:93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8",
             "input_verified": true,
             "exit_status": 0
           },
@@ -1032,7 +1032,7 @@
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:c210840ea83ba3477948a0bd22dcc0147dec8826d404252fcb56b740accc8e87",
+            "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57",
             "input_verified": true,
             "exit_status": 0
           },

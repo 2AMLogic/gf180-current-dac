@@ -11,8 +11,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 pin="$(python3 -I -c 'import json;print(json.load(open("layout/toolchain.json"))["klt_install"])')"
-klt() { uvx --from "$pin" klt "$@"; }
-for c in place-and-route signoff; do
+# Pin the klayout engine to toolchain.json's klayout_package_pin: uvx alone
+# resolves the newest klayout, and a GDS written by a different engine is
+# different bytes (toolchain.json claims the byte hash only for the pin).
+klayout_pin="$(python3 -I -c 'import json;print(json.load(open("layout/toolchain.json"))["klayout_package_pin"])')"
+klt() { uvx --from "$pin" --with "klayout==$klayout_pin" klt "$@"; }
+for c in place-and-route signoff sta; do
   klt --help | grep -qw "$c" || { echo "pinned klt lacks '$c'" >&2; exit 1; }
 done
 
@@ -32,4 +36,14 @@ fi
 mv layout/pnr/.report.tmp layout/pnr/dac_digital.report.json
 cp "$gds" layout/pnr/dac_digital.gds
 cp "$work/place-and-route/dac_digital.v" layout/pnr/dac_digital.asbuilt.v
+# Retain the routed DEF (and the flow's post-route SPEF, when it emits one)
+# at committed paths: .klt/ is cleared at the top of the next invocation, and
+# the DEF is the fixed geometry `klt sta` (verification/sta/) analyses and
+# `klt extract` (verification/lvs/, digital) reads.
+cp "$work/place-and-route/dac_digital.def" layout/pnr/dac_digital.def
+if [ -f "$work/place-and-route/dac_digital.spef" ]; then
+  cp "$work/place-and-route/dac_digital.spef" layout/pnr/dac_digital.spef
+else
+  rm -f layout/pnr/dac_digital.spef
+fi
 echo "sha256:$(sha256sum layout/pnr/dac_digital.gds | cut -d' ' -f1)"

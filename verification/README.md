@@ -9,10 +9,14 @@ record is [`manifests/gf180-current-dac.signoff.json`](../manifests/gf180-curren
 | [`lvs/`](lvs/README.md) | `klt lvs` requests and reports, one per partition, plus the digital gate netlist | 4 (LVS) |
 | `rtl/` | Icarus testbench `tb_dac_digital.v` and its result (`PASS: 1024 codes`) for the digital partition | 1 (digital design sources) |
 | `functional/` | `klt functional-verification` cocotb suite for `dac_digital`, its two request documents and both zero-delay reports (RTL and synthesized netlist) | none cited |
+| [`sta/`](sta/README.md) | multi-corner `klt sta` on the routed `dac_digital` DEF, over DR-0008's five 3.3 V corners | 5 (digital) — not cited: budget is `proposed` |
 | [`pex/`](pex/README.md) | One `klt extract --parasitics` probe of the analog array — does extraction complete at array scale, and what does it produce | 7 (post-layout) — not claimed |
 
-Corner, Monte Carlo and post-layout results (items 5–8) are not here yet; they
-wait on spec ratification (#2). `pex/` is a probe of the extraction tooling,
+Corner and Monte Carlo results (items 5–8, analog) and the post-layout runs
+are not here yet; they wait on spec ratification (#2). The digital timing
+half of item 5 exists ([`sta/`](sta/README.md)) but is provisional — it
+checks a `proposed` budget (DR-0008), so the manifest cites nothing in it;
+the citation waits on #2. `pex/` is a probe of the extraction tooling,
 not a post-layout result: it runs no simulation and the signoff manifest cites
 nothing in it.
 
@@ -42,9 +46,9 @@ passed, `failed_count` and `skipped_count` zero.
 
 ### What this does **not** claim
 
-- **No timing.** `environment.sdf` is `null` in both reports: these are
-  zero-delay functional runs. No SDF is back-annotated and no STA has been run,
-  so nothing here says the partition meets 100 MS/s.
+- **Functional timing model.** Both functional reports have `environment.sdf`
+  set to `null` and use zero delay. The separate [routed STA](sta/README.md)
+  checks the proposed 100 MS/s budget.
 - **No signoff-manifest item.** Neither report is cited in
   [`../manifests/gf180-current-dac.json`](../manifests/gf180-current-dac.json).
   T1 item 5 wants bit-exact functional evidence against a ratified spec and
