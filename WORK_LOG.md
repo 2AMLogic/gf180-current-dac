@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-21
+
+- **PR #147**: sta: apply the DR-0008 I/O budget and commit five-corner klt sta evidence
+- **Issue #139** (closed): T1 item 5 (digital): apply the proposed DR-0008 I/O timing budget and commit a constrained klt sta report over the 3.3 V corners for the routed decoder
+
 ### 2026-11-20
 
 - **PR #145**: fix: gitignore .loom/account-ranking.* daemon state to stop false dirty-main reports
