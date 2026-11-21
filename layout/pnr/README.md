@@ -67,13 +67,22 @@ utilization 47.9695 %.
   I/O delays in the request, every corner in `dac_digital.report.json`
   reports `timing_status: "constrained"` with real setup/hold slack — but the
   budget is DR-0008 (`proposed`, figures assumed), so the slacks are
-  provisional and the report is not cited for item 5; the standalone
-  signoff-grade run over the five 3.3 V corners is
-  [`../../verification/sta/`](../../verification/sta/README.md). This flow
-  sweeps all 15 library corners, including 1v62–1v98 and 4v50–5v50 supply
-  rows that are **outside** DR-0008's 3.3 V PVT set; the `ss_*_1v62` rows
-  show negative setup slack (−6.9 ns at `ss_125C_1v62`) and are not budget
-  results either way — the digital supply is 3.3 V ±10 % (DR-0002).
+  provisional and the report is not cited for item 5. The standalone run
+  over the five 3.3 V corners is
+  [`../../verification/sta/`](../../verification/sta/README.md); note its
+  timing does **not** share this report's interconnect basis: this flow
+  times after `estimate_parasitics -global_routing` (wire RC estimated from
+  the global route, `interconnect_corner: "nom"`), the standalone run
+  applies zero wire RC, so its setup slacks on the shared corners are
+  0.28–0.78 ns higher (measured reason and table:
+  [verification/sta's interconnect
+  section](../../verification/sta/README.md#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow));
+  a signoff-grade I/O timing claim rests on the wire-RC-inclusive numbers.
+  This flow sweeps all 15 library corners, including 1v62–1v98 and
+  4v50–5v50 supply rows that are **outside** DR-0008's 3.3 V PVT set; the
+  `ss_*_1v62` rows show negative setup slack (−6.9 ns at `ss_125C_1v62`)
+  and are not budget results either way — the digital supply is
+  3.3 V ±10 % (DR-0002).
 - `klt drc` of this stream is item 3 (`../drc/README.md`: clean, with the
   coverage gaps listed there). LVS and extraction are other T1 items and are
   not claimed. `route_drc_violation_count` is OpenROAD's router DRC, not
