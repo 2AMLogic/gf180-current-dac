@@ -50,7 +50,8 @@ REQUIRED_JSON = [
 # flag rename, say) fails the gate instead of passing as a skip. New entries
 # default to False.
 TESTS = [
-    ([sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec",
+    ([sys.executable, "-m", "unittest", "design.tests.test_gen_analog",
+     "sim.harness.test_check", "spec.tests.test_check_spec",
      "layout.tests.test_gen_array_check", "scripts.tests.test_check_ci",
      "scripts.tests.test_check_signoff"], False),
     ([sys.executable, "spec/check_spec.py"], False),

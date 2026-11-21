@@ -66,10 +66,30 @@ for _n in [UNITS_PER_UNARY] + BINARY_UNITS:
     SYMS[f"elem_{_n}"] = list(SYMS["unit_cell"])
 
 
-def sym_text(name):
+def pin_sides(name):
+    """SYMS pins grouped by the side they are drawn on, in draw order:
+    left = in/inout pins, right = out pins."""
     pins = SYMS[name]
-    left = [p for p in pins if p[1] != "out"]
-    right = [p for p in pins if p[1] == "out"]
+    return ([p for p in pins if p[1] != "out"], [p for p in pins if p[1] == "out"])
+
+
+def pin_layout(name):
+    """Ordered (pin, dir, side, x, y) placement relative to the symbol
+    origin — the one rule both writers consume: sym_text draws the symbol
+    pins at these coordinates and Sch.sub translates them by the instance
+    origin to attach its wires, so symbol and wiring cannot disagree. Left
+    pins sit at x = -80, right at x = 80; the first pin is 10 above the
+    origin on a 20 pitch."""
+    left, right = pin_sides(name)
+    return [
+        (pn, pd, side, x, 10 + 20 * i)
+        for side, plist, x in (("l", left, -80), ("r", right, 80))
+        for i, (pn, pd) in enumerate(plist)
+    ]
+
+
+def sym_text(name):
+    left, right = pin_sides(name)
     h = 20 * max(len(left), len(right), 1) + 20
     out = [
         "v {xschem version=3.4.4 file_version=1.2\n}",
@@ -78,13 +98,12 @@ def sym_text(name):
         "V {}", "S {}", "E {}",
         f"B 4 -60 -10 60 {h} {{}}",
     ]
-    for side, plist, x, sign in (("l", left, -80, 1), ("r", right, 80, -1)):
-        for i, (pn, pd) in enumerate(plist):
-            y = 10 + 20 * i
-            out.append(f"L 4 {x} {y} {x + sign * 20} {y} {{}}")
-            out.append(f"B 5 {x - 2.5} {y - 2.5} {x + 2.5} {y + 2.5} {{name={pn} dir={pd}}}")
-            tx = -55 if side == "l" else 55
-            out.append(f"T {{{pn}}} {tx} {y - 4} 0 {0 if side == 'l' else 1} 0.2 0.2 {{}}")
+    for pn, pd, side, x, y in pin_layout(name):
+        sign = 1 if side == "l" else -1
+        out.append(f"L 4 {x} {y} {x + sign * 20} {y} {{}}")
+        out.append(f"B 5 {x - 2.5} {y - 2.5} {x + 2.5} {y + 2.5} {{name={pn} dir={pd}}}")
+        tx = -55 if side == "l" else 55
+        out.append(f"T {{{pn}}} {tx} {y - 4} 0 {0 if side == 'l' else 1} 0.2 0.2 {{}}")
     out.append(f"T {{@symname}} -40 {h + 5} 0 0 0.3 0.3 {{}}")
     out.append(f"T {{@name}} 0 -25 0 0 0.3 0.3 {{}}")
     return "\n".join(out) + "\n"
@@ -132,15 +151,13 @@ class Sch:
         self.wire(x + 20, y, x + 40, y, b)
 
     def sub(self, name, cell, x, y, conn):
-        """Instance of a generated subcircuit symbol; `conn` pin->net."""
-        pins = SYMS[cell]
-        left = [p for p in pins if p[1] != "out"]
-        right = [p for p in pins if p[1] == "out"]
+        """Instance of a generated subcircuit symbol; `conn` pin->net. Wires
+        attach at the shared pin_layout coordinates translated by the
+        instance origin."""
         self.lines.append(f"C {{{cell}.sym}} {x} {y} 0 0 {{name={name}}}")
-        for plist, px, d in ((left, -80, -20), (right, 80, 20)):
-            for i, (pn, _) in enumerate(plist):
-                py = y + 10 + 20 * i
-                self.wire(x + px, py, x + px + d, py, conn[pn])
+        for pn, _pd, side, px, py in pin_layout(cell):
+            d = -20 if side == "l" else 20
+            self.wire(x + px, y + py, x + px + d, y + py, conn[pn])
 
     def text(self):
         return HDR + "\n".join(self.lines) + "\n"
