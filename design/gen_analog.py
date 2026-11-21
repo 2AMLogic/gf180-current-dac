@@ -4,6 +4,9 @@
     python3 design/gen_analog.py          # rewrites design/analog/*.sch, *.sym,
                                           # design/inventory-item1-analog.json
     python3 design/gen_analog.py --check  # exit 1 if the committed files differ
+    python3 design/gen_analog.py --prim-params prim_cs
+                                          # print the klt gen mos_array params of
+                                          # a layout primitive (layout/gen_prims.sh)
 
 The array is generated, not drawn: every unit cell is an explicit instance
 (1023 live cells plus dummies), never an `m=` multiplier, so layout and LVS can
@@ -45,6 +48,36 @@ CAS = {"W": "5.2u", "L": "1u"}
 SW = {"W": "2.6u", "L": "0.28u"}
 INV_N = {"W": "1u", "L": "0.28u"}
 INV_P = {"W": "2u", "L": "0.28u"}
+
+
+def _um(size):
+    """xschem size string ("2.6u") -> micrometres, the unit `klt gen
+    mos_array` takes (w_um / l_um)."""
+    if not size.endswith("u"):
+        raise ValueError(f'expected a micrometre size like "2.6u", got {size!r}')
+    return float(size[:-1])
+
+
+def _prim(dev, **extra):
+    """klt gen mos_array params of one layout primitive: a single explicit
+    device (rows = cols = 1, no dummies, gate contact), as in the schematic's
+    nf=1 m=1 — the array's instance-for-instance matching depends on it."""
+    return {"w_um": _um(dev["W"]), "l_um": _um(dev["L"]),
+            "rows": 1, "cols": 1, "dummy": 0, "gate_contact": True, **extra}
+
+
+# The layout primitives' geometry is these sizes and nothing else:
+# layout/gen_prims.sh reads them here (--prim-params) instead of restating
+# the numbers, so a DR-0006 resize cannot leave the physical array stale.
+# CS = unit current source, CAS = cascode, SW = steering switch,
+# INV_N / INV_P = driver inverters.
+PRIM_PARAMS = {
+    "prim_cs": _prim(CS),
+    "prim_cas": _prim(CAS),
+    "prim_sw": _prim(SW),
+    "prim_drvn": _prim(INV_N),
+    "prim_drvp": _prim(INV_P, flavor="pfet"),
+}
 
 HDR = "v {xschem version=3.4.4 file_version=1.2\n}\nG {}\nV {}\nS {}\nE {}\n"
 PARASITIC = (
@@ -317,7 +350,17 @@ def inventory():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--prim-params", metavar="PRIM",
+                    help="print the klt gen mos_array params of layout "
+                         "primitive PRIM as JSON and exit (consumed by "
+                         "layout/gen_prims.sh)")
     a = ap.parse_args()
+    if a.prim_params:
+        if a.prim_params not in PRIM_PARAMS:
+            ap.error("unknown primitive %r; choose one of: %s"
+                     % (a.prim_params, ", ".join(PRIM_PARAMS)))
+        print(json.dumps(PRIM_PARAMS[a.prim_params]))
+        return 0
     bad = []
     for path, text in files().items():
         if a.check:
