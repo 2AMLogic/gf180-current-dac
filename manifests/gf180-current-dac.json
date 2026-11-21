@@ -69,6 +69,10 @@
     "4.digital": {
       "file": "verification/lvs/digital.report.json",
       "content_hash": "sha256:32fc6fefde6af1408017f0ccfc3e525e2c9c0bd9bdfcc5282e9030ffb9774e57"
+    },
+    "7.digital": {
+      "file": "verification/functional/dac_digital.asbuilt.report.json",
+      "content_hash": "sha256:6ac4e6192a9d48721a1ec631d5be2ec4c74702570c8e1c7f6fe561ebe772e4ef"
     }
   }
 }

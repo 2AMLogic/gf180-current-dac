@@ -1,0 +1,48 @@
+{
+  "_comment": [
+    "Commit-safe form, same convention as dac_digital.netlist.request.json:",
+    "the two PDK cell-model paths below are written relative to $PDK_ROOT, which",
+    "klt does NOT expand inside `sources`. Substitute your PDK install root into",
+    "a machine-local sibling first (gitignored as *.run.request.json, kept in",
+    "this directory because request-relative paths resolve against the request's",
+    "own dir):",
+    "  sed \"s|\\$PDK_ROOT|$PDK_ROOT|g\" verification/functional/dac_digital.asbuilt.request.json \\",
+    "    > verification/functional/dac_digital.asbuilt.run.request.json",
+    "",
+    "primitives.v must precede gf180mcu_fd_sc_mcu7t5v0.v: the cell file references",
+    "the 4 UDPs defined in primitives.v and does not include it itself. gf180mcuD is",
+    "the variant whose liberty the flow used. No FUNCTIONAL define: only the",
+    "non-FUNCTIONAL branch of the models carries the specify blocks the SDF's",
+    "IOPATH entries annotate.",
+    "",
+    "The SDF is the nominal-corner post-route SDF written by `klt sta` (sdf:true)",
+    "from layout/pnr/dac_digital.def plus the extracted SPEF of the same run",
+    "(../sta/sdf.request.json); it is retained beside this request, so this path",
+    "is portable (no environment variable). corner \"typ\" selects the typical",
+    "member of each min:typ:max triplet (iverilog -T typ).",
+    "",
+    "env DAC_TB_TIMING=dr0008 selects the DR-0008 drive/sample schedule in",
+    "test_dac_digital.py (+3.0 ns drive after each rising edge, +7.0 ns check",
+    "after the capturing edge); the two zero-delay requests leave it unset."
+  ],
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "$PDK_ROOT/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/primitives.v",
+    "$PDK_ROOT/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/gf180mcu_fd_sc_mcu7t5v0.v",
+    "../../layout/pnr/dac_digital.asbuilt.v"
+  ],
+  "hdl_toplevel": "dac_digital",
+  "testbench": {
+    "module": "test_dac_digital"
+  },
+  "options": {
+    "sdf": {
+      "file": "dac_digital.tt_025C_3v30.sdf",
+      "corner": "typ"
+    }
+  },
+  "env": {
+    "DAC_TB_TIMING": "dr0008"
+  }
+}
