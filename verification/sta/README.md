@@ -46,15 +46,20 @@ report's `provenance.input.content_hash`), from the same run that produced
 the committed `dac_digital.gds` (sha256
 `93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8`) and
 `dac_digital.asbuilt.v` (sha256
-`bb51f8880448be28aebd37eece82494295dcaf61ea231ba3012f6db8bb1ffa4b`). No
-post-route SPEF exists from the P&R flow itself (`spef_path` is null and
+`bb51f8880448be28aebd37eece82494295dcaf61ea231ba3012f6db8bb1ffa4b`).
+[`layout/pnr/run.sh --check`](../../layout/pnr/README.md#regenerate) reruns
+the route, byte-compares the regenerated GDS and DEF with the committed
+copies, and checks the five-corner STA report's `provenance.input.content_hash`
+against the committed DEF's SHA-256.
+
+No post-route SPEF exists from the P&R flow itself (`spef_path` is null and
 every corner's `electrical_checks.parasitics_source` is `"none"` — delays
 are OpenROAD's DEF/LEF-based estimates). Clock is ideal
 (`clock_mode: "ideal"`), no uncertainty, no SDF.
 
 ## Post-route SDF export ([`sdf.request.json`](sdf.request.json))
 
-T1 item 7 digital ([`../functional/`](../functional/README)) needs a
+T1 item 7 digital ([`../functional/`](../functional/)) needs a
 post-route SDF, so a second single-corner request re-analyses the same DEF
 under the same DR-0008 constraints at the nominal corner with an extracted
 SPEF loaded and `sdf: true`. Run from the repo root, at the grading pin

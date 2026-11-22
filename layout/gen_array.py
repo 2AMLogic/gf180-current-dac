@@ -256,6 +256,12 @@ class Ink:
         for i in range(max(lo, 2), hi + 1):     # no pad on M1: the cut sits on existing M1
             self.pad(cell, i, x, y)
 
+    def link(self, cell: db.Cell, src_x: int, y: int, tx: int) -> None:
+        """M1 terminal up to M2, across, and up to M3 on the track at tx."""
+        self.stack(cell, src_x, y, 1, 2)
+        self.h(cell, 2, src_x, tx, y)
+        self.stack(cell, tx, y, 2, 3)
+
     def h(self, cell: db.Cell, m: int, x0: int, x1: int, y: int, w: int = W) -> None:
         self.box(cell, m, min(x0, x1), y - w // 2, max(x0, x1), y + w // 2)
 
@@ -319,20 +325,14 @@ def wire_cs_cas(ink: Ink, c: db.Cell, g: Geom, cs: Dev, cas: Dev, mode: str,
     ink.stack(c, cx(cs.BR), (cs.BR.top + cs.TR.bottom) // 2 // 10 * 10, 1, 3)
     ink.stack(c, cx(cas.BR), mid10(cas.bbox.bottom, cas.bbox.top), 1, 3)
 
-    def link(src_x: int, y: int, tx: int) -> None:
-        ink.cut(c, 1, src_x, y)
-        ink.pad(c, 2, src_x, y)
-        ink.h(c, 2, src_x, tx, y)
-        ink.stack(c, tx, y, 2, 3)
-
     t_vss_e = trk["vss_e"] if "vss_e" in trk else trk["vss_s"]
     t_vss_d = trk["vss_d"] if "vss_d" in trk else trk["vss_s"]
     if mode == "dummy":
-        link(cx(cs.G), cy(cs.G), t_vss_e)
-        link(cx(cas.G), cy(cas.G), t_vss_d)
+        ink.link(c, cx(cs.G), cy(cs.G), t_vss_e)
+        ink.link(c, cx(cas.G), cy(cas.G), t_vss_d)
     else:
-        link(cx(cs.G), cy(cs.G), trk["vbn"])
-        link(cx(cas.G), cy(cas.G), trk["iref"])
+        ink.link(c, cx(cs.G), cy(cs.G), trk["vbn"])
+        ink.link(c, cx(cas.G), cy(cas.G), trk["iref"])
 
 
 def wire_sw(ink: Ink, c: db.Cell, g: Geom, sw1: Dev, sw2: Dev, cas: Dev, mode: str,
@@ -352,24 +352,18 @@ def wire_sw(ink: Ink, c: db.Cell, g: Geom, sw1: Dev, sw2: Dev, cas: Dev, mode: s
     ink.stack(c, cx(sw1.BR), mid10(sw1.BR.top, sw1.TR.bottom), 1, 3)
     ink.stack(c, cx(sw2.BR), sw2.BR.top + 320, 1, 3)
 
-    def link(src_x: int, y: int, tx: int) -> None:
-        ink.cut(c, 1, src_x, y)
-        ink.pad(c, 2, src_x, y)
-        ink.h(c, 2, src_x, tx, y)
-        ink.stack(c, tx, y, 2, 3)
-
     y_outp = cy(sw1.D) // 10 * 10
     y_outn = sw2.D.top - 1200
     t_d = trk["vss_d"]
     t_e = trk["vss_e"]
     if mode == "dummy":
-        link(cx(sw1.D), y_outp, t_d)
-        link(cx(sw2.D), y_outn, t_e)
-        link(cx(sw1.G), cy(sw1.G), t_d)
-        link(cx(sw2.G), cy(sw2.G) - 160, t_e)
+        ink.link(c, cx(sw1.D), y_outp, t_d)
+        ink.link(c, cx(sw2.D), y_outn, t_e)
+        ink.link(c, cx(sw1.G), cy(sw1.G), t_d)
+        ink.link(c, cx(sw2.G), cy(sw2.G) - 160, t_e)
         return
-    link(cx(sw1.D), y_outp, trk["outp"])
-    link(cx(sw2.D), y_outn, trk["outn"])
+    ink.link(c, cx(sw1.D), y_outp, trk["outp"])
+    ink.link(c, cx(sw2.D), y_outn, trk["outn"])
     # sp row above the gate pads, sn row below them; both end at the tile edge
     ink.cut(c, 1, cx(sw1.G), cy(sw1.G))
     ink.pad(c, 2, cx(sw1.G), cy(sw1.G))
@@ -471,17 +465,11 @@ def make_driver(ink: Ink, lib: Lib, g: Geom) -> tuple[db.Cell, dict]:
         # gate: nfet pad up to the pfet pad on an M3 line
         ink.stack(c, cx(n.G), cy(n.G), 1, 3)
         gy = cy(p.G)
-        ink.cut(c, 1, cx(p.G), gy)
-        ink.pad(c, 2, cx(p.G), gy)
-        ink.h(c, 2, cx(p.G), cx(n.G), gy)
-        ink.stack(c, cx(n.G), gy, 2, 3)
+        ink.link(c, cx(p.G), gy, cx(n.G))
         ink.v(c, 3, cx(n.G), cy(n.G), gy)
         # output: nfet drain across to the pfet drain's M3 line
         yd = cy(n.D) // 10 * 10
-        ink.cut(c, 1, cx(n.D), yd)
-        ink.pad(c, 2, cx(n.D), yd)
-        ink.h(c, 2, cx(n.D), cx(p.D), yd)
-        ink.stack(c, cx(p.D), yd, 2, 3)
+        ink.link(c, cx(n.D), yd, cx(p.D))
         ypd = cy(p.D) // 10 * 10
         ink.stack(c, cx(p.D), ypd, 1, 3)
         ink.v(c, 3, cx(p.D), yd, ypd)
