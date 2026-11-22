@@ -43,13 +43,19 @@ only the per-corner `engine_log` invocation ids differ).
 at `layout/pnr/dac_digital.def` (sha256
 `36ea425f3fd0464001f37d400d8e3e62107ef2a2eab3e88fcc00afc381dcae25`, the
 report's `provenance.input.content_hash`), from the same run that produced
-the committed `dac_digital.gds`. **Zero wire RC — every interconnect delay
-is exactly zero.** The P&R flow emits no post-route SPEF (`spef_path` null,
-every corner's `electrical_checks.parasitics_source` `"none"`), and `klt
-sta`'s DEF-mode session issues no `set_wire_rc`, no `estimate_parasitics`
-and no wire-load model, so the slacks below carry **cell delays only** —
-not "DEF/LEF-based estimates", no wire delay of any kind. The measured
-consequence, against the in-flow P&R run on this same DEF, is the
+the committed `dac_digital.gds`. That binding is checked:
+[`layout/pnr/run.sh --check`](../../layout/pnr/README.md#regenerate) reruns the
+route, byte-compares the committed GDS and DEF with the regenerated copies,
+and fails unless this report's `provenance.input.content_hash` is the
+committed DEF's SHA-256 — so a DEF that drifts from its stream, or this
+report left stale against a regenerated DEF, cannot pass unnoticed. **Zero
+wire RC — every interconnect delay is exactly zero.** The P&R flow emits no
+post-route SPEF (`spef_path` null, every corner's
+`electrical_checks.parasitics_source` `"none"`), and `klt sta`'s DEF-mode
+session issues no `set_wire_rc`, no `estimate_parasitics` and no wire-load
+model, so the slacks below carry **cell delays only** — not "DEF/LEF-based
+estimates", no wire delay of any kind. The measured consequence, against the
+in-flow P&R run on this same DEF, is the
 [interconnect section](#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow)
 below. Clock is ideal (`clock_mode: "ideal"`), no uncertainty, no SDF. The
 post-route SDF back-annotated functional run is item 7 and belongs to #140.

@@ -3,7 +3,9 @@
 # `klt place-and-route` on the synthesized netlist from `klt synthesize`.
 #   layout/pnr/run.sh           rewrite layout/pnr/dac_digital.gds and report
 #   layout/pnr/run.sh --check   rerun to a scratch copy, fail if the stream
-#                               hash differs from the committed one
+#                               or the retained DEF differs from the committed
+#                               one, or if the STA report's input digest does
+#                               not identify the committed DEF
 # klt is the one pinned in layout/toolchain.json, run through uvx so the host
 # tool is untouched. Needs docker (the `openroad` wrapper) and the PDK at the
 # revision in sim/pdk.json. One run, single corner; nothing here is a grid.
@@ -26,11 +28,38 @@ klt place-and-route layout/pnr/request.json --pdk gf180mcuD --format json \
     > layout/pnr/.report.tmp
 gds="$work/place-and-route/dac_digital.gds"
 if [ "${1:-}" = "--check" ]; then
-  want="$(sha256sum layout/pnr/dac_digital.gds | cut -d' ' -f1)"
-  got="$(sha256sum "$gds" | cut -d' ' -f1)"
   rm -f layout/pnr/.report.tmp
-  [ "$want" = "$got" ] || { echo "stream differs: committed $want, regenerated $got" >&2; exit 1; }
-  echo "stream matches: sha256:$got"
+  # Compare one committed artifact with its regenerated counterpart.
+  # compare <what> <committed path> <regenerated path>
+  compare() {
+    [ -f "$2" ] || { echo "$1 mismatch: committed file missing: $2" >&2; exit 1; }
+    [ -f "$3" ] || { echo "$1 mismatch: regenerated file missing: $3" >&2; exit 1; }
+    local want got
+    want="$(sha256sum "$2" | cut -d' ' -f1)"
+    got="$(sha256sum "$3" | cut -d' ' -f1)"
+    [ "$want" = "$got" ] || { echo "$1 differs: committed $want, regenerated $got" >&2; exit 1; }
+    echo "$1 matches: sha256:$got"
+  }
+  compare stream layout/pnr/dac_digital.gds "$gds"
+  compare "routed DEF" layout/pnr/dac_digital.def "$work/place-and-route/dac_digital.def"
+  # The committed STA report (verification/sta/) must have analysed exactly
+  # that committed DEF: its provenance.input.content_hash is the DEF digest.
+  python3 -I - "$(sha256sum layout/pnr/dac_digital.def | cut -d' ' -f1)" <<'PY'
+import json, re, sys
+want = "sha256:" + sys.argv[1]
+try:
+    report = json.load(open("verification/sta/dac_digital.report.json"))
+    digest = report["provenance"]["input"]["content_hash"]
+except (OSError, ValueError, KeyError, TypeError):
+    sys.exit("STA report mismatch: no readable .provenance.input.content_hash "
+             "in verification/sta/dac_digital.report.json")
+if not isinstance(digest, str) or re.fullmatch(r"sha256:[0-9a-f]{64}", digest) is None:
+    sys.exit(f"STA report mismatch: malformed input digest {digest!r}")
+if digest != want:
+    sys.exit(f"STA report mismatch: input digest {digest} does not identify "
+             f"the committed DEF ({want})")
+print(f"STA report input digest matches the committed DEF: {want}")
+PY
   exit 0
 fi
 mv layout/pnr/.report.tmp layout/pnr/dac_digital.report.json
