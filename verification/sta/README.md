@@ -43,7 +43,13 @@ only the per-corner `engine_log` invocation ids differ).
 at `layout/pnr/dac_digital.def` (sha256
 `36ea425f3fd0464001f37d400d8e3e62107ef2a2eab3e88fcc00afc381dcae25`, the
 report's `provenance.input.content_hash`), from the same run that produced
-the committed `dac_digital.gds`. **No extracted parasitics**: the P&R flow
+the committed `dac_digital.gds`. That binding is checked:
+[`layout/pnr/run.sh --check`](../../layout/pnr/README.md#regenerate) reruns the
+route, byte-compares the committed GDS and DEF with the regenerated copies,
+and fails unless this report's `provenance.input.content_hash` is the
+committed DEF's SHA-256 — so a DEF that drifts from its stream, or this
+report left stale against a regenerated DEF, cannot pass unnoticed. **No
+extracted parasitics**: the P&R flow
 emits no post-route SPEF, `spef_path` is null and every corner's
 `electrical_checks.parasitics_source` is `"none"` — delays are OpenROAD's
 DEF/LEF-based estimates, not SPEF-annotated. Clock is ideal
