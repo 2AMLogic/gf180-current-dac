@@ -8,7 +8,7 @@
   "evidence": {
     "1.analog": {
       "file": "evidence/item1-analog.json",
-      "content_hash": "sha256:f680edad6accb06d4574aa760d3172072d6a8d1cee649096a18de7d6269348da"
+      "content_hash": "sha256:d79919a42a6c7f3ad0f28251ba46fce0c886d3bd2282a1729755f116ae0c2bae"
     },
     "1.digital": {
       "file": "evidence/item1-digital.json",
