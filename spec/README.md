@@ -30,3 +30,4 @@ A ratified record is never deleted or rewritten; supersede it with a new one.
 | [0006](decision-records/0006-analog-schematic-sizing-assumptions.md) | Analog schematic sizing assumptions | proposed |
 | [0007](decision-records/0007-analog-layout-assumptions.md) | Analog layout assumptions | proposed |
 | [0008](decision-records/0008-digital-io-timing-budget.md) | Digital I/O timing budget | proposed |
+| [0009](decision-records/0009-signoff-tiers-doc-from-pinned-klt.md) | Signoff tiers checklist comes from the pinned klt | proposed |

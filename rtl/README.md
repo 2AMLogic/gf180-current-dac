@@ -44,7 +44,7 @@ rm -rf synth/out
 klt synthesize synth/decoder.request.json --pdk gf180mcuD --verify-equivalence --format json > synth/decoder.report.json
 klt synthesize synth/dac_digital.request.json --pdk gf180mcuD --format json > synth/dac_digital.report.json
 klt signoff --attest 1 --inventory design/inventory-item1-digital.json -o evidence/item1-digital.json
-klt signoff --manifest manifests/gf180-current-dac.json --tiers-doc manifests/design-evidence-tiers.md --format json > manifests/gf180-current-dac.signoff.json
+klt signoff --manifest manifests/gf180-current-dac.json --format json > manifests/gf180-current-dac.signoff.json
 ```
 
 Equivalence (`--verify-equivalence`, `klt equiv`) was run on the combinational
