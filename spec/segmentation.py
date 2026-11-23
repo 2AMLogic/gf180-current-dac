@@ -18,6 +18,11 @@ SIDE = 8            # array side in element sites
 EL = 4              # units per element side
 RING = 1            # dummy ring depth in unit cells (spec section 4)
 BINARY_UNITS = [1, 2, 4, 8]
+# Bias mirror unit devices per leg. DR-0006 assumes ten, fixing the mirror
+# ratio at 1023:10; the schematic device loop and the layout bias block
+# (placement, rail vias, track connections) all load it from here so a
+# sizing edit cannot leave the physical mirror at the old count (issue #149).
+IREF_MIRROR_UNITS = 10
 
 # Derived counts. The ring has two independent derivations — an area
 # difference and a per-edge sum — and they must agree, or the schematic and

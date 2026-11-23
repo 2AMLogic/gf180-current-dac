@@ -4,6 +4,9 @@
     python3 design/gen_analog.py          # rewrites design/analog/*.sch, *.sym,
                                           # design/inventory-item1-analog.json
     python3 design/gen_analog.py --check  # exit 1 if the committed files differ
+    python3 design/gen_analog.py --prim-params prim_cs
+                                          # print the klt gen mos_array params of
+                                          # a layout primitive (layout/gen_prims.sh)
 
 The array is generated, not drawn: every unit cell is an explicit instance
 (1023 live cells plus dummies), never an `m=` multiplier, so layout and LVS can
@@ -37,7 +40,7 @@ N_UNARY = SEG.N_UNARY           # 6 unary bits -> 2^6 - 1 elements
 UNITS_PER_UNARY = SEG.UNITS_PER_UNARY
 BINARY_UNITS = SEG.BINARY_UNITS
 N_RING_DUMMY = SEG.N_RING_DUMMY
-IREF_MIRROR_UNITS = 10  # reference leg: 10 unit sources (see DR-0006)
+IREF_MIRROR_UNITS = SEG.IREF_MIRROR_UNITS   # reference leg (DR-0006)
 
 # ---- device sizes (ASSUMED, DR-0006) ---------------------------------------
 CS = {"W": "2.6u", "L": "10.3u"}    # 26.78 um^2 >= 26.53 um^2 (nfet, Vov 0.4 V)
@@ -45,6 +48,36 @@ CAS = {"W": "5.2u", "L": "1u"}
 SW = {"W": "2.6u", "L": "0.28u"}
 INV_N = {"W": "1u", "L": "0.28u"}
 INV_P = {"W": "2u", "L": "0.28u"}
+
+
+def _um(size):
+    """xschem size string ("2.6u") -> micrometres, the unit `klt gen
+    mos_array` takes (w_um / l_um)."""
+    if not size.endswith("u"):
+        raise ValueError(f'expected a micrometre size like "2.6u", got {size!r}')
+    return float(size[:-1])
+
+
+def _prim(dev, **extra):
+    """klt gen mos_array params of one layout primitive: a single explicit
+    device (rows = cols = 1, no dummies, gate contact), as in the schematic's
+    nf=1 m=1 — the array's instance-for-instance matching depends on it."""
+    return {"w_um": _um(dev["W"]), "l_um": _um(dev["L"]),
+            "rows": 1, "cols": 1, "dummy": 0, "gate_contact": True, **extra}
+
+
+# The layout primitives' geometry is these sizes and nothing else:
+# layout/gen_prims.sh reads them here (--prim-params) instead of restating
+# the numbers, so a DR-0006 resize cannot leave the physical array stale.
+# CS = unit current source, CAS = cascode, SW = steering switch,
+# INV_N / INV_P = driver inverters.
+PRIM_PARAMS = {
+    "prim_cs": _prim(CS),
+    "prim_cas": _prim(CAS),
+    "prim_sw": _prim(SW),
+    "prim_drvn": _prim(INV_N),
+    "prim_drvp": _prim(INV_P, flavor="pfet"),
+}
 
 HDR = "v {xschem version=3.4.4 file_version=1.2\n}\nG {}\nV {}\nS {}\nE {}\n"
 PARASITIC = (
@@ -66,10 +99,30 @@ for _n in [UNITS_PER_UNARY] + BINARY_UNITS:
     SYMS[f"elem_{_n}"] = list(SYMS["unit_cell"])
 
 
-def sym_text(name):
+def pin_sides(name):
+    """SYMS pins grouped by the side they are drawn on, in draw order:
+    left = in/inout pins, right = out pins."""
     pins = SYMS[name]
-    left = [p for p in pins if p[1] != "out"]
-    right = [p for p in pins if p[1] == "out"]
+    return ([p for p in pins if p[1] != "out"], [p for p in pins if p[1] == "out"])
+
+
+def pin_layout(name):
+    """Ordered (pin, dir, side, x, y) placement relative to the symbol
+    origin — the one rule both writers consume: sym_text draws the symbol
+    pins at these coordinates and Sch.sub translates them by the instance
+    origin to attach its wires, so symbol and wiring cannot disagree. Left
+    pins sit at x = -80, right at x = 80; the first pin is 10 above the
+    origin on a 20 pitch."""
+    left, right = pin_sides(name)
+    return [
+        (pn, pd, side, x, 10 + 20 * i)
+        for side, plist, x in (("l", left, -80), ("r", right, 80))
+        for i, (pn, pd) in enumerate(plist)
+    ]
+
+
+def sym_text(name):
+    left, right = pin_sides(name)
     h = 20 * max(len(left), len(right), 1) + 20
     out = [
         "v {xschem version=3.4.4 file_version=1.2\n}",
@@ -78,13 +131,12 @@ def sym_text(name):
         "V {}", "S {}", "E {}",
         f"B 4 -60 -10 60 {h} {{}}",
     ]
-    for side, plist, x, sign in (("l", left, -80, 1), ("r", right, 80, -1)):
-        for i, (pn, pd) in enumerate(plist):
-            y = 10 + 20 * i
-            out.append(f"L 4 {x} {y} {x + sign * 20} {y} {{}}")
-            out.append(f"B 5 {x - 2.5} {y - 2.5} {x + 2.5} {y + 2.5} {{name={pn} dir={pd}}}")
-            tx = -55 if side == "l" else 55
-            out.append(f"T {{{pn}}} {tx} {y - 4} 0 {0 if side == 'l' else 1} 0.2 0.2 {{}}")
+    for pn, pd, side, x, y in pin_layout(name):
+        sign = 1 if side == "l" else -1
+        out.append(f"L 4 {x} {y} {x + sign * 20} {y} {{}}")
+        out.append(f"B 5 {x - 2.5} {y - 2.5} {x + 2.5} {y + 2.5} {{name={pn} dir={pd}}}")
+        tx = -55 if side == "l" else 55
+        out.append(f"T {{{pn}}} {tx} {y - 4} 0 {0 if side == 'l' else 1} 0.2 0.2 {{}}")
     out.append(f"T {{@symname}} -40 {h + 5} 0 0 0.3 0.3 {{}}")
     out.append(f"T {{@name}} 0 -25 0 0 0.3 0.3 {{}}")
     return "\n".join(out) + "\n"
@@ -132,15 +184,13 @@ class Sch:
         self.wire(x + 20, y, x + 40, y, b)
 
     def sub(self, name, cell, x, y, conn):
-        """Instance of a generated subcircuit symbol; `conn` pin->net."""
-        pins = SYMS[cell]
-        left = [p for p in pins if p[1] != "out"]
-        right = [p for p in pins if p[1] == "out"]
+        """Instance of a generated subcircuit symbol; `conn` pin->net. Wires
+        attach at the shared pin_layout coordinates translated by the
+        instance origin."""
         self.lines.append(f"C {{{cell}.sym}} {x} {y} 0 0 {{name={name}}}")
-        for plist, px, d in ((left, -80, -20), (right, 80, 20)):
-            for i, (pn, _) in enumerate(plist):
-                py = y + 10 + 20 * i
-                self.wire(x + px, py, x + px + d, py, conn[pn])
+        for pn, _pd, side, px, py in pin_layout(cell):
+            d = -20 if side == "l" else 20
+            self.wire(x + px, y + py, x + px + d, y + py, conn[pn])
 
     def text(self):
         return HDR + "\n".join(self.lines) + "\n"
@@ -254,26 +304,42 @@ def files():
     for n in [UNITS_PER_UNARY] + BINARY_UNITS:
         f[OUT / f"elem_{n}.sch"] = element(n)
     f[OUT / "dac_analog.sch"] = top()
-    f[OUT / "xschemrc"] = XSCHEMRC
+    f[OUT / "xschemrc"] = xschemrc()
     f[INVENTORY] = inventory()
     return f
 
 
-XSCHEMRC = """\
+def _pdk_pin():
+    """(family, variant, revision) declared by sim/pdk.json -- the repo's
+    PDK pin and the single home of the values the xschemrc fallback path
+    below restates."""
+    path = ROOT / "sim" / "pdk.json"
+    try:
+        pin = json.loads(path.read_text())
+        return pin["family"], pin["variant"], pin["revision"]
+    except (OSError, ValueError, KeyError) as e:
+        raise SystemExit(
+            f"cannot read the PDK pin (family, variant, revision) from "
+            f"{path.relative_to(ROOT)}: {e}") from e
+
+
+def xschemrc():
+    family, variant, revision = _pdk_pin()
+    return f"""\
 # Project xschemrc for `klt netlist --rcfile design/analog/xschemrc`.
-# Symbol search path: this directory (generated symbols) and the gf180mcuD PDK
-# symbols. PDK root: $PDK_ROOT, else ~/.ciel/ciel/gf180mcu/versions/<pin in
+# Symbol search path: this directory (generated symbols) and the {variant} PDK
+# symbols. PDK root: $PDK_ROOT, else ~/.ciel/ciel/{family}/versions/<pin in
 # sim/pdk.json>. Generated by design/gen_analog.py; do not edit.
-set XSCHEM_LIBRARY_PATH {}
-append XSCHEM_LIBRARY_PATH :${XSCHEM_SHAREDIR}/xschem_library/devices
-append XSCHEM_LIBRARY_PATH :${XSCHEM_SHAREDIR}/xschem_library
+set XSCHEM_LIBRARY_PATH {{}}
+append XSCHEM_LIBRARY_PATH :${{XSCHEM_SHAREDIR}}/xschem_library/devices
+append XSCHEM_LIBRARY_PATH :${{XSCHEM_SHAREDIR}}/xschem_library
 append XSCHEM_LIBRARY_PATH :[file dirname [file normalize [info script]]]
-if {[info exists env(PDK_ROOT)] && $env(PDK_ROOT) ne {}} {
+if {{[info exists env(PDK_ROOT)] && $env(PDK_ROOT) ne {{}}}} {{
   set PDK_ROOT $env(PDK_ROOT)
-} else {
-  set PDK_ROOT $env(HOME)/.ciel/ciel/gf180mcu/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7
-}
-append XSCHEM_LIBRARY_PATH :${PDK_ROOT}/gf180mcuD/libs.tech/xschem/symbols
+}} else {{
+  set PDK_ROOT $env(HOME)/.ciel/ciel/{family}/versions/{revision}
+}}
+append XSCHEM_LIBRARY_PATH :${{PDK_ROOT}}/{variant}/libs.tech/xschem/symbols
 """
 
 
@@ -296,7 +362,7 @@ def inventory():
             "check": {"argv": argv + ["--check"], "local_only": True},
         })
     sources = ["design/gen_analog.py", "spec/segmentation.py",
-               f"{rel}/xschemrc"] + \
+               "sim/pdk.json", f"{rel}/xschemrc"] + \
         [f"{rel}/{n}.sch" for n in schematics()] + \
         [f"{rel}/{n}.sym" for n in SYMS]
     return json.dumps({
@@ -306,7 +372,8 @@ def inventory():
         "description": "Analog partition design sources: generated xschem "
                        "schematics and symbols, the generator "
                        "(python3 design/gen_analog.py) with its segmentation "
-                       "module (spec/segmentation.py), and netlists derived "
+                       "module (spec/segmentation.py) and PDK pin "
+                       "(sim/pdk.json), and netlists derived "
                        "with klt netlist. Existence and freshness only; no "
                        "performance claim.",
         "sources": sources,
@@ -317,7 +384,17 @@ def inventory():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--prim-params", metavar="PRIM",
+                    help="print the klt gen mos_array params of layout "
+                         "primitive PRIM as JSON and exit (consumed by "
+                         "layout/gen_prims.sh)")
     a = ap.parse_args()
+    if a.prim_params:
+        if a.prim_params not in PRIM_PARAMS:
+            ap.error("unknown primitive %r; choose one of: %s"
+                     % (a.prim_params, ", ".join(PRIM_PARAMS)))
+        print(json.dumps(PRIM_PARAMS[a.prim_params]))
+        return 0
     bad = []
     for path, text in files().items():
         if a.check:

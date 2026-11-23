@@ -66,6 +66,7 @@ N_UNARY = SEG.N_UNARY
 BINARY_UNITS = SEG.BINARY_UNITS
 N_LIVE_UNITS = SEG.N_LIVE_UNITS
 N_DUMMY_CELLS = SEG.N_DUMMY_CELLS
+IREF_MIRROR_UNITS = SEG.IREF_MIRROR_UNITS   # bias pairs (DR-0006; issue #149)
 GAP_UM = 0.6        # device-to-device bbox gap and tile margin
 BAND_UM = 5.0       # gap between the array's top ring row and the bias block
 DBU = 0.0005
@@ -408,9 +409,9 @@ def make_unit(ink: Ink, lib: Lib, g: Geom, name: str, mode: str) -> db.Cell:
 
 
 def make_bias(ink: Ink, lib: Lib, g: Geom) -> db.Cell:
-    """Ten diode-connected cascode / source pairs (design/gen_analog.py IREF_MIRROR_UNITS)."""
+    """Diode-connected cascode / source pairs, IREF_MIRROR_UNITS of them (spec/segmentation.py)."""
     c = lib.ly.create_cell("bias")
-    for k in range(10):
+    for k in range(IREF_MIRROR_UNITS):
         x = k * g.px
         cs = lib.place(c, "prim_cs", x, 0)
         cas = lib.place(c, "prim_cas", x, g.y1)
@@ -639,7 +640,7 @@ def build(table: dict) -> db.Layout:
             x = i * px + t
             if RING <= i < n - RING:
                 ink.v(top, 3, x, (n - 1) * py - 700, y + W // 2)      # through the top ring row
-            if i < 10 or RING <= i < n - RING:
+            if i < IREF_MIRROR_UNITS or RING <= i < n - RING:
                 ink.cut(top, 3, x, y)
     for name, t in (("outp", TRK_OUTP), ("outn", TRK_OUTN)):
         y = RAIL_BOT[name]
@@ -663,7 +664,7 @@ def build(table: dict) -> db.Layout:
     bias = make_bias(ink, lib, g)
     y_bias = n * py + dbu(BAND_UM)
     top.insert(db.CellInstArray(bias.cell_index(), db.Trans(0, y_bias)))
-    for k in range(10):
+    for k in range(IREF_MIRROR_UNITS):
         for name, x in (("vbn", k * px + TRK_VBN), ("iref", k * px + TRK_IREF),
                         ("vss", k * px + trk_vss_s)):
             ink.v(top, 3, x, y_edge + RAIL_TOP[name] - W // 2, y_bias + 100)
