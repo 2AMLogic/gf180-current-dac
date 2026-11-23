@@ -1,4 +1,4 @@
-# 0009: Signoff tiers checklist comes from the pinned klt
+# 0010: Signoff tiers checklist comes from the pinned klt
 
 - **Status**: proposed
 - **Date**: 2026-11-23

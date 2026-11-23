@@ -44,8 +44,12 @@ rm -rf synth/out
 klt synthesize synth/decoder.request.json --pdk gf180mcuD --verify-equivalence --format json > synth/decoder.report.json
 klt synthesize synth/dac_digital.request.json --pdk gf180mcuD --format json > synth/dac_digital.report.json
 klt signoff --attest 1 --inventory design/inventory-item1-digital.json -o evidence/item1-digital.json
-klt signoff --manifest manifests/gf180-current-dac.json --format json > manifests/gf180-current-dac.signoff.json
+uvx --from "klayout-tools==$(scripts/check_signoff.sh --print-pin)" klt signoff --manifest manifests/gf180-current-dac.json --format json > manifests/gf180-current-dac.signoff.json
 ```
+
+The signoff command runs at the repo's `KLT_PIN` (not the host `klt`), so the
+tiers checklist it grades against is the one bundled with that release:
+[`docs/design-evidence-tiers.md` at `v0.9.0`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.0/docs/design-evidence-tiers.md).
 
 Equivalence (`--verify-equivalence`, `klt equiv`) was run on the combinational
 `thermo_decoder` only and returned `equivalent`; it is combinational-only, so
