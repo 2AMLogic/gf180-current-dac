@@ -14,7 +14,6 @@
     "Field reference:",
     "  klt_install              VCS URL pinned with @<sha>, never a branch.",
     "  klt_required_commands    every `klt <command>` this repo's runners use.",
-    "  klt_last_verified_commit klt_install's commit, restated; update both.",
     "  klayout_package_min      floor for the pip `klayout` package.",
     "  klayout_package_pin      exact pip `klayout` that layout/gen_array.py's committed",
     "                           stream was written with (CI installs this one; the byte",
@@ -57,11 +56,17 @@
     "measurements: spec/decision-records/",
     "0009-layout-pin-and-primitive-reproducibility.md. The pin stays on the",
     "0.8.1 lineage; a five-primitive differs: at 0.9.x is that tool-version",
-    "change, not a size drift."
+    "change, not a size drift.",
+    "",
+    "Issue #85 (operator ruling 2026-11-23, option a): the",
+    "klt_last_verified_commit key was removed. It restated klt_install's",
+    "commit with no reader and no assert, its only safeguard being this",
+    "comment asking a human to update both. klt_install above is now the",
+    "sole klt commit pin. The sim-side pdk_revision cross-check",
+    "(sim/toolchain.json, sim/harness/check.py) is kept per the same ruling."
   ],
   "klt_install": "git+https://github.com/2AMLogic/klayout-tools@f9039fd7244e977325c351a5780acbf1cee383fb",
   "klt_required_commands": ["drc", "gen", "diff", "cells", "stats", "place-and-route", "signoff", "erc", "sta"],
-  "klt_last_verified_commit": "f9039fd7244e977325c351a5780acbf1cee383fb",
   "klayout_package_min": "0.30",
   "klayout_package_pin": "0.30.12"
 }
