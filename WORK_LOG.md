@@ -2,9 +2,27 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-23
+
+- **PR #168**: fix: derive the xschemrc PDK pin from sim/pdk.json in gen_analog
+- **PR #165**: test: gate PRIM_PARAMS geometry against the committed klt reports
+- **PR #155**: fix: own the bias mirror pair count in spec/segmentation.py
+- **PR #154**: refactor(layout): take gen_prims.sh device params from gen_analog.py
+- **Issue #166** (closed): Derive the xschemrc PDK fallback from sim/pdk.json instead of hardcoding it in design/gen_analog.py
+- **Issue #163** (closed): No CI-visible guard on the derived layout primitive params (PRIM_PARAMS)
+- **Issue #152** (closed): Derive the layout primitive sizes from design/gen_analog.py instead of restating them in gen_prims.sh
+- **Issue #149** (closed): Share the bias mirror pair count between schematic and layout
+
+### 2026-11-22
+
+- **PR #162**: Check the routed DEF and the STA report's input digest in pnr --check
+- **Issue #151** (closed): Check routed DEF reproducibility and the STA report's input hash
+
 ### 2026-11-21
 
+- **PR #161**: refactor: share the M1-to-M3 routing helper as Ink.link
 - **PR #147**: sta: apply the DR-0008 I/O budget and commit five-corner klt sta evidence
+- **Issue #160** (closed): Share the M1-to-M3 routing helper across analog cells
 - **Issue #139** (closed): T1 item 5 (digital): apply the proposed DR-0008 I/O timing budget and commit a constrained klt sta report over the 3.3 V corners for the routed decoder
 
 ### 2026-11-20
