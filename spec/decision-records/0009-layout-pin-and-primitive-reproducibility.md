@@ -74,10 +74,16 @@ Cause, isolated on `prim_cs` and re-checked as noted:
   report `status: equivalent` (exit 0) — **measured for all five
   primitives at 0.9.0, and for `prim_cs` at 0.9.2** (dbu still 0.0005
   there). `klt diff` "never ignores … cell names", so the gate is red on
-  the name alone. The rename is consistent with the already-open
+  the name alone. The rename is the implemented resolution of
   klayout-tools #4251 (child-cell name collides across `gen mos_array`
-  outputs); the introducing commit was not bisected — the release-level
-  boundary above is what the pin decision needs. `0.9.1` was not
+  outputs), a gap this repo asked upstream to fix: #4251 is CLOSED
+  (completed 2026-10-27), it reported the collision at
+  `0.8.1.dev61+gb5c72a9333ff` — the build that wrote `layout/prims/` —
+  and its accepted criterion is to rename the variant cell to
+  `<cell_name>__core`, i.e. `prim_cs` → `prim_cs__core`. It is therefore
+  permanent going forward, an expected consequence of our own request
+  rather than unexplained drift; the introducing commit was not bisected —
+  the release-level boundary above is what the pin decision needs. `0.9.1` was not
   rename-isolated separately; it sits between two re-checked neighbours
   with the identical `--check` result.
 - At git main (`0.9.3.dev3673`) there is a second, geometry-affecting
@@ -86,8 +92,13 @@ Cause, isolated on `prim_cs` and re-checked as noted:
   32/0, 33/0, 34/0 of cell `mos_array` — and the report gains
   `subcell_naming_scheme: "core-suffix-v1"`. `layout/gen_array.py`
   hard-asserts primitive dbu 0.0005 (`DBU`), so primitives from that build
-  are refused outright, not just rediffed. This is an unreleased dev line;
-  it was not checked against any upstream announcement.
+  are refused outright, not just rediffed. This is an unreleased dev line, and
+  the dbu change is deliberate: klayout-tools #5721 (CLOSED, completed
+  2026-11-22) reports that the default 0.0005 writer dbu is rejected by
+  the gf180mcu native runset's own DBU rule (needs 0.001), filed against
+  this PDK revision (`open_pdks f6eeac7dad08…`), and asks that the writer
+  default to each PDK's required dbu. The blocker on a future pin move is
+  on this repo's side: `layout/gen_array.py` hard-asserts `DBU = 0.0005`.
 
 Downstream effect, measured in a scratch checkout: with `layout/prims/`
 regenerated at 0.9.0, `layout/gen_array.py --check` exits 0 and the array
@@ -122,7 +133,8 @@ layout/prims/prim_cs.gds /tmp/primdiff/prim_cs_renamed.gds`.
 - A pin move to released 0.9.x is a primitives-file rewrite plus report
   update; the array stream, its envelope and the switching table are
   unaffected (measured above). A move to the current dev line additionally
-  needs the dbu question answered first.
+  needs `layout/gen_array.py` moved off its hard-coded `DBU = 0.0005`
+  (upstream #5721 already settled that the runset requires 0.001).
 - The grading pin (`scripts/check_signoff.sh`) and `klt_install` remain
   separate facts that move independently (toolchain.json, issue #56 note).
 - No claim in this repo changes: no INL/DNL or extraction number exists,
