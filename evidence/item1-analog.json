@@ -3,14 +3,14 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 1,
-  "summary": "T1 item 1 (Design sources): 42/42 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 1 (Design sources): 43/43 attestation checks passed (klt signoff --attest)",
   "source": "design/inventory-item1-analog.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 42,
-    "passed_count": 42,
+    "check_count": 43,
+    "passed_count": 43,
     "checks": [
       {
         "check": "present",
@@ -157,7 +157,14 @@
         "role": "source",
         "path": "design/gen_analog.py",
         "passed": true,
-        "content_hash": "sha256:696688bd6cea07d3afaad48966ce7a4d832fb4d29c1f5533402760a53916f95d"
+        "content_hash": "sha256:7c949de3f52eaa9293c99a105dbe0dea2fff30a762534d61b839f810d250853c"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "sim/pdk.json",
+        "passed": true,
+        "content_hash": "sha256:9bb9748d595574fa48b331ee449f8e7f78cc4d78262b67db7ef919dd07f57d78"
       },
       {
         "check": "present",
@@ -661,14 +668,21 @@
             "path": "design/gen_analog.py",
             "scope": "repo"
           },
-          "content_hash": "sha256:696688bd6cea07d3afaad48966ce7a4d832fb4d29c1f5533402760a53916f95d"
+          "content_hash": "sha256:7c949de3f52eaa9293c99a105dbe0dea2fff30a762534d61b839f810d250853c"
         },
         {
           "path": {
             "path": "design/inventory-item1-analog.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:c6fd99b922740ccd52b43a8bc3132a56c7804bf616788b055458727e480f3a28"
+          "content_hash": "sha256:c6782a3971fb80533d698edcdfd528a0c836cf7053224a055c9ccd993f39a295"
+        },
+        {
+          "path": {
+            "path": "sim/pdk.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:9bb9748d595574fa48b331ee449f8e7f78cc4d78262b67db7ef919dd07f57d78"
         },
         {
           "path": {
@@ -678,7 +692,7 @@
           "content_hash": "sha256:a98a83f2d7e0dbc78adcaa14d1753afdf03b62babc3c5c8a880fbdfc60251c98"
         }
       ],
-      "content_hash": "sha256:08cb5f446c2849048e2d1619f57ceb657d8fa874f52bad04768d1275a8b3e110"
+      "content_hash": "sha256:f377c860cb4c7e4d34361cebddb5ec1a0d31d53febcf6e5db6a3b1c9a0b749e7"
     }
   }
 }
