@@ -1,19 +1,19 @@
 # verification/sta
 
-Multi-corner `klt sta` on the routed digital partition (`dac_digital`), the
-timing half of T1 item 5 (digital). The functional half is
-[`verification/functional/`](../functional/); the two reports there
-and this one are item 5's evidence set when the spec is ratified.
+This standalone `klt sta` run times the routed digital partition
+(`dac_digital`) across five corners with zero wire RC. All slacks below are
+**provisional**. DR-0001 awaits spec ratification (#2), and both 3.0 ns I/O
+delays in [DR-0008](../../spec/decision-records/0008-digital-io-timing-budget.md)
+are assumptions.
 
-**This report is not cited in the signoff manifest.** The budget it checks is
-[`spec/decision-records/0008-digital-io-timing-budget.md`](../../spec/decision-records/0008-digital-io-timing-budget.md),
-status `proposed`: both 3.0 ns I/O delays are marked "assumed, no source", and
-DR-0001 (the spec) is itself unratified. The T1 checklist requires a ratified
-spec for item 5 ("verdicts against a draft spec are provisional by
-construction"). Probing `klt signoff` (0.9.0, the grading pin) with this
-report cited grades item 5 (digital) `met` anyway — the ratification note is
-prose the tool does not enforce — so the manifest stays uncited and the
-citation waits on #2. Every slack below is **provisional** until then.
+**T1 item 5 (digital) remains uncited.** After ratification, cite the two
+[functional reports](../functional/) together with a `klt sta` report that
+includes wire RC and verifies the ratified budget across its declared corners.
+With the functional reports present, the pinned `klt signoff` (0.9.0) grades
+this cell-delay-only STA report `met` even against the draft budget. Substituting
+the in-flow P&R report gives `unmet / wrong_kind`. The in-flow report is the
+current reference for timing with wire RC.
+See the [T1 checklist, item 5](../../manifests/design-evidence-tiers.md).
 
 ## Command
 
@@ -48,16 +48,14 @@ the committed `dac_digital.gds`. That binding is checked:
 route, byte-compares the committed GDS and DEF with the regenerated copies,
 and fails unless this report's `provenance.input.content_hash` is the
 committed DEF's SHA-256 — so a DEF that drifts from its stream, or this
-report left stale against a regenerated DEF, cannot pass unnoticed. **Zero
-wire RC — every interconnect delay is exactly zero.** The P&R flow emits no
-post-route SPEF (`spef_path` null, every corner's
-`electrical_checks.parasitics_source` `"none"`), and `klt sta`'s DEF-mode
-session issues no `set_wire_rc`, no `estimate_parasitics` and no wire-load
-model, so the slacks below carry **cell delays only** — not "DEF/LEF-based
-estimates", no wire delay of any kind. The measured consequence, against the
-in-flow P&R run on this same DEF, is the
-[interconnect section](#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow)
-below. Clock is ideal (`clock_mode: "ideal"`), no uncertainty, no SDF. The
+report left stale against a regenerated DEF, cannot pass unnoticed. **Every
+interconnect delay in this standalone run is zero.** The committed P&R run
+produced no post-route SPEF. The STA report records a null `spef_path` and
+`electrical_checks.parasitics_source: "none"` at every corner. This DEF-mode
+session also applies no wire-RC estimate or wire-load model, so the slacks
+below include cell delays only. The [interconnect section](#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow)
+compares this run with the in-flow timing on the same DEF.
+Clock is ideal (`clock_mode: "ideal"`), no uncertainty, no SDF. The
 post-route SDF back-annotated functional run is item 7 and belongs to #140.
 
 ## Request
@@ -101,9 +99,9 @@ The in-flow STA of the P&R run that produced this very DEF
 same DR-0008 constraints, timing taken after `estimate_parasitics
 -global_routing` at `interconnect_corner: "nom"`) reports **0.28–0.78 ns
 less setup slack** than this standalone run on the five shared corners,
-while hold agrees to 0.0001 ns. The reason is interconnect, measured on
-this DEF (issue #150): the standalone session applies zero wire RC, the
-in-flow one applies an estimate. Three arms, one DEF:
+while hold differs by at most 0.00011 ns. The middle columns show what
+changed when the standalone run added a placement-based wire-RC estimate
+on the same DEF. All slacks are in ns. [Measurement on #150](https://github.com/2AMLogic/gf180-current-dac/issues/150#issuecomment-7055322613)
 
 | Corner | Setup: standalone | Setup: +wire RC | Setup: in-flow | Hold: standalone | Hold: +wire RC | Hold: in-flow |
 |---|---|---|---|---|---|---|
@@ -125,27 +123,31 @@ the `-metrics` keys `timing__setup__ws`/`timing__hold__ws` that `klt sta`
 itself parses. Everything else is byte-identical to the standalone run;
 the standalone column above reproduces the committed report exactly.
 
-That arm recovers 72–78 % of the setup gap at every corner; the remainder
-is estimate fidelity (bounding-box RC vs the global-route-topology RC the
-in-flow run uses). Hold moves ≤ 0.0001 ns at every corner — the worst
-hold path is an input pad to a nearby register with almost no wire (the
-worst short path can shift between input pads; the magnitude does not).
-The in-flow treatment itself **cannot** be applied standalone: on an
-already-routed DEF `global_route` skips every net (wirelength 0) and
-`estimate_parasitics -global_routing` refuses with `EST-0005` — measured
-by inserting `set_routing_layers -signal Metal2-Metal5` + `global_route` +
-`estimate_parasitics -global_routing` into the same staged Tcl.
+Adding placement-based wire RC closes 72–78 % of the setup gap and changes
+hold by at most 0.00004 ns across the five corners. Setup slack with that
+estimate remains 0.07772–0.18016 ns above the in-flow result. Placement
+estimates use bounding boxes and the in-flow estimate uses global-route
+topology. That difference could explain the remainder. A direct test on
+the routed DEF stopped before it could measure the effect. After
+`set_routing_layers -signal Metal2-Metal5`, `global_route` skipped every
+net (wirelength 0) and `estimate_parasitics -global_routing` returned
+`EST-0005`.
 
-**Basis for a signoff-grade I/O timing claim**: wire-RC-inclusive timing.
-Of the two committed reports that is the in-flow one (worst shared-corner
-setup 2.70668 ns at `ss_125C_3v00`); this standalone report overstates
-setup margin by 0.28–0.78 ns and stays labeled zero-wire-RC until `klt sta`
-can annotate a post-route SPEF — a capability gap filed upstream at
-[2AMLogic/klayout-tools#7021](https://github.com/2AMLogic/klayout-tools/issues/7021)
-(the flow emits no SPEF and `klt sta` def mode takes no interconnect
-setting). When #2 ratifies the spec and the `5.digital` citation lands, it
-must cite wire-RC-inclusive numbers on these five corners — not this
-report's as they stand.
+**The current wire-RC reference is the in-flow estimate.** Its worst setup
+slack on the five shared corners is 2.70668 ns at `ss_125C_3v00`. For a
+future `5.digital` citation, the timing artifact must be a wire-RC-inclusive
+`klt sta` report on the routed design under the ratified budget.
+
+The pinned `klt sta` already accepts a routed DEF and a `spef` input.
+The committed [P&R request](../../layout/pnr/request.json) omits
+`post_route_spef` and selects the GF180 7-track library
+(`gf180mcu_fd_sc_mcu7t5v0`). At the layout pin, the exporter's extraction
+deck map has a GF180 entry for 9-track only. Requesting SPEF export for
+this 7-track library therefore fails at deck lookup. Upstream closed
+#7021 because export and STA annotation already work for mapped libraries.
+See the [pinned STA guide](https://github.com/2AMLogic/klayout-tools/blob/f9039fd7244e977325c351a5780acbf1cee383fb/docs/cli/sta.md#L37-L49),
+[pinned deck map](https://github.com/2AMLogic/klayout-tools/blob/f9039fd7244e977325c351a5780acbf1cee383fb/src/klayout_tools/place_and_route.py#L921-L925),
+and [upstream closure](https://github.com/2AMLogic/klayout-tools/issues/7021#issuecomment-7057287126).
 
 ## What is and is not claimed
 
@@ -162,6 +164,6 @@ report's as they stand.
 - The same constraints now also run inside `klt place-and-route`
   ([`layout/pnr/`](../../layout/pnr/README.md)), whose report covers all 15
   library corners including other-supply rows out of this budget's set, and
-  whose timing **includes** estimated wire RC — so its setup slacks on
-  these five corners are 0.28–0.78 ns lower than this run's (measured
-  reason: interconnect, above).
+  whose timing includes estimated wire RC. Its setup slacks on these five
+  corners are 0.28–0.78 ns lower. Adding placement-based wire RC to the
+  standalone run accounts for 72–78 % of that difference.
