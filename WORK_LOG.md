@@ -16,7 +16,7 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 ### 2026-11-22
 
 - **PR #162**: Check the routed DEF and the STA report's input digest in pnr --check
-- **Issue #151** (closed): Check routed DEF reproducibility and the STA report's input hash
+- **Issue #151** (closed): Check routed DEF reproducibility and the STA report’s input hash
 
 ### 2026-11-21
 
