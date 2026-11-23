@@ -4,13 +4,13 @@ A 10-bit segmented current-steering DAC on the gf180mcu open PDK, built to
 test array generation, matched layout and extraction in
 [klayout-tools](https://github.com/2AMLogic/klayout-tools) (`klt`).
 
-Status as of 2026-11-13, `main` @ `2755ab2`. The verdict of record is
+Status as of 2026-11-21, `main` @ `ff16f23`. The verdict of record is
 [`manifests/gf180-current-dac.signoff.json`](manifests/gf180-current-dac.signoff.json);
 where this file and that record disagree, the record wins.
 
 ## Where it stands
 
-`klt signoff` (0.9.0) grades **14 of 22** T1 items met, tier `None`, against
+`klt signoff` (0.9.0) grades **15 of 22** T1 items met, tier `None`, against
 the design-evidence tiers checklist bundled with the pinned klt
 ([`docs/design-evidence-tiers.md` at `v0.9.0`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.0/docs/design-evidence-tiers.md)).
 Tracker #6 still shows the 2026-10-17 state; the signoff record supersedes it.
@@ -23,7 +23,7 @@ Tracker #6 still shows the 2026-10-17 state; the signoff record supersedes it.
 | 4 LVS | met: match, 133 dummies both sides (PR #53) | met: match (PR #49) |
 | 5 Corners vs ratified spec | unmet, no evidence | unmet, no evidence |
 | 6 Monte Carlo | unmet, no evidence | unmet, no evidence |
-| 7 Post-layout | unmet, no evidence | unmet, no evidence |
+| 7 Post-layout | unmet, no evidence | met: SDF-annotated run cited (`verification/functional/`, #140) |
 | 8 Characterization report | unmet, no evidence | unmet, no evidence |
 | 9 Testbenches shipped | met: `evidence/item9.json` (PR #56) | met (same record) |
 | 10 Repo hygiene | met: `evidence/item10.json` (PR #40) | met (same record) |
@@ -43,9 +43,15 @@ What the met items do not say, in the repo's own words:
   five-corner run is committed (`verification/sta/`, all corners positive) —
   but DR-0008 is `proposed` with assumed figures, so no slack is claimed
   against a ratified row and item 5 stays uncited.
-- **The decoder bench is plain Verilog under Icarus** (`verification/rtl/`,
-  1024 codes pass), not the cocotb suite the README names.
-- **No parasitics are extracted**, and the two partitions are separate
+- **The cocotb decoder suite exists** (`verification/functional/`, run on the
+  RTL, the synthesized netlist and the SDF-annotated as-built netlist; the
+  plain-Verilog bench in `verification/rtl/` remains the item-1 sanity check).
+- **Analog parasitic extraction is only a probe, and no analog post-layout
+  simulation exists**: the digital partition has a SPEF (extracted for the
+  item-7 annotated run, [`verification/sta/`](verification/sta/)); the analog
+  `klt pex` probe on the array is complete (`verification/pex/`: 20,184
+  resistors, 2,586 ground and 8,683 coupling capacitors) but its netlist has
+  not been simulated, and the two partitions are separate
   streams with no pad ring and no bias loop (DR-0006: `iref` is an ideal source).
 
 ## Now
@@ -56,15 +62,15 @@ Can start today; each is one PR.
    `spec/ratification-packet.md` and has waited since 2026-10-25. Done when:
    it carries an EE-key and a market-key review from sessions that authored
    neither the PR nor the design, and #2 points at it. Agents do not ratify.
-2. **Decoder functional suite through `klt functional-verification`.** Port
+2. **Done — decoder functional suite through `klt functional-verification`.** Port
    the exhaustive 1024-code check to cocotb and run it on the RTL and the
    synthesized netlist. Done when: the suite and its JSON report are committed
-   under `verification/`. Prerequisite for digital items 5 and 7. No issue yet.
-3. **Parasitic extraction probe of the analog array.** Run
+   under `verification/` (done: three requests, 4/4 each). Prerequisite for digital items 5 and 7.
+3. **Done — parasitic extraction probe of the analog array.** Run
    `klt extract --parasitics` once on `layout/gf180-current-dac-analog.gds`.
    Done when: `verification/pex/README.md` records the command, run time and
    element counts with the output or its hash, or the failure is filed as a
-   generic klayout-tools issue and linked. No simulation. No issue yet.
+   generic klayout-tools issue and linked (done: see `verification/pex/README.md`). No simulation; the analog post-layout simulation is still outstanding.
 4. **Propose the digital I/O timing budget as a decision record.** The update
    rate row requires timing to be met at the clock, but no input or output
    delay exists to check it against. Done when: a `proposed` record states the
@@ -85,9 +91,6 @@ Can start today; each is one PR.
   budget). Citing it needs #2: the checklist requires a ratified spec, and
   `klt signoff` would grade the unratified case `met` today (the probe is
   recorded in `verification/sta/README.md`).
-- **Post-route functional run with SDF back-annotation** on
-  `layout/pnr/dac_digital.asbuilt.v`. Done when: a report with
-  `environment.sdf.annotated: true` is cited as `7.digital`. Needs Now 2.
 - **Item 6 (digital) "not applicable" statement.** Done when: a committed
   statement accounts for every digital spec row and `klt signoff` reports
   `not_applicable`. The checklist allows this only on a ratified spec: needs #2.

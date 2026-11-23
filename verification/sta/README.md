@@ -43,20 +43,84 @@ only the per-corner `engine_log` invocation ids differ).
 at `layout/pnr/dac_digital.def` (sha256
 `36ea425f3fd0464001f37d400d8e3e62107ef2a2eab3e88fcc00afc381dcae25`, the
 report's `provenance.input.content_hash`), from the same run that produced
-the committed `dac_digital.gds`. That binding is checked:
+the committed `dac_digital.gds` (sha256
+`93901ab747d6c4ab3a051a3d84d52c869a619018face0dfdbe74259b593aa7f8`) and
+`dac_digital.asbuilt.v` (sha256
+`bb51f8880448be28aebd37eece82494295dcaf61ea231ba3012f6db8bb1ffa4b`). That binding is checked:
 [`layout/pnr/run.sh --check`](../../layout/pnr/README.md#regenerate) reruns the
 route, byte-compares the committed GDS and DEF with the regenerated copies,
 and fails unless this report's `provenance.input.content_hash` is the
 committed DEF's SHA-256 — so a DEF that drifts from its stream, or this
 report left stale against a regenerated DEF, cannot pass unnoticed. **Every
-interconnect delay in this standalone run is zero.** The committed P&R run
-produced no post-route SPEF. The STA report records a null `spef_path` and
+interconnect delay in this five-corner run is zero.** The committed P&R run
+itself produced no post-route SPEF (the SPEF below comes from a separate `klt extract`). The STA report records a null `spef_path` and
 `electrical_checks.parasitics_source: "none"` at every corner. This DEF-mode
 session also applies no wire-RC estimate or wire-load model, so the slacks
 below include cell delays only. The [interconnect section](#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow)
 compares this run with the in-flow timing on the same DEF.
 Clock is ideal (`clock_mode: "ideal"`), no uncertainty, no SDF. The
-post-route SDF back-annotated functional run is item 7 and belongs to #140.
+post-route SDF export for item 7 is a separate single-corner run, below.
+
+## Post-route SDF export ([`sdf.request.json`](sdf.request.json))
+
+T1 item 7 digital ([`../functional/`](../functional/)) needs a
+post-route SDF, so a second single-corner request re-analyses the same DEF
+under the same DR-0008 constraints at the nominal corner with an extracted
+SPEF loaded and `sdf: true`. Run from the repo root, at the grading pin
+(`scripts/check_signoff.sh --print-pin`, `0.9.0`, with the klayout package
+pin from [`layout/toolchain.json`](../../layout/toolchain.json)); the
+five-corner report above stays at the layout pin:
+
+```
+uvx --from "klayout-tools==0.9.0" --with "klayout==0.30.12" \
+    klt sta verification/sta/sdf.request.json --pdk gf180mcuD --format json \
+    > verification/sta/dac_digital.sdf.report.json
+```
+
+The emitted SDF lands in `.klt/sta/dac_digital.tt_025C_3v30.sdf`
+(gitignored) and is copied out to
+[`../functional/dac_digital.tt_025C_3v30.sdf`](../functional/dac_digital.tt_025C_3v30.sdf);
+OpenSTA stamps a `(DATE ...)` header line, so the bytes are not
+reproducible run-to-run — the digest of record is the retained copy's,
+`e08b63f84684aabe2f8c5458354887e94eb0c053290b0690e618955ff1aae340`,
+matching that run's `corners[0].sdf.content_hash`. Both pins agree on the
+`sdf` contract (issue #2886 is in the docs at the layout pin
+`f9039fd7244e` and at `0.9.0` alike); the run itself used the grading pin
+as issue #140 specifies.
+
+**The SPEF** ([`dac_digital.spef`](dac_digital.spef), sha256
+`dffe8f2552f97b682a2915b55cdc82b7f89484a8e7f859c600fe2b8d9145c7a6`) is
+`klt extract` on the routed GDS with net names, pins and connections from
+the matching DEF — same flags as the digital-LVS extraction plus the
+parasitics/SPEF pass, at the same grading pin:
+
+```
+uvx --from "klayout-tools==0.9.0" --with "klayout==0.30.12" klt extract \
+    layout/pnr/dac_digital.gds --deck gf180mcu \
+    --abstract-cells 'gf180mcu_fd_sc_mcu7t5v0__*' \
+    --def-net-names --def-pins layout/pnr/dac_digital.def \
+    --def-net-connections layout/pnr/dac_digital.def \
+    --pdk gf180mcuD --parasitics --spef verification/sta/dac_digital.spef \
+    --backend local --format json -o /tmp/dac_digital.spef.spice
+```
+
+189 nets carry parasitics (189 R + 189 C, 2187 coupling caps,
+5116 ohm / 1541 fF total); the SPEF keeps 182 `*D_NET` blocks — 7
+unlabelled `$N` nets the DEF does not know are omitted per the documented
+OpenSTA `STA-1650` rule, and the extraction's integrity check reports zero
+findings over all 189 nets.
+
+**Result** (`dac_digital.sdf.report.json`): `tt_025C_3v30`,
+`timing_status: "constrained"`, 0 setup and 0 hold violations, setup slack
+4.85631 ns / hold slack 2.93303 ns — against the five-corner DEF/LEF run's
+5.23987 ns at the same corner, i.e. the SPEF is loaded and delays moved
+(`delay_changed: true`). SPEF annotation: 182/182 design nets annotated,
+`annotation_complete: true`, 0 reader warnings; the 7 `unannotated_driver`
+entries are the CTS `clkload*` dummy loads' floating outputs, an inherent
+limit, not an extraction defect. The same provisional-budget caveat as
+above applies: DR-0008 is `proposed`, so these slacks are provisional too,
+and this report is cited for neither item 5 nor timing claims — its product
+is the SDF the item-7 functional run consumes.
 
 ## Request
 
@@ -156,11 +220,13 @@ and [upstream closure](https://github.com/2AMLogic/klayout-tools/issues/7021#iss
   manifest cites nothing in this directory.
 - The corner set is the five 3.3 V corners the cited run itself declared —
   `klt signoff` grades exactly that set, nothing wider.
-- No SPEF-annotated result and no wire RC of any kind (every interconnect
+- The five-corner run has no SPEF-annotated result and no wire RC of any kind (every interconnect
   delay is zero — see the
   [interconnect section](#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow)
   above); no clock-tree-real (propagated) clock, no on-chip-variation
-  derating: the run is ideal-clock, cell-delay-only STA.
+  derating: the run is ideal-clock, cell-delay-only STA. The
+  single-corner SDF-export run above is SPEF-annotated but inherits the
+  ideal clock, no OCV and the same provisional budget.
 - The same constraints now also run inside `klt place-and-route`
   ([`layout/pnr/`](../../layout/pnr/README.md)), whose report covers all 15
   library corners including other-supply rows out of this budget's set, and
