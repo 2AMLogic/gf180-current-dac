@@ -22,7 +22,12 @@ layout/gen_prims.sh [--check]              # device primitives via klt gen; size
 
 The generator needs the pip `klayout` package at the version in
 [`toolchain.json`](toolchain.json) (`klayout_package_pin`), and nothing else:
-the primitives in `prims/` are committed, so CI needs no PDK. The stream has
+the primitives in `prims/` are committed, so CI needs no PDK.
+`gen_prims.sh --check` reproduces all five primitives at the `klt_install`
+pin and reports `differs:` for all five at klayout-tools 0.9.x — a measured
+child-cell rename, not a size drift: see
+[DR-0009](../spec/decision-records/0009-layout-pin-and-primitive-reproducibility.md).
+The stream has
 no timestamps and a fixed cell order; `--check` fails if two runs differ or the
 committed stream, envelope or table differ from a fresh run. Current hash:
 see `evidence/item2-analog.json` (`provenance.input.content_hash`).
@@ -196,6 +201,6 @@ connectivity extraction).
 | `gen_array.py` | stream generator and checker |
 | `switching_sequence.json` | recorded sequence and site map |
 | `prims/` | device primitives from `klt gen mos_array` (GDS plus the tool's report) |
-| `gen_prims.sh` | regenerates / re-verifies `prims/`; sizes from `design/gen_analog.py --prim-params` (needs the PDK) |
+| `gen_prims.sh` | regenerates / re-verifies `prims/`; sizes from `design/gen_analog.py --prim-params` (needs the PDK); `--check` is green only at the 0.8.1-lineage `klt_install` pin ([DR-0009](../spec/decision-records/0009-layout-pin-and-primitive-reproducibility.md)) |
 | `gf180-current-dac-analog.gds` | the stream |
-| `toolchain.json` | klt and klayout pins |
+| `toolchain.json` | klt and klayout pins; the klt pin stays on the 0.8.1 lineage ([DR-0009](../spec/decision-records/0009-layout-pin-and-primitive-reproducibility.md)) |
