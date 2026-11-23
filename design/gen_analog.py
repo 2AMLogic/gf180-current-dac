@@ -40,7 +40,7 @@ N_UNARY = SEG.N_UNARY           # 6 unary bits -> 2^6 - 1 elements
 UNITS_PER_UNARY = SEG.UNITS_PER_UNARY
 BINARY_UNITS = SEG.BINARY_UNITS
 N_RING_DUMMY = SEG.N_RING_DUMMY
-IREF_MIRROR_UNITS = 10  # reference leg: 10 unit sources (see DR-0006)
+IREF_MIRROR_UNITS = SEG.IREF_MIRROR_UNITS   # reference leg (DR-0006)
 
 # ---- device sizes (ASSUMED, DR-0006) ---------------------------------------
 CS = {"W": "2.6u", "L": "10.3u"}    # 26.78 um^2 >= 26.53 um^2 (nfet, Vov 0.4 V)
