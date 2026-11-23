@@ -9,6 +9,10 @@ a generator that moves only the symbol pin stays fresh after regeneration
 while its wires miss the pin — so the agreement is asserted here, against
 the emitted text of both writers rather than a shared internal.
 
+The subcircuit schematics' own port symbols (Sch.sub_pins, issue #174)
+are held to the same contract: their pin names, directions and order must
+restate SYMS, the one table the symbol and the instance wiring draw from.
+
 Needs no xschem, PDK or klt: it drives the generator module in memory.
 Verify with `python3 -m unittest design.tests.test_gen_analog`.
 """
@@ -34,6 +38,11 @@ WIRE_LINE = re.compile(r"^N (-?\d+) (-?\d+) (-?\d+) (-?\d+) \{\}$")
 LAB_LINE = re.compile(
     r"^C \{devices/lab_pin\.sym\} -?\d+ -?\d+ \d 0"
     r" \{name=\w+ sig_type=std_logic lab=(\w+)\}$")
+# Sch.top_pin port symbol: `C {devices/ipin.sym} x y 0 0 {name=pN lab=net}`
+PORT_LINE = re.compile(
+    r"^C \{devices/(ipin|iopin|opin)\.sym\} -?\d+ -?\d+ 0 0"
+    r" \{name=\w+ lab=(\w+)\}$")
+PORT_KIND = {"in": "ipin", "inout": "iopin", "out": "opin"}
 
 
 def symbol_pins(mod, cell):
@@ -95,6 +104,27 @@ class TestSymbolAndWiresSharePinPlacement(unittest.TestCase):
                 expected = ([pn for pn, d in syms if d != "out"]
                             + [pn for pn, d in syms if d == "out"])
                 self.assertEqual(order, expected)
+
+
+class TestSubcircuitPortsMatchSyms(unittest.TestCase):
+    def test_subcircuit_port_symbols_match_syms(self):
+        # the third SYMS consumer: each subcircuit schematic's own port
+        # symbols must carry the same pin names and directions as SYMS, in
+        # the same left-then-right order the symbol draws them — a restated
+        # port list here is what let a one-sided SYMS edit drift unseen
+        # (the freshness gate regenerates from the same drifted generator)
+        texts = gen_analog.files()
+        for cell in sorted(gen_analog.SYMS):
+            with self.subTest(cell=cell):
+                ports = [(m.group(2), m.group(1))
+                         for m in map(PORT_LINE.match,
+                                      texts[gen_analog.OUT / f"{cell}.sch"].splitlines())
+                         if m]
+                syms = gen_analog.SYMS[cell]
+                expected = [(pn, PORT_KIND[d])
+                            for pn, d in ([p for p in syms if p[1] != "out"]
+                                          + [p for p in syms if p[1] == "out"])]
+                self.assertEqual(ports, expected)
 
 
 if __name__ == "__main__":

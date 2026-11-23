@@ -172,6 +172,17 @@ class Sch:
         self.lines.append(f"C {{devices/{kind}.sym}} {x} {y} 0 0 {{name={self._id('p')} lab={net}}}")
         self.wire(x, y, x + d, y, net)
 
+    def sub_pins(self, cell, right_x=700):
+        """Port symbols of a generated subcircuit's own schematic, from the
+        same pin_sides grouping sym_text and Sch.sub draw: in/inout pins
+        are ipin/iopin at x = -400, out pins are opin at right_x, each side
+        top-down on a 20 pitch."""
+        kind = {"in": "ipin", "inout": "iopin", "out": "opin"}
+        left, right = pin_sides(cell)
+        for x, pins in ((-400, left), (right_x, right)):
+            for i, (pn, pd) in enumerate(pins):
+                self.top_pin(kind[pd], x, 20 * i, pn)
+
     def mos(self, sym, name, x, y, d, g, s, b, w, l):
         """3.3 V gf180mcu MOS; D/S rows differ for n/p (D top for n, S top for p)."""
         self.lines.append(
@@ -210,12 +221,7 @@ def unit_cell(prefix_dummy=False):
     s.mos("nfet_03v3", "M2", 0, 160, "n2", g["vcas"], "n1", "vss", **{k.lower(): v for k, v in CAS.items()})
     s.mos("nfet_03v3", "Msp", -120, 20, g["outp"], g["sp"], "n2", "vss", **{k.lower(): v for k, v in SW.items()})
     s.mos("nfet_03v3", "Msn", 120, 20, g["outn"], g["sn"], "n2", "vss", **{k.lower(): v for k, v in SW.items()})
-    pins = [("vbn", "ipin"), ("vcas", "ipin"), ("sp", "ipin"), ("sn", "ipin"),
-            ("vss", "iopin"), ("outp", "iopin"), ("outn", "iopin")]
-    if prefix_dummy:
-        pins = [("vss", "iopin")]
-    for i, (pn, kind) in enumerate(pins):
-        s.top_pin(kind, -400, 20 * i, pn)
+    s.sub_pins("dummy_cell" if prefix_dummy else "unit_cell")
     return s.text()
 
 
@@ -231,10 +237,7 @@ def driver():
     inv(s, "1", 0, 0, "d", "na")
     inv(s, "2", 200, 0, "na", "sp")
     inv(s, "3", 400, 0, "sp", "sn")
-    for i, (pn, kind) in enumerate([("d", "ipin"), ("vdd", "iopin"), ("vss", "iopin")]):
-        s.top_pin(kind, -400, 20 * i, pn)
-    s.top_pin("opin", 700, 0, "sp")
-    s.top_pin("opin", 700, 20, "sn")
+    s.sub_pins("driver")
     return s.text()
 
 
@@ -245,10 +248,7 @@ def element(n_units):
         s.sub(f"xu{k}", "unit_cell", 260 * col, 200 * row,
               dict(vbn="vbn", vcas="vcas", sp="sp", sn="sn", vss="vss",
                    outp="outp", outn="outn"))
-    for i, (pn, kind) in enumerate([("vbn", "ipin"), ("vcas", "ipin"), ("sp", "ipin"),
-                                    ("sn", "ipin"), ("vss", "iopin"),
-                                    ("outp", "iopin"), ("outn", "iopin")]):
-        s.top_pin(kind, -400, 20 * i, pn)
+    s.sub_pins(f"elem_{n_units}")
     return s.text()
 
 
@@ -262,9 +262,7 @@ def bias():
         x = 120 * k
         s.mos("nfet_03v3", f"Mc{k}", x, 0, "iref", "iref", "vbn", "vss", **{a.lower(): b for a, b in CAS.items()})
         s.mos("nfet_03v3", f"Mb{k}", x, 200, "vbn", "vbn", "vss", "vss", **{a.lower(): b for a, b in CS.items()})
-    s.top_pin("iopin", -400, 0, "iref")
-    s.top_pin("iopin", -400, 20, "vss")
-    s.top_pin("opin", 1400, 0, "vbn")
+    s.sub_pins("bias", right_x=1400)
     return s.text()
 
 
