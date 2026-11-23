@@ -52,7 +52,8 @@ REQUIRED_JSON = [
 TESTS = [
     ([sys.executable, "-m", "unittest", "sim.harness.test_check", "spec.tests.test_check_spec",
      "layout.tests.test_gen_array_check", "scripts.tests.test_check_ci",
-     "scripts.tests.test_check_signoff", "design.tests.test_prim_params"], False),
+     "scripts.tests.test_check_signoff", "scripts.tests.test_check_signoff_pins",
+      "design.tests.test_prim_params"], False),
     ([sys.executable, "spec/check_spec.py"], False),
     ([sys.executable, "design/gen_analog.py", "--check"], False),
     # klayout absent at import time is a provisioning gap, not a failure (#87).
