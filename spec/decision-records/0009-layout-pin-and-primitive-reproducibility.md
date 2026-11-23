@@ -25,9 +25,10 @@ The layout/ `klt_install` pin stays on the 0.8.1 lineage (`f9039fd7244e`).
 `gen_prims.sh --check` reporting `differs:` for **all five** primitives at
 once under klayout-tools 0.9.x or later is the expected tool-version
 difference measured below, not a size drift against DR-0006. Moving the pin
-means either regenerating `layout/prims/` (accepting the new child-cell
-names) or first making the `gen_prims.sh` gate hierarchy-insensitive with
-`klt diff --flattened` (see Alternatives considered). The rewrite is a
+means regenerating `layout/prims/` (accepting the new child-cell names).
+Making the `gen_prims.sh` gate hierarchy-insensitive with
+`klt diff --flattened` is the other route, but it needs a klt that carries
+the flag, and no released 0.9.x does (see Alternatives considered). The rewrite is a
 consequence of the gate's *current* cell-by-cell comparison, not of the pin
 move as such. Per the measurement below the array stream itself is
 unchanged either way; that choice is a separate decision when a pin move is
@@ -135,11 +136,11 @@ layout/prims/prim_cs.gds /tmp/primdiff/prim_cs_renamed.gds`.
   five-primitive `differs:` at 0.9.x against this record before touching
   sizes (DR-0006 is unaffected by all of this).
 - With the gate as it stands, a pin move to released 0.9.x needs a
-  primitives-file rewrite plus report update. If the call site adopts
-  `klt diff --flattened` first, the committed geometry can be verified
-  against a 0.9.x regeneration without rewriting `layout/prims/` (at 0.9.0
-  all five are `equivalent` once the child is renamed, measured above). The
-  array stream, its envelope and the switching table are unaffected either
+  primitives-file rewrite plus report update: `--flattened` is not
+  available at any released 0.9.x (measured absent at 0.9.0, 0.9.1 and
+  0.9.2), so the gate cannot be made hierarchy-insensitive there. (At 0.9.0
+  all five primitives are `equivalent` once the child is renamed, measured
+  above.) The array stream, its envelope and the switching table are unaffected either
   way (measured above). A move to the current dev line additionally
   needs `layout/gen_array.py` moved off its hard-coded `DBU = 0.0005`
   (upstream #5721 already settled that the runset requires 0.001).
@@ -159,10 +160,13 @@ layout/prims/prim_cs.gds /tmp/primdiff/prim_cs_renamed.gds`.
   `begin_shapes_rec`): not adopted in this record, and not adoptable at the
   current pin. Measured: `klt diff --help` at the `f9039fd7244e` pin (via
   `uvx --from <klt_install> klt diff --help`) lists only `--top`,
-  `--max-items` and `--format`; there is no `--flattened`. It becomes
-  available only with a pin move to a klt that carries it (present at
-  0.9.x per the review's reading of its help text). The call-site change is
-  therefore part of the pin-move decision, so it is out of scope here. If
+  `--max-items` and `--format`; there is no `--flattened`. It is also
+  absent at the released tags v0.9.0, v0.9.1 and v0.9.2 (measured: `diff_report`
+  takes no `flattened` parameter there). It appears only on the unreleased
+  0.9.3 dev line (host `klt 0.9.3.dev3692+g719ab7426e77` lists it in
+  `klt diff --help`), which the `DBU = 0.0005` ground below already rules
+  out as a pin target. The call-site change is therefore part of a future
+  pin-move decision, so it is out of scope here. If
   adopted then, `layout/README.md` and `layout/toolchain.json` need the same
   edit.
 - Leave the behaviour unrecorded: rejected — the next `differs:` reads as a
