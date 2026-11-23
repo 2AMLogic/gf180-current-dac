@@ -22,8 +22,8 @@ same file's `klayout_package_pin`, so the stream hash is the pin's), needs
 docker for OpenROAD and the PDK at the revision in `sim/pdk.json`. One run,
 one corner of placement; no grid. `.klt/` (scratch) is cleared at startup and
 gitignored; the routed DEF is copied out to `dac_digital.def` before the next
-invocation clears it (the flow emits no post-route SPEF, so none is kept) —
-that DEF is the fixed geometry `klt sta`
+invocation clears it. This run omitted `post_route_spef` and produced no
+SPEF. The retained DEF is the fixed geometry `klt sta`
 ([`../../verification/sta/`](../../verification/sta/README.md)) analyses and
 `klt extract` reads for [digital LVS](../../verification/lvs/README.md#digital).
 The stream was byte-identical on two consecutive runs (OpenROAD
@@ -80,13 +80,18 @@ utilization 47.9695 %.
   I/O delays in the request, every corner in `dac_digital.report.json`
   reports `timing_status: "constrained"` with real setup/hold slack — but the
   budget is DR-0008 (`proposed`, figures assumed), so the slacks are
-  provisional and the report is not cited for item 5; the standalone
-  signoff-grade run over the five 3.3 V corners is
-  [`../../verification/sta/`](../../verification/sta/README.md). This flow
-  sweeps all 15 library corners, including 1v62–1v98 and 4v50–5v50 supply
-  rows that are **outside** DR-0008's 3.3 V PVT set; the `ss_*_1v62` rows
-  show negative setup slack (−6.9 ns at `ss_125C_1v62`) and are not budget
-  results either way — the digital supply is 3.3 V ±10 % (DR-0002).
+  provisional. This report is the current wire-RC reference. It times
+  after `estimate_parasitics -global_routing` at `interconnect_corner: "nom"`.
+  On the five shared 3.3 V corners, the zero-wire-RC standalone run reports
+  0.28–0.78 ns more setup slack. Adding placement-based wire RC to that run
+  closes 72–78 % of the gap. The cause of the remainder is unverified.
+  A future item 5 citation needs a wire-RC-inclusive `klt sta` report
+  against the ratified budget. See the [five-corner comparison](../../verification/sta/README.md#interconnect-basis-zero-wire-rc-standalone-vs-estimated-wire-rc-in-flow).
+  This flow sweeps all 15 library corners, including 1v62–1v98 and
+  4v50–5v50 supply rows that are **outside** DR-0008's 3.3 V PVT set; the
+  `ss_*_1v62` rows show negative setup slack (−6.9 ns at `ss_125C_1v62`)
+  and are not budget results either way — the digital supply is
+  3.3 V ±10 % (DR-0002).
 - `klt drc` of this stream is item 3 (`../drc/README.md`: clean, with the
   coverage gaps listed there). LVS and extraction are other T1 items and are
   not claimed. `route_drc_violation_count` is OpenROAD's router DRC, not
