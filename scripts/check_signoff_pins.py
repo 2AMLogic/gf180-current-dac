@@ -49,9 +49,8 @@ def _check_one(errors, root, item, entry):
         )
         return
     provenance = doc.get("provenance") if isinstance(doc, dict) else None
-    derived = (
-        provenance.get("input") or {}
-    ).get("content_hash") if isinstance(provenance, dict) else None
+    source = provenance.get("input") if isinstance(provenance, dict) else None
+    derived = source.get("content_hash") if isinstance(source, dict) else None
     if not isinstance(derived, str) or not derived:
         errors.append(
             f"{label} -> {file}: no `provenance.input.content_hash` in the "
@@ -89,9 +88,10 @@ def check_evidence_pins(errors, root=None):
     for item in sorted(evidence):
         val = evidence[item]
         entries = val if isinstance(val, list) else [val]
-        if not isinstance(val, (dict, list)) or not all(
-            isinstance(e, dict) for e in entries
-        ):
+        if not entries:
+            errors.append(f"{MANIFEST}: evidence[{item!r}] is an empty list")
+            continue
+        if not all(isinstance(e, dict) for e in entries):
             errors.append(
                 f"{MANIFEST}: evidence[{item!r}] is not an entry object or "
                 "a list of entry objects"

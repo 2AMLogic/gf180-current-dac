@@ -161,6 +161,19 @@ class PinFixtureTree(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIn("no `provenance.input.content_hash`", errors[0])
 
+    def test_malformed_provenance_input_preserves_other_pin_errors(self):
+        cited = "evidence/item1-analog.json"
+        (self.tmp / cited).write_text(
+            json.dumps({"provenance": {"input": "attest/item1-analog.json"}})
+        )
+        self.good["9"]["content_hash"] = "sha256:" + "f" * 64
+        errors, _ = self.run_check()
+        self.assertEqual(len(errors), 2)
+        self.assertIn(f"evidence['1.analog'] -> {cited}", errors[0])
+        self.assertIn("no `provenance.input.content_hash`", errors[0])
+        self.assertIn("evidence['9'] -> evidence/item9.json: pin", errors[1])
+        self.assertIn("does not match", errors[1])
+
     def test_invalid_json_cited_file_fails_loudly(self):
         (self.tmp / "evidence/item9.json").write_text("{not json")
         errors, _ = self.run_check()
@@ -232,6 +245,13 @@ class ScriptEndToEnd(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ok     1 evidence pins", r.stdout)
         self.assertEqual(r.stderr, "")
+
+    def test_empty_evidence_list_exits_one_naming_item(self):
+        r = self.run_script({**self.good_manifest, "11.digital": []})
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("evidence['11.digital']", r.stderr)
+        self.assertIn("empty list", r.stderr)
+        self.assertEqual(r.stdout, "")
 
     def test_bad_pin_exits_one_naming_item_file_both_hashes(self):
         r = self.run_script(self.bad_manifest)
