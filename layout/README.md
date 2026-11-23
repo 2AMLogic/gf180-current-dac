@@ -17,7 +17,7 @@ delivery, post-layout extraction and any INL / DNL number are not claimed.
 python3 layout/gen_array.py                # writes the stream and evidence/item2-analog.json
 python3 layout/gen_array.py --check        # CI: regenerate twice, compare everything committed; exit 2 without klayout
 python3 layout/gen_array.py --write-table  # rewrite switching_sequence.json from spec/sizing/size.py
-layout/gen_prims.sh [--check]              # device primitives via klt gen; needs the PDK
+layout/gen_prims.sh [--check]              # device primitives via klt gen; sizes from design/gen_analog.py; needs the PDK
 ```
 
 The generator needs the pip `klayout` package at the version in
@@ -196,6 +196,6 @@ connectivity extraction).
 | `gen_array.py` | stream generator and checker |
 | `switching_sequence.json` | recorded sequence and site map |
 | `prims/` | device primitives from `klt gen mos_array` (GDS plus the tool's report) |
-| `gen_prims.sh` | regenerates / re-verifies `prims/` (needs the PDK) |
+| `gen_prims.sh` | regenerates / re-verifies `prims/`; sizes from `design/gen_analog.py --prim-params` (needs the PDK) |
 | `gf180-current-dac-analog.gds` | the stream |
 | `toolchain.json` | klt and klayout pins |
