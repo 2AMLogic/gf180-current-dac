@@ -10,7 +10,9 @@ merged or abutted here.
 
 ```
 layout/pnr/run.sh           # rewrites dac_digital.gds, .report.json, .asbuilt.v and .def
-layout/pnr/run.sh --check   # reruns and compares the stream hash with the committed one
+layout/pnr/run.sh --check   # reruns and compares the regenerated GDS and DEF with the
+                            # committed copies, and the committed DEF's hash with the
+                            # STA report's input digest
 ```
 
 Run from anywhere; the script changes to the repo root, because the `openroad`
@@ -26,6 +28,17 @@ that DEF is the fixed geometry `klt sta`
 `klt extract` reads for [digital LVS](../../verification/lvs/README.md#digital).
 The stream was byte-identical on two consecutive runs (OpenROAD
 `26Q3-1510-g6cb3f2b704`, seed 1).
+
+`--check` reruns the route into scratch and byte-compares both retained
+geometry files — the GDS and the DEF — with their committed copies, then
+verifies that the committed DEF's SHA-256 is the
+`provenance.input.content_hash` recorded in the committed STA report
+([`../../verification/sta/dac_digital.report.json`](../../verification/sta/dac_digital.report.json)).
+Any of the three comparisons failing — a drifted stream, a DEF that no longer
+matches its route, or a report left stale against a regenerated DEF — exits
+nonzero naming the failed comparison. Check mode reads the committed
+artifacts and rewrites nothing: after a normal regeneration moves the DEF,
+the check fails on the stale report digest until `klt sta` refreshes it.
 
 **The routed stream changed with the I/O constraints.** Adding the DR-0008
 delays below changed placement (the router now times the I/O paths), so the

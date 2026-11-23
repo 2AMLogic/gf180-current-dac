@@ -2,10 +2,11 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 1,
-  "description": "Analog partition design sources: generated xschem schematics and symbols, the generator (python3 design/gen_analog.py) with its segmentation module (spec/segmentation.py), and netlists derived with klt netlist. Existence and freshness only; no performance claim.",
+  "description": "Analog partition design sources: generated xschem schematics and symbols, the generator (python3 design/gen_analog.py) with its segmentation module (spec/segmentation.py) and PDK pin (sim/pdk.json), and netlists derived with klt netlist. Existence and freshness only; no performance claim.",
   "sources": [
     "design/gen_analog.py",
     "spec/segmentation.py",
+    "sim/pdk.json",
     "design/analog/xschemrc",
     "design/analog/unit_cell.sch",
     "design/analog/dummy_cell.sch",

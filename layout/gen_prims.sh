@@ -21,13 +21,12 @@ gen() { # name params-json
       -o "$out/$1.gds" --format json > "$out/$1.report.json"
 }
 
-# Sizes are design/gen_analog.py's (DR-0006): CS = unit current source,
+# Sizes are design/gen_analog.py's (DR-0006), read from the generator itself
+# so no second copy of the numbers can drift: CS = unit current source,
 # CAS = cascode, SW = steering switch, INV_N / INV_P = driver inverters.
-gen prim_cs   '{"w_um":2.6,"l_um":10.3,"rows":1,"cols":1,"dummy":0,"gate_contact":true}'
-gen prim_cas  '{"w_um":5.2,"l_um":1.0,"rows":1,"cols":1,"dummy":0,"gate_contact":true}'
-gen prim_sw   '{"w_um":2.6,"l_um":0.28,"rows":1,"cols":1,"dummy":0,"gate_contact":true}'
-gen prim_drvn '{"w_um":1.0,"l_um":0.28,"rows":1,"cols":1,"dummy":0,"gate_contact":true}'
-gen prim_drvp '{"w_um":2.0,"l_um":0.28,"rows":1,"cols":1,"dummy":0,"gate_contact":true,"flavor":"pfet"}'
+for name in prim_cs prim_cas prim_sw prim_drvn prim_drvp; do
+  gen "$name" "$(python3 design/gen_analog.py --prim-params "$name")"
+done
 
 if [ "${1:-}" = "--check" ]; then
   rc=0

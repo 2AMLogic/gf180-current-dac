@@ -5,8 +5,8 @@ Stdlib only. Run from anywhere; paths resolve against the repo root.
 
 1. Every committed JSON config / evidence file parses; a missing file is an
    error.
-2. The harness, spec and gen_array unit tests and the spec structural check
-   pass. Only an entry explicitly marked skippable may report SKIP (child
+2. The harness, spec, design and gen_array unit tests and the spec
+   structural check pass. Only an entry explicitly marked skippable may report SKIP (child
    exit 2 — today only gen_array --check, whose klayout import may be
    absent as a provisioning gap); any other entry exiting 2 is an error,
    not a skip.
@@ -53,7 +53,7 @@ TESTS = [
     ([sys.executable, "-m", "unittest", "design.tests.test_gen_analog",
      "sim.harness.test_check", "spec.tests.test_check_spec",
      "layout.tests.test_gen_array_check", "scripts.tests.test_check_ci",
-     "scripts.tests.test_check_signoff"], False),
+     "scripts.tests.test_check_signoff", "design.tests.test_prim_params"], False),
     ([sys.executable, "spec/check_spec.py"], False),
     ([sys.executable, "design/gen_analog.py", "--check"], False),
     # klayout absent at import time is a provisioning gap, not a failure (#87).
