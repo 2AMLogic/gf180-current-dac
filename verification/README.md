@@ -66,8 +66,12 @@ top-level `env` (`DAC_TB_TIMING`):
   +7.0 ns after it — one code per cycle, so throughput is unchanged and the
   one-edge latency is exercised while the next code is already present
   (drive A at 3 ns, capture A at 10 ns, drive B at 13 ns, check A at 17 ns,
-  capture B at 20 ns, check B at 27 ns). The `test_one_cycle_latency` check
-  runs the same budget on explicit consecutive pairs.
+  capture B at 20 ns, check B at 27 ns). Bring-up ends on a rising edge so the
+  first +3 ns drive is edge-anchored, the testbench asserts every drive is
+  3 ns after an edge and consecutive drives 10 ns apart, and the +7 ns sample
+  is taken in the read-only phase of that timestep, after updates scheduled
+  at +7 ns have settled. The `test_one_cycle_latency` check runs the same
+  budget on explicit consecutive pairs.
 
 ### The annotated run and its SDF
 
@@ -91,16 +95,22 @@ by class:
 |---|---|---|
 | `IOPATH` (cell delays, `min:typ:max`) | 469 | 0 — this population carries the run's real delay (e.g. `CLK→Q` 0.98–1.05 ns typ) |
 | `INTERCONNECT` | 454 | 47 dropped as `zero_delay_bus_port_source_interconnect` (bit-selected top-level input ports, every `min:typ:max` member zero) |
-| `TIMINGCHECK` sections (469 individual SETUP/HOLD/WIDTH/PERIOD checks) | 67 sections | 66 counted dropped (`timingcheck` — Icarus implements SDF delays but no SDF timing checks) |
+| `TIMINGCHECK` sections (469 individual SETUP/HOLD/WIDTH/PERIOD checks) | 67 sections | `timingcheck` = 66 well-formed `TIMINGCHECK not supported` simulator warnings observed in the committed run (Icarus implements SDF delays but no SDF timing checks); a re-run by review observed 67 |
 
 Limits of those counts, stated: Icarus exposes **no positive
-"entries applied" count** — the confirmed-applied evidence is the absence of
-`SDF WARNING`/`SDF ERROR` diagnostics (the tool fails the run on any
-well-formed one, exit 1, so a returned report already passed that gate), not
-a simulator-reported tally. The `timingcheck` drop count (66) is one short
-of the input's 67 sections; the count comes from the tool's normalization
-pass and that one-section difference is disclosed here rather than
-explained. Every `INTERCONNECT` triple in this SDF — dropped and kept alike
+"entries applied" count**, and the tool's counts are not an applied tally.
+At the 0.9.0 pin the `timingcheck` figure is the number of recognized benign
+simulator diagnostics (`TIMINGCHECK not supported` warnings) found in the
+simulator log, not a count of sections the tool removed during
+normalization; the 47 `zero_delay_bus_port_source_interconnect` entries, by
+contrast, are the ones removed from the SDF before annotation. The SDF has
+67 `TIMINGCHECK` sections; the committed run observed 66 such warnings and a
+review re-run observed 67 on the same inputs. The cause of that one-count
+variation is not established and is disclosed rather than explained. The
+absence of other (malformed) `SDF WARNING`/`SDF ERROR` diagnostics is the
+only applied-annotation evidence: the tool fails the run on any, so a
+returned report passed that gate; it is not a simulator-reported tally.
+Every `INTERCONNECT` triple in this SDF — dropped and kept alike
 — is `(0.000:0.000:0.000)`: under the extraction's first-order lumped-RC
 star model (median net R·C ≈ 0.05 ps, largest signal net ≈ 4.3 ps), the
 net propagation delays OpenSTA computes are below the SDF timescale's

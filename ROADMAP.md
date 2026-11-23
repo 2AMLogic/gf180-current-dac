@@ -42,12 +42,15 @@ What the met items do not say, in the repo's own words:
   five-corner run is committed (`verification/sta/`, all corners positive) —
   but DR-0008 is `proposed` with assumed figures, so no slack is claimed
   against a ratified row and item 5 stays uncited.
-- **The decoder bench is plain Verilog under Icarus** (`verification/rtl/`,
-  1024 codes pass), not the cocotb suite the README names.
-- **No analog parasitics are extracted**: the digital partition now has a
-  SPEF (extracted for the item-7 annotated run,
-  [`verification/sta/`](verification/sta/)), but analog `klt pex` is still
-  only a probe (`verification/pex/`), and the two partitions are separate
+- **The cocotb decoder suite exists** (`verification/functional/`, run on the
+  RTL, the synthesized netlist and the SDF-annotated as-built netlist; the
+  plain-Verilog bench in `verification/rtl/` remains the item-1 sanity check).
+- **Analog parasitic extraction is only a probe, and no analog post-layout
+  simulation exists**: the digital partition has a SPEF (extracted for the
+  item-7 annotated run, [`verification/sta/`](verification/sta/)); the analog
+  `klt pex` probe on the array is complete (`verification/pex/`: 20,184
+  resistors, 2,586 ground and 8,683 coupling capacitors) but its netlist has
+  not been simulated, and the two partitions are separate
   streams with no pad ring and no bias loop (DR-0006: `iref` is an ideal source).
 
 ## Now
@@ -58,15 +61,15 @@ Can start today; each is one PR.
    `spec/ratification-packet.md` and has waited since 2026-10-25. Done when:
    it carries an EE-key and a market-key review from sessions that authored
    neither the PR nor the design, and #2 points at it. Agents do not ratify.
-2. **Decoder functional suite through `klt functional-verification`.** Port
+2. **Done — decoder functional suite through `klt functional-verification`.** Port
    the exhaustive 1024-code check to cocotb and run it on the RTL and the
    synthesized netlist. Done when: the suite and its JSON report are committed
-   under `verification/`. Prerequisite for digital items 5 and 7. No issue yet.
-3. **Parasitic extraction probe of the analog array.** Run
+   under `verification/` (done: three requests, 4/4 each). Prerequisite for digital items 5 and 7.
+3. **Done — parasitic extraction probe of the analog array.** Run
    `klt extract --parasitics` once on `layout/gf180-current-dac-analog.gds`.
    Done when: `verification/pex/README.md` records the command, run time and
    element counts with the output or its hash, or the failure is filed as a
-   generic klayout-tools issue and linked. No simulation. No issue yet.
+   generic klayout-tools issue and linked (done: see `verification/pex/README.md`). No simulation; the analog post-layout simulation is still outstanding.
 4. **Propose the digital I/O timing budget as a decision record.** The update
    rate row requires timing to be met at the clock, but no input or output
    delay exists to check it against. Done when: a `proposed` record states the

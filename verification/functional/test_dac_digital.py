@@ -50,7 +50,8 @@ import os
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import FallingEdge, RisingEdge, Timer
+from cocotb.triggers import FallingEdge, ReadOnly, RisingEdge, Timer
+from cocotb.utils import get_sim_time
 
 CODES = 1024
 N_THERMO = 63
@@ -94,20 +95,54 @@ def _read(sig, name, context):
 
 
 async def _bringup(dut):
-    """Start the clock and leave the DUT settled, just after a falling edge.
+    """Start the clock and leave the DUT settled.
 
     Runs two rising edges with `din = 0` held: the first clocks the flop bank
     out of its reset-less X state, the second captures a known `din`. Returning
     on the falling edge means every caller can write `din` and have it stable
-    well before the rising edge that captures it (zero-delay mode), or anchor
-    on the next rising edge and drive at +3 ns (DR-0008 mode).
+    well before the rising edge that captures it (zero-delay mode). In DR-0008
+    mode it instead returns exactly on the next rising edge, so the first
+    +3 ns drive is anchored to an edge.
     """
+    global _clk_origin_ns
+    _clk_origin_ns = get_sim_time("ns")  # the clock's first (rising) edge
     cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
     dut.din.value = 0
     await RisingEdge(dut.clk)
     await RisingEdge(dut.clk)
     await FallingEdge(dut.clk)
     await Timer(SETTLE_NS, units="ns")
+    if DR0008:
+        # DR-0008 anchors every drive/sample on a rising edge: return exactly
+        # on one, so the first +3 ns drive lands 3 ns after an edge.
+        await RisingEdge(dut.clk)
+
+
+# Sim time of this test's first rising edge (set by `_bringup`; each test
+# restarts the clock, so absolute sim time is not a multiple of the period).
+_clk_origin_ns = 0.0
+# Sim-time tolerance for the edge-relative checks (timescale rounding).
+PHASE_TOL_NS = 0.01
+
+
+def _drive_dr0008(dut, code, last_ns):
+    """Drive `code` now (must be +3 ns after a rising edge) and check spacing.
+
+    `last_ns` is the sim time of the previous +3 ns drive in the same run of
+    consecutive cycles, or None. Returns this drive's sim time in ns.
+    """
+    now_ns = get_sim_time("ns")
+    phase = (now_ns - _clk_origin_ns) % CLK_PERIOD_NS
+    assert abs(phase - DR0008_DRIVE_NS) < PHASE_TOL_NS, (
+        f"DR-0008 drive of code {code} at {now_ns} ns is {phase} ns after a "
+        f"rising edge, want {DR0008_DRIVE_NS}"
+    )
+    if last_ns is not None:
+        assert abs(now_ns - last_ns - CLK_PERIOD_NS) < PHASE_TOL_NS, (
+            f"DR-0008 drives {now_ns - last_ns} ns apart, want {CLK_PERIOD_NS}"
+        )
+    dut.din.value = code
+    return now_ns
 
 
 async def _apply(dut, code):
@@ -136,15 +171,20 @@ async def _iter_codes(dut, codes):
             await FallingEdge(dut.clk)
         return
     prev = None
+    last_drive = None
     for code in codes:
         await Timer(DR0008_DRIVE_NS, units="ns")
-        dut.din.value = code
+        last_drive = _drive_dr0008(dut, code, last_drive)
         await Timer(DR0008_CHECK_NS - DR0008_DRIVE_NS, units="ns")
+        # Sample in the read-only phase of the +7 ns timestep, after every
+        # update scheduled at that timestamp (e.g. `<= #7`) has settled.
+        await ReadOnly()
         if prev is not None:
             yield prev
         prev = code
         await RisingEdge(dut.clk)
     await Timer(DR0008_CHECK_NS, units="ns")
+    await ReadOnly()
     yield prev
 
 
@@ -235,11 +275,12 @@ async def test_one_cycle_latency(dut):
             # path would have followed it; one further edge later `second`
             # has been captured and is checked in turn.
             await Timer(DR0008_DRIVE_NS, units="ns")
-            dut.din.value = first
+            t_first = _drive_dr0008(dut, first, None)
             await RisingEdge(dut.clk)
             await Timer(DR0008_DRIVE_NS, units="ns")
-            dut.din.value = second
+            _drive_dr0008(dut, second, t_first)
             await Timer(DR0008_CHECK_NS - DR0008_DRIVE_NS, units="ns")
+            await ReadOnly()
             where = f"with code {second} presented but not yet captured (first {first})"
             assert _read(dut.t_q, "t_q", where) == expected_thermo(first), (
                 f"t_q followed din within the same cycle {where}"
@@ -249,6 +290,7 @@ async def test_one_cycle_latency(dut):
             )
             await RisingEdge(dut.clk)
             await Timer(DR0008_CHECK_NS, units="ns")
+            await ReadOnly()
             where = f"one edge after presenting code {second} (first {first})"
             assert _read(dut.t_q, "t_q", where) == expected_thermo(second), (
                 f"t_q did not update one edge after din {where}"
