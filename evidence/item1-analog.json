@@ -157,7 +157,7 @@
         "role": "source",
         "path": "design/gen_analog.py",
         "passed": true,
-        "content_hash": "sha256:7c949de3f52eaa9293c99a105dbe0dea2fff30a762534d61b839f810d250853c"
+        "content_hash": "sha256:67acc4ce62f8922f185ee00eae9b679af0a3f612a48660d7c850b60e4dfe56c1"
       },
       {
         "check": "present",
@@ -171,7 +171,7 @@
         "role": "source",
         "path": "spec/segmentation.py",
         "passed": true,
-        "content_hash": "sha256:a98a83f2d7e0dbc78adcaa14d1753afdf03b62babc3c5c8a880fbdfc60251c98"
+        "content_hash": "sha256:ced836dcc26a884792f229a88f87ebc77500d279520b7fc8a7b7ef9be4be9b66"
       },
       {
         "check": "present",
@@ -668,7 +668,7 @@
             "path": "design/gen_analog.py",
             "scope": "repo"
           },
-          "content_hash": "sha256:7c949de3f52eaa9293c99a105dbe0dea2fff30a762534d61b839f810d250853c"
+          "content_hash": "sha256:67acc4ce62f8922f185ee00eae9b679af0a3f612a48660d7c850b60e4dfe56c1"
         },
         {
           "path": {
@@ -689,10 +689,10 @@
             "path": "spec/segmentation.py",
             "scope": "repo"
           },
-          "content_hash": "sha256:a98a83f2d7e0dbc78adcaa14d1753afdf03b62babc3c5c8a880fbdfc60251c98"
+          "content_hash": "sha256:ced836dcc26a884792f229a88f87ebc77500d279520b7fc8a7b7ef9be4be9b66"
         }
       ],
-      "content_hash": "sha256:f377c860cb4c7e4d34361cebddb5ec1a0d31d53febcf6e5db6a3b1c9a0b749e7"
+      "content_hash": "sha256:f8e8b181a200c367e9f083e02dc9555aedbeff30da63d6613ec92d33ddef80a5"
     }
   }
 }
