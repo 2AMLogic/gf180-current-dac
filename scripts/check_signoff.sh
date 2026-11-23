@@ -19,7 +19,6 @@ trap 'rm -f "$fresh"' EXIT
 rc=0
 uvx --from "klayout-tools==${KLT_PIN}" klt signoff \
     --manifest manifests/gf180-current-dac.json \
-    --tiers-doc manifests/design-evidence-tiers.md \
     --format json > "$fresh" || rc=$?
 if [ "$rc" -ne 0 ] && [ "$rc" -ne 3 ]; then
   echo "klt signoff exited $rc (expected 0 or 3)" >&2
@@ -90,7 +89,7 @@ for n in sorted(drift):
 print()
 PYEOF
   echo "Committed signoff record is stale. Regenerate:" >&2
-  echo "  uvx --from klayout-tools==${KLT_PIN} klt signoff --manifest manifests/gf180-current-dac.json --tiers-doc manifests/design-evidence-tiers.md --format json > manifests/gf180-current-dac.signoff.json" >&2
+  echo "  uvx --from klayout-tools==${KLT_PIN} klt signoff --manifest manifests/gf180-current-dac.json --format json > manifests/gf180-current-dac.signoff.json" >&2
   diff <(python3 -m json.tool "$fresh") <(python3 -m json.tool manifests/gf180-current-dac.signoff.json) >&2 || true
   exit 1
 fi

@@ -11,7 +11,8 @@ where this file and that record disagree, the record wins.
 ## Where it stands
 
 `klt signoff` (0.9.0) grades **14 of 22** T1 items met, tier `None`, against
-[`manifests/design-evidence-tiers.md`](manifests/design-evidence-tiers.md).
+the design-evidence tiers checklist bundled with the pinned klt
+([`docs/design-evidence-tiers.md` at `v0.9.0`](https://github.com/2AMLogic/klayout-tools/blob/v0.9.0/docs/design-evidence-tiers.md)).
 Tracker #6 still shows the 2026-10-17 state; the signoff record supersedes it.
 
 | Item | Analog (array, switches, drivers, bias) | Digital (decoder, retiming) |
