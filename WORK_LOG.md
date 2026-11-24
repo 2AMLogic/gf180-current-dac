@@ -2,6 +2,11 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-24
+
+- **PR #172**: check: re-derive manifest evidence pins from their cited files
+- **Issue #170** (closed): Sign-off gate cannot see a T1 met-count regression
+
 ### 2026-11-23
 
 - **PR #175**: refactor(design): derive subcircuit schematic ports from SYMS in gen_analog
