@@ -4,12 +4,15 @@
 Fixtures are synthetic trees (a tmp root with a manifest and the files it
 cites), covering: matching pins across single, list-valued and shared-file
 entries; the PR #158 incident shape (`1.analog` pinned to the envelope
-file's own hash rather than its `provenance.input.content_hash`); a wrong
-member pin inside a list entry; and the loud-failure paths — a missing
-cited file, a cited file without `provenance.input.content_hash`, invalid
-JSON, an entry with no pin, a non-entry evidence value. The regression
-test runs the check against the committed manifest, which is how
-`scripts/check_ci.py` TESTS gates the real pins on every offline run.
+file's own hash rather than its `provenance.input.content_hash`); the
+issue #179 byte basis (a provenance-less file pinned to the sha256 of its
+own raw bytes, `content_hash_basis: evidence_file`); a wrong member pin
+inside a list entry; and the loud-failure paths — a missing cited file, a
+cited file whose `provenance` block lacks `input.content_hash`, a
+non-object `provenance`, invalid JSON, an entry with no pin, a non-entry
+evidence value. The regression test runs the check against the committed
+manifest, which is how `scripts/check_ci.py` TESTS gates the real pins on
+every offline run.
 
 The end-to-end cases run the script as a real subprocess (with the tmp root
 as its argument), so the actual exit-code and stderr paths are exercised.
@@ -153,13 +156,20 @@ class PinFixtureTree(unittest.TestCase):
         self.assertIn("evidence/item9.json", errors[0])
         self.assertIn("unreadable", errors[0])
 
-    def test_file_without_provenance_hash_fails_loudly(self):
-        (self.tmp / "evidence/item9.json").write_text(
+    def test_provenanceless_member_pinned_by_raw_bytes_passes(self):
+        # Issue #179: a cited file with no `provenance` block (a cocotb
+        # functional-verification report) is pinned by the sha256 of its
+        # own raw bytes, alongside the provenance-pinned entries.
+        cited = self.tmp / "evidence/item9.json"
+        cited.write_text(
             json.dumps({"result": "fine, but not a klt-produced file"})
         )
-        errors, _ = self.run_check()
-        self.assertEqual(len(errors), 1)
-        self.assertIn("no `provenance.input.content_hash`", errors[0])
+        self.good["9"]["content_hash"] = "sha256:" + hashlib.sha256(
+            cited.read_bytes()
+        ).hexdigest()
+        errors, out = self.run_check()
+        self.assertEqual(errors, [])
+        self.assertIn("ok     6 evidence pins", out)
 
     def test_malformed_provenance_input_preserves_other_pin_errors(self):
         cited = "evidence/item1-analog.json"
@@ -209,6 +219,74 @@ class PinFixtureTree(unittest.TestCase):
         self.assertIn("unreadable or invalid JSON", errors[0])
 
 
+class ByteHashBasis(unittest.TestCase):
+    """Issue #179: a cited file with no `provenance` block (the cocotb
+    functional-verification reports) is pinned by the sha256 of its own
+    raw bytes — `content_hash_basis: evidence_file` — while a
+    provenance-bearing file pinned to its own bytes stays a failure (the
+    PR #158 class)."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="check-signoff-pins-bytes-"))
+        self.addCleanup(shutil.rmtree, self.tmp)
+        self.cited = self.tmp / "verification/functional/digital.report.json"
+        self.cited.parent.mkdir(parents=True)
+        self.cited.write_text(json.dumps({"status": "PASS", "tests": 42}))
+        self.byte_hash = "sha256:" + hashlib.sha256(
+            self.cited.read_bytes()
+        ).hexdigest()
+
+    def run_check(self, pin):
+        write_manifest(
+            self.tmp,
+            {
+                "7.digital": {
+                    "file": "verification/functional/digital.report.json",
+                    "content_hash": pin,
+                }
+            },
+        )
+        errors = []
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            check_evidence_pins(errors, root=self.tmp)
+        return errors, out.getvalue()
+
+    def test_provenanceless_file_pinned_to_raw_bytes_passes(self):
+        errors, out = self.run_check(self.byte_hash)
+        self.assertEqual(errors, [])
+        self.assertIn("ok     1 evidence pins", out)
+
+    def test_provenanceless_file_with_wrong_pin_fails_naming_both_hashes(self):
+        wrong = "sha256:" + "e" * 64
+        errors, _ = self.run_check(wrong)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("'7.digital'", errors[0])
+        self.assertIn("verification/functional/digital.report.json", errors[0])
+        self.assertIn(wrong, errors[0])
+        self.assertIn(self.byte_hash, errors[0])
+        self.assertIn("raw-bytes", errors[0])
+
+    def test_provenance_bearing_file_pinned_to_own_bytes_still_fails(self):
+        # The PR #158 mistake class must stay caught: an envelope with a
+        # `provenance` block is pinned to its input hash, never its bytes.
+        input_hash = "sha256:" + "7" * 64
+        self.cited.write_text(json.dumps(envelope(input_hash)))
+        errors, _ = self.run_check(
+            "sha256:"
+            + hashlib.sha256(self.cited.read_bytes()).hexdigest()
+        )
+        self.assertEqual(len(errors), 1)
+        self.assertIn("provenance.input.content_hash", errors[0])
+        self.assertIn(input_hash, errors[0])
+
+    def test_provenance_not_an_object_fails_loudly(self):
+        self.cited.write_text(json.dumps({"provenance": "not-an-object"}))
+        errors, _ = self.run_check(self.byte_hash)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("no `provenance.input.content_hash`", errors[0])
+
+
 class ScriptEndToEnd(unittest.TestCase):
     """The script as a real subprocess: exit codes and stderr wording."""
 
@@ -245,6 +323,22 @@ class ScriptEndToEnd(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ok     1 evidence pins", r.stdout)
         self.assertEqual(r.stderr, "")
+
+    def test_provenanceless_tree_exits_zero(self):
+        cited = self.tmp / "verification/functional/item7.report.json"
+        cited.parent.mkdir(parents=True)
+        cited.write_text(json.dumps({"status": "PASS"}))
+        r = self.run_script(
+            {
+                "7.digital": {
+                    "file": "verification/functional/item7.report.json",
+                    "content_hash": "sha256:"
+                    + hashlib.sha256(cited.read_bytes()).hexdigest(),
+                }
+            }
+        )
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("ok     1 evidence pins", r.stdout)
 
     def test_empty_evidence_list_exits_one_naming_item(self):
         r = self.run_script({**self.good_manifest, "11.digital": []})

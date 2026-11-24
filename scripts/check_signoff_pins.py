@@ -10,18 +10,24 @@ new baseline with every CI check green (seen on PR #158 head `e17b358a`:
 `provenance.input.content_hash`).
 
 This check is the ratchet: every `evidence` entry — single or list-valued —
-must pin exactly the `provenance.input.content_hash` of the file it cites,
-so the "regenerate the record" remediation can never paper over a pin that
-silently dropped a T1 item. Pure stdlib, no klt, PDK, network or merge
-base; it runs in the CI `signoff` job before the klt regrade (precise
-diagnosis first) and its unit and regression tests run inside
-`scripts/check_ci.py` TESTS.
+must pin its cited file on the basis `klt signoff` grades it on: exactly
+the `provenance.input.content_hash` when the file carries a `provenance`
+block (a klt-produced report), or the `sha256:` of the file's own raw
+bytes when it does not (`content_hash_basis: evidence_file` — the
+functional-verification reports, issue #179) — so the "regenerate the
+record" remediation can never paper over a pin that silently dropped a T1
+item. A provenance-bearing file pinned to its own byte hash stays a
+failure: that is the PR #158 class above. Pure stdlib, no klt, PDK,
+network or merge base; it runs in the CI `signoff` job before the klt
+regrade (precise diagnosis first) and its unit and regression tests run
+inside `scripts/check_ci.py` TESTS.
 
 Verify with `python3 scripts/check_signoff_pins.py` from anywhere (an
 optional positional argument re-points the check at another tree root, for
 the tests).
 """
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -41,7 +47,8 @@ def _check_one(errors, root, item, entry):
         errors.append(f"{label} -> {file}: entry has no `content_hash` pin")
         return
     try:
-        doc = json.loads((root / file).read_text())
+        raw = (root / file).read_bytes()
+        doc = json.loads(raw)
     except (OSError, ValueError) as exc:
         errors.append(
             f"{label} -> {file}: cannot re-derive pin: unreadable or "
@@ -49,13 +56,24 @@ def _check_one(errors, root, item, entry):
         )
         return
     provenance = doc.get("provenance") if isinstance(doc, dict) else None
+    if provenance is None:
+        # No `provenance` block: not a klt-produced report, so the pin
+        # basis is the file's own bytes (`content_hash_basis:
+        # evidence_file`, issue #179).
+        derived = "sha256:" + hashlib.sha256(raw).hexdigest()
+        if pin != derived:
+            errors.append(
+                f"{label} -> {file}: pin {pin} does not match the file's "
+                f"raw-bytes sha256 {derived} (no `provenance` block; "
+                "content_hash_basis: evidence_file)"
+            )
+        return
     source = provenance.get("input") if isinstance(provenance, dict) else None
     derived = source.get("content_hash") if isinstance(source, dict) else None
     if not isinstance(derived, str) or not derived:
         errors.append(
-            f"{label} -> {file}: no `provenance.input.content_hash` in the "
-            "cited file; only a klt-produced evidence/report file carries a "
-            "re-derivable pin"
+            f"{label} -> {file}: `provenance` block present but no "
+            "`provenance.input.content_hash` to re-derive the pin from"
         )
         return
     if pin != derived:
@@ -66,9 +84,11 @@ def _check_one(errors, root, item, entry):
 
 
 def check_evidence_pins(errors, root=None):
-    """Every manifest `evidence` pin equals its cited file's
-    `provenance.input.content_hash` (issue #170). `root` is injectable so
-    tests run against synthetic trees; the default is this checkout.
+    """Every manifest `evidence` pin re-derives from its cited file (issue
+    #170): `provenance.input.content_hash` when the file carries a
+    `provenance` block, else the sha256 of its raw bytes (issue #179).
+    `root` is injectable so tests run against synthetic trees; the default
+    is this checkout.
     """
     root = Path(root) if root is not None else ROOT
     try:
@@ -103,7 +123,8 @@ def check_evidence_pins(errors, root=None):
     if len(errors) == before:
         print(
             f"ok     {checked} evidence pins match their files' "
-            "provenance hashes"
+            "provenance.input.content_hash (klt-produced reports) or "
+            "raw-byte sha256 (provenance-less files)"
         )
 
 
