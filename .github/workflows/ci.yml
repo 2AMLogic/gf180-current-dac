@@ -49,6 +49,12 @@ jobs:
       # the item 10 attestation re-runs scripts/check_ci.py, which needs klayout
       - run: pip install "klayout==$(python3 -I -c 'import json;print(json.load(open("layout/toolchain.json"))["klayout_package_pin"])')"
       # Pin lives in scripts/check_signoff.sh (KLT_PIN), resolved via scripts/check_signoff.sh --print-pin.
+      # A fresh record can still hide a regression: a wrong evidence pin
+      # grades its item unmet, and regenerating the record commits the
+      # lower t1_met_count with every check green (issue #170). Re-derive
+      # every pin before the regrade, so the precise diagnosis comes first.
+      - name: Manifest evidence pins match their files' provenance hashes
+        run: python3 scripts/check_signoff_pins.py
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh
       # Editing ci.yml, README.md or LICENSE (this file included) drifts the
