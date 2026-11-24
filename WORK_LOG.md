@@ -4,10 +4,24 @@ Chronological record of merged PRs and closed issues. Maintained by the Guide ro
 
 ### 2026-11-23
 
+- **PR #175**: refactor(design): derive subcircuit schematic ports from SYMS in gen_analog
+- **PR #173**: layout: remove klt_last_verified_commit duplicate pin
+- **PR #171**: Remove vendored design-evidence-tiers.md; grade signoff against the pinned klt's bundled checklist
+- **PR #167**: docs: add DR-0009 recording the layout klt pin and 0.9.x primitive reproducibility
+- **PR #159**: functional: SDF-annotated post-route run on the as-built netlist (T1 item 7 digital)
+- **PR #158**: refactor: share the subcircuit pin layout between symbol and wire writers
+- **PR #157**: docs(sta): record the measured interconnect basis behind the two slack sets
 - **PR #168**: fix: derive the xschemrc PDK pin from sim/pdk.json in gen_analog
 - **PR #165**: test: gate PRIM_PARAMS geometry against the committed klt reports
 - **PR #155**: fix: own the bias mirror pair count in spec/segmentation.py
 - **PR #154**: refactor(layout): take gen_prims.sh device params from gen_analog.py
+- **Issue #174** (closed): Derive subcircuit schematic port pins from SYMS in design/gen_analog.py instead of restating them per cell
+- **Issue #164** (closed): Committed layout/prims/*.gds do not reproduce at klt 0.9.x: plan regeneration and re-attestation before the layout pin moves
+- **Issue #153** (closed): Share pin coordinates between xschem symbols and instance wires
+- **Issue #150** (closed): Reconcile the two committed slack numbers for the five 3.3 V corners (standalone klt sta vs in-flow place-and-route)
+- **Issue #140** (closed): T1 item 7 (digital): SDF-annotated post-route cocotb run on dac_digital.asbuilt.v through klt functional-verification
+- **Issue #85** (closed): Remove duplicated toolchain pins: pdk_revision (sim) and klt_last_verified_commit (layout)
+- **Issue #78** (closed): Remove the stale vendored design-evidence-tiers.md: klt signoff already ships the ladder and the verdict is identical without it
 - **Issue #166** (closed): Derive the xschemrc PDK fallback from sim/pdk.json instead of hardcoding it in design/gen_analog.py
 - **Issue #163** (closed): No CI-visible guard on the derived layout primitive params (PRIM_PARAMS)
 - **Issue #152** (closed): Derive the layout primitive sizes from design/gen_analog.py instead of restating them in gen_prims.sh
