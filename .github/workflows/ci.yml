@@ -53,7 +53,7 @@ jobs:
       # grades its item unmet, and regenerating the record commits the
       # lower t1_met_count with every check green (issue #170). Re-derive
       # every pin before the regrade, so the precise diagnosis comes first.
-      - name: Manifest evidence pins match their files' provenance hashes
+      - name: Manifest evidence pins re-derive from their cited files
         run: python3 scripts/check_signoff_pins.py
       - name: Re-run klt signoff and compare against the committed record
         run: scripts/check_signoff.sh
