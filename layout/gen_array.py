@@ -366,15 +366,11 @@ def wire_sw(ink: Ink, c: db.Cell, g: Geom, sw1: Dev, sw2: Dev, cas: Dev, mode: s
     ink.link(c, cx(sw1.D), y_outp, trk["outp"])
     ink.link(c, cx(sw2.D), y_outn, trk["outn"])
     # sp row above the gate pads, sn row below them; both end at the tile edge
-    ink.cut(c, 1, cx(sw1.G), cy(sw1.G))
-    ink.pad(c, 2, cx(sw1.G), cy(sw1.G))
-    ink.v(c, 2, cx(sw1.G), cy(sw1.G), g.y_sp, PAD)
-    ink.h(c, 2, 0, g.uw, g.y_sp)
-    gy = cy(sw2.G) - 160
-    ink.cut(c, 1, cx(sw2.G), gy)
-    ink.pad(c, 2, cx(sw2.G), gy)
-    ink.v(c, 2, cx(sw2.G), gy, g.y_sn, PAD)
-    ink.h(c, 2, 0, g.uw, g.y_sn)
+    for gx, gy, y_row in ((cx(sw1.G), cy(sw1.G), g.y_sp),
+                          (cx(sw2.G), cy(sw2.G) - 160, g.y_sn)):
+        ink.stack(c, gx, gy, 1, 2)
+        ink.v(c, 2, gx, gy, y_row, PAD)
+        ink.h(c, 2, 0, g.uw, y_row)
 
 
 def make_unit(ink: Ink, lib: Lib, g: Geom, name: str, mode: str) -> db.Cell:
@@ -449,20 +445,12 @@ def make_driver(ink: Ink, lib: Lib, g: Geom) -> tuple[db.Cell, dict]:
         for a, b in ((n.BL, n.TL), (n.BR, n.TR), (p.BL, p.TL), (p.BR, p.TR)):
             ink.box(c, 1, a.left, a.bottom, b.right, b.top)       # tap rail
         for t in (n.BL, n.BR):
-            ink.cut(c, 1, cx(t), cy(t))
-            ink.pad(c, 2, cx(t), cy(t))
-        for t in (p.BL, p.BR):
-            ink.cut(c, 1, cx(t), cy(t))
-            ink.pad(c, 2, cx(t), cy(t))
-            ink.v(c, 2, cx(t), y_vdd, cy(t))
-        ys = n.S.bottom + 700
-        ink.cut(c, 1, cx(n.S), ys)
-        ink.pad(c, 2, cx(n.S), ys)
-        ink.v(c, 2, cx(n.S), y_vss, ys)
-        yp = p.S.bottom + 700
-        ink.cut(c, 1, cx(p.S), yp)
-        ink.pad(c, 2, cx(p.S), yp)
-        ink.v(c, 2, cx(p.S), y_vdd, yp)
+            ink.stack(c, cx(t), cy(t), 1, 2)
+        for t, y, y_rail in ((p.BL, cy(p.BL), y_vdd), (p.BR, cy(p.BR), y_vdd),
+                             (n.S, n.S.bottom + 700, y_vss),
+                             (p.S, p.S.bottom + 700, y_vdd)):
+            ink.stack(c, cx(t), y, 1, 2)
+            ink.v(c, 2, cx(t), y_rail, y)
         # gate: nfet pad up to the pfet pad on an M3 line
         ink.stack(c, cx(n.G), cy(n.G), 1, 3)
         gy = cy(p.G)
@@ -698,16 +686,12 @@ def build(table: dict) -> db.Layout:
         ink.cut(top, 3, xp, yp)                       # element pin -> M4 stub -> M5 slot
         ink.pad(top, 4, xp, yp)
         ink.h(top, 4, xp, xt, yp)
-        ink.cut(top, 4, xt, yp)
-        ink.pad(top, 4, xt, yp)
-        ink.pad(top, 5, xt, yp)
+        ink.stack(top, xt, yp, 4, 5)
         ink.v(top, 5, xt, yn - W // 2, yp + W // 2)   # M5 down to the net's track
         ink.cut(top, 4, xt, yn)
         ink.pad(top, 4, xt, yn)
         ink.h(top, 4, xt, xd, yn)                     # M4 track to the driver lane
-        ink.cut(top, 3, xd, yn)
-        ink.pad(top, 4, xd, yn)
-        ink.pad(top, 3, xd, yn)
+        ink.stack(top, xd, yn, 3, 4)
         if net["row"] == 0:
             ink.v(top, 3, xd, rows_y[0] + info["y_out_top"] - PAD // 2, yn + W // 2)
         else:
