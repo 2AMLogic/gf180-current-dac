@@ -2,8 +2,17 @@
 
 Chronological record of merged PRs and closed issues. Maintained by the Guide role; newest first.
 
+### 2026-11-25
+
+- **PR #184**: refactor: route open-coded via stacks in gen_array through Ink.stack
+- **Issue #181** (closed): Use Ink.stack at the remaining open-coded via-stack sites in layout/gen_array.py
+
 ### 2026-11-24
 
+- **PR #183**: ci: rename pin-gate step to cover both pin bases
+- **PR #180**: fix: pin provenance-less evidence files by raw-byte sha256
+- **Issue #182** (closed): CI step name for the pin gate still says only "provenance hashes"
+- **Issue #179** (closed): main is red: check_signoff_pins.py rejects the 7.digital evidence pin (no provenance.input.content_hash in the cited cocotb report)
 - **PR #172**: check: re-derive manifest evidence pins from their cited files
 - **Issue #170** (closed): Sign-off gate cannot see a T1 met-count regression
 
